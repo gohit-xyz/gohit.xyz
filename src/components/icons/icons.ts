@@ -1,3 +1,7 @@
+export { MoonIcon } from './global/moon'
+export { SunIcon } from './global/sun'
+
+// --- Social Media Icons
 export { FacebookIcon } from './social-media/facebook'
 export { GitHubIcon } from './social-media/github'
 export { InstagramIcon } from './social-media/instagram'
