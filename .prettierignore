@@ -1,0 +1,6 @@
+# ignore json files
+package.json
+tsconfig.json
+
+# Pages
+src/app/page.tsx
