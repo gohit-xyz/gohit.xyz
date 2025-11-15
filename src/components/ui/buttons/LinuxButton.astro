@@ -121,7 +121,7 @@
     background-position:
       0 0,
       25px 25px;
-    animation: animStarLayer1 15s linear infinite;
+    animation: animStarLayer1 8s linear infinite;
   }
 
   #stars::after {
@@ -134,7 +134,7 @@
     background-position:
       10px 10px,
       40px 40px;
-    animation: animStarLayer2 20s linear infinite;
+    animation: animStarLayer2 12s linear infinite;
   }
 
   /* Additional particles */
@@ -154,7 +154,7 @@
     background-position:
       15px 15px,
       50px 50px;
-    animation: animStarLayer3 25s linear infinite;
+    animation: animStarLayer3 16s linear infinite;
   }
 
   @keyframes animStarLayer1 {
@@ -162,7 +162,7 @@
       transform: translateY(0) translateX(0);
     }
     100% {
-      transform: translateY(-25%) translateX(5px);
+      transform: translateY(-30%) translateX(8px);
     }
   }
 
@@ -171,7 +171,7 @@
       transform: translateY(0) translateX(0);
     }
     100% {
-      transform: translateY(-25%) translateX(-8px);
+      transform: translateY(-20%) translateX(-12px);
     }
   }
 
@@ -180,7 +180,7 @@
       transform: translateY(0) translateX(0);
     }
     100% {
-      transform: translateY(-25%) translateX(4px);
+      transform: translateY(-35%) translateX(6px);
     }
   }
 
@@ -195,13 +195,7 @@
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(
-      45deg,
-      #fe53ba1e,
-      #8e51ea46,
-      #fe53bb46,
-      #8e51ea1e
-    );
+    background: linear-gradient(45deg, #fe53ba1e, #8e51ea46, #fe53bb46, #8e51ea1e);
     border-radius: 5px;
     opacity: 0;
     filter: blur(5px);
@@ -210,7 +204,8 @@
   }
 
   @keyframes glowPulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0;
       transform: scale(0.98);
     }
@@ -225,3 +220,5 @@
     animation: none;
   }
 </style>
+
+<script></script>
