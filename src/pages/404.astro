@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro'
 
 <Layout title="404 a">
   <div class="copy-container">
-    <p>404, page not found.<span class="cursor"></span></p>
+    <p><span class="typing-text"></span><span class="cursor"></span></p>
     <!-- <span class="handle"></span> -->
     <a href="/"> BACK </a>
   </div>
@@ -19,9 +19,9 @@ import Layout from '../layouts/Layout.astro'
     display: inline-block;
     width: 10px;
     height: 20px;
-    background-color: #ffd60a;
-    margin-left: 4px;
-    animation: blink 1s infinite;
+    background-color: #f84f00;
+    margin-left: 0px;
+    animation: blink 0.7s infinite;
   }
 
   @keyframes blink {
@@ -38,6 +38,27 @@ import Layout from '../layouts/Layout.astro'
   .copy-container {
     font-family: monospace;
   }
+
+  .typing-text {
+    display: inline;
+  }
 </style>
 
-<script></script>
+<script>
+  const text = "404, page not found.";
+  const typingElement = document.querySelector('.typing-text');
+  let index = 0;
+
+  function typeWriter() {
+    if (index < text.length) {
+      if (typingElement) {
+        typingElement.textContent += text.charAt(index);
+      }
+      index++;
+      setTimeout(typeWriter, 100); // Velocidad de escritura en milisegundos
+    }
+  }
+
+  // Iniciar la animación cuando cargue la página
+  typeWriter();
+</script>
