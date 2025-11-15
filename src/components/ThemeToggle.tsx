@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MoonIcon } from './icons/global/moon'
-import { SunIcon } from './icons/global/sun'
+import { MoonIcon, SunIcon } from './icons/icons'
 
 const THEME_KEY = 'theme'
 
