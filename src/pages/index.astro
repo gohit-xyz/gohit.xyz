@@ -2,18 +2,31 @@
 import Layout from '@/layouts/Layout.astro'
 // prettier-ignore
 import { FacebookIcon, LinkedInIcon, YouTubeIcon } from '@/components/icons/icons.ts';
-import ThemeToggle from '@/components/ThemeToggle.tsx';
+import ThemeToggle from '@/components/ThemeToggle.tsx'
 ---
 
 <Layout>
-  <h1 class="text-red-400">Hello Wold 2222</h1>
-  <FacebookIcon />
-  <LinkedInIcon />
-  <YouTubeIcon />
+  <div class="relative w-full max-w-2xl px-4 py-8 sm:px-6">
+    <!-- Theme Toggle -->
+    <div class="absolute top-8 right-4 sm:top-12 sm:right-6">
+      <ThemeToggle client:idle />
+    </div>
 
-  <a href="/linux">aa</a>
-  <a href="/me">aa</a>
-
-  <!-- Here Button dark and light mode -->
-    <ThemeToggle client:idle />
+    <!-- Container -->
+    <div class="flex flex-col items-center justify-center space-y-6 text-center sm:space-y-8">
+      <!-- Img Me-->
+      <div class="flex flex-col items-center">
+        <div
+          class="h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-[40%] border-[3px] border-[#1a1a1a] shadow-lg transition-all duration-300 hover:grayscale"
+        >
+          <a href="/me">
+            <img src="/src/assets/images/me.jpg" alt="Profile" class="h-full w-full object-cover" />
+          </a>
+        </div>
+        <!-- Username -->
+        <h2 class="cursor-default pt-2 text-xl">@gohitx</h2>
+      </div>
+    </div>
+    
+  </div>
 </Layout>
