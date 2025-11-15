@@ -12,7 +12,7 @@ html.dark {
 }
 
 /* ==================== 
-   RESET & BASE STYLES 
+   Global & BASE STYLES 
    ==================== */
 html,
 body {
@@ -29,4 +29,30 @@ body {
   align-items: center;
   justify-content: center;
   transition: background-color var(--transition), color var(--transition);
+}
+
+/* ==================== 
+   RESET & BASE STYLES 
+   ==================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar:horizontal {
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffffff36;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffffff6d;
+    backdrop-filter: blur(10px);
 }
