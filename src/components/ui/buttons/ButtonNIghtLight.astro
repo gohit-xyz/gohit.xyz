@@ -2,6 +2,61 @@
 import ThemeToggle from '@/components/ThemeToggle'
 ---
 
-<div class="absolute top-8 right-4 sm:top-12 sm:right-6">
+<div class="theme-toggle">
   <ThemeToggle client:idle />
 </div>
+
+<style>
+  .button2{
+    background-color: rgb(99, 99, 99);
+    width: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+/* Theme toggle button */
+/* .theme-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	gap: 0.5rem;
+	background: transparent;
+	border: 1px solid red;
+	cursor: pointer;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	transition: all var(--theme-transition);
+	box-shadow: 0 1px 3px var(--shadow);
+}
+
+.theme-toggle:hover {
+	border-color: var(--accent-regular);
+	box-shadow: 0 2px 6px var(--shadow);
+	transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+	transform: translateY(0);
+}
+
+.theme-toggle svg {
+	display: block;
+	color: var(--text);
+	transition: color var(--theme-transition), transform var(--theme-transition);
+}
+
+.theme-toggle:hover svg {
+	color: var(--accent-regular);
+	transform: rotate(15deg);
+} */
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}
+
+</style>

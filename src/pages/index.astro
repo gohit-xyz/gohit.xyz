@@ -1,21 +1,14 @@
 ---
+import ThemeToggle from '@/components/ThemeToggle'
+import ButtonNIghtLight from '@/components/ui/buttons/ButtonNIghtLight.astro'
 import Layout from '@/layouts/Layout.astro'
-
-import Hero from '@/sections/Hero.astro'
-import YouTubeVideo from '@/sections/YouTubeVideo.astro'
-import SocialLinks from '@/sections/SocialLinks.astro'
-import Projects from '@/sections/Projects.astro'
 ---
 
 <Layout>
-  <main class=" bg-amber-900 min-h-screen items-center justify-center">
-    <div class="relative w-full max-w-2xl bg-amber-600 px-4 py-8 sm:px-6">
-      <!-- ============ Theme Toggle ============ -->
-
-      <Hero />
-      <YouTubeVideo />
-      <SocialLinks />
-      <Projects />
-    </div>
+  <h1>Test 1</h1>
+    <ThemeToggle client:idle />
+  <main class=" w-full max-w-2xl bg-amber-600 px-4 py-8 sm:px-6">
+    <h2>test 2</h2>
+    <ButtonNIghtLight />
   </main>
 </Layout>
