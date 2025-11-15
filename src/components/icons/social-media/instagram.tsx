@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const InstagramIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
@@ -18,4 +18,4 @@ export const InstagramIcon: React.FC<{ className?: string }> = ({ className }) =
     <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
     <path d="M16.5 7.5v.01" />
   </svg>
-);
+)

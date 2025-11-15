@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const SoundCloudIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
@@ -19,4 +19,4 @@ export const SoundCloudIcon: React.FC<{ className?: string }> = ({ className }) 
     <path d="M6 17l0 -7" />
     <path d="M3 16l0 -2" />
   </svg>
-);
+)
