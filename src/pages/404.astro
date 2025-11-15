@@ -1,0 +1,43 @@
+---
+// src/pages/404.astro
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="404 a">
+  <div class="copy-container">
+    <p>404, page not found.<span class="cursor"></span></p>
+    <!-- <span class="handle"></span> -->
+    <a href="/"> BACK </a>
+  </div>
+</Layout>
+
+<style>
+  p {
+    font-size: 20px;
+  }
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-color: #ffd60a;
+    margin-left: 4px;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .copy-container {
+    font-family: monospace;
+  }
+</style>
+
+<script></script>
