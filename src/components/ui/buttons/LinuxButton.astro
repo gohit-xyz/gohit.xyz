@@ -1,0 +1,189 @@
+<div class="btn-wrapper">
+  <button type="button" class="btn">
+    <!-- <span>🐧 </span> -->
+    <strong>LINUX</strong>
+    <div id="container-stars">
+      <div id="stars"></div>
+    </div>
+
+    <div id="glow">
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+  </button>
+</div>
+
+<style>
+  .btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    height: 3rem;
+    background-size: 300% 300%;
+    cursor: pointer;
+    backdrop-filter: blur(1rem);
+    border-radius: 10px;
+    transition: 0.5s;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    border: 0;
+  }
+
+  #container-stars {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.5s;
+    border-radius: 1rem;
+  }
+
+  strong {
+    z-index: 2;
+    font-family: 'Avalors Personal Use';
+    font-size: 16px;
+    letter-spacing: 5px;
+    color: #ffffff;
+    text-shadow: 0 0 4px white;
+  }
+
+  span {
+    z-index: 2;
+    font-size: 16px;
+  }
+
+  #glow {
+    position: absolute;
+    display: flex;
+    width: 12rem;
+    pointer-events: none;
+  }
+
+  .circle {
+    width: 100%;
+    height: 30px;
+    filter: blur(2rem);
+    z-index: -1;
+  }
+
+  .circle:nth-of-type(1) {
+    background: rgba(254, 83, 186, 0.636);
+  }
+
+  .circle:nth-of-type(2) {
+    background: rgba(142, 81, 234, 0.704);
+  }
+
+  .btn:hover #container-stars {
+    z-index: 1;
+    background-color: #181818;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn:active .circle {
+    background: #fe53bb;
+  }
+
+  #stars {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: -50%;
+  }
+
+  /* system of particles */
+  #stars::before,
+  #stars::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  #stars::before {
+    background-image:
+      radial-gradient(circle, #ffffff 1px, transparent 1px),
+      radial-gradient(circle, #ffffff 0.5px, transparent 0.5px);
+    background-size:
+      50px 50px,
+      80px 80px;
+    background-position:
+      0 0,
+      25px 25px;
+    animation: animStarLayer1 15s linear infinite;
+  }
+
+  #stars::after {
+    background-image:
+      radial-gradient(circle, rgba(255, 255, 255, 0.8) 1.5px, transparent 1.5px),
+      radial-gradient(circle, rgba(255, 255, 255, 0.6) 0.8px, transparent 0.8px);
+    background-size:
+      60px 60px,
+      90px 90px;
+    background-position:
+      10px 10px,
+      40px 40px;
+    animation: animStarLayer2 20s linear infinite;
+  }
+
+  /* Additional particles */
+  #container-stars::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: -50%;
+    background-image:
+      radial-gradient(circle, rgba(255, 255, 255, 0.9) 1.2px, transparent 1.2px),
+      radial-gradient(circle, rgba(255, 255, 255, 0.5) 0.6px, transparent 0.6px);
+    background-size:
+      70px 70px,
+      100px 100px;
+    background-position:
+      15px 15px,
+      50px 50px;
+    animation: animStarLayer3 25s linear infinite;
+  }
+
+  @keyframes animStarLayer1 {
+    0% {
+      transform: translateY(0) translateX(0);
+    }
+    100% {
+      transform: translateY(-50%) translateX(10px);
+    }
+  }
+
+  @keyframes animStarLayer2 {
+    0% {
+      transform: translateY(0) translateX(0);
+    }
+    100% {
+      transform: translateY(-50%) translateX(-15px);
+    }
+  }
+
+  @keyframes animStarLayer3 {
+    0% {
+      transform: translateY(0) translateX(0);
+    }
+    100% {
+      transform: translateY(-50%) translateX(8px);
+    }
+  }
+
+  .btn-wrapper {
+    width: 100%;
+  }
+</style>
