@@ -2,16 +2,23 @@
 import ThemeToggle from '@/components/ThemeToggle'
 ---
 
-<section class="">
-  <div class="">
+<section class="relative flex flex-col items-center p-4">
+  <!-- Theme toggle positioned at the top right -->
+  <div class="absolute top-0 right-0">
     <ThemeToggle client:idle />
   </div>
+
+  <!-- Profile section centered -->
   <article class="flex flex-col items-center">
     <div
-      class="Me h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-[40%] border-[3px] border-[#1a1a1a] shadow-lg transition-all duration-300 hover:grayscale"
+      class="h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-[40%] border-[3px] border-[#1a1a1a] shadow-lg transition-all duration-300 hover:grayscale"
     >
-      <a href="/me">
-        <img src="/src/assets/images/me.jpg" alt="Profile" class="h-full w-full object-cover" />
+      <a href="/me" aria-label="Go to about me page">
+        <img
+          src="/src/assets/images/me.jpg"
+          alt="Profile picture of @gohitx"
+          class="h-full w-full object-cover"
+        />
       </a>
     </div>
     <h2 class="cursor-default pt-1 text-[14px]">@gohitx</h2>
