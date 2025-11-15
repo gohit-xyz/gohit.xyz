@@ -10,6 +10,19 @@ import '@/styles/global.css'
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>Gohit X</title>
+    
+    <!-- Prevenir flash de tema (FOUC) - debe ejecutarse ANTES de renderizar -->
+    <script is:inline>
+      (function () {
+        const theme = localStorage.getItem('theme')
+        const isDark = theme === 'dark' || 
+                      (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        
+        if (isDark) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
   </head>
   <body>
     <slot />
@@ -24,21 +37,3 @@ import '@/styles/global.css'
     height: 100%;
   }
 </style>
-
-<script>
-  ;(function () {
-    try {
-      var theme = localStorage.getItem('theme')
-      if (
-        theme === 'dark' ||
-        (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    } catch (e) {
-      /* ignore */
-    }
-  })()
-</script>

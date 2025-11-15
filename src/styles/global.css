@@ -2,35 +2,126 @@
 
 /* Theme variables for light/dark */
 :root {
-	--bg: #ffffff; /* light background */
-	--text: #0b0b0b; /* light text */
+	/* Color scale - Light mode */
+	--color-0: #000000;
+	--color-50: #0a0a0a;
+	--color-100: #1a1a1a;
+	--color-200: #303030;
+	--color-300: #505050;
+	--color-400: #707070;
+	--color-500: #909090;
+	--color-600: #b0b0b0;
+	--color-700: #d0d0d0;
+	--color-800: #e8e8e8;
+	--color-900: #f5f5f5;
+	--color-999: #ffffff;
+
+	/* Semantic colors - Light mode */
+	--bg: var(--color-999);
+	--bg-secondary: var(--color-900);
+	--text: var(--color-100);
+	--text-secondary: var(--color-400);
+	--border: #e5e5e5;
+	--shadow: rgba(0, 0, 0, 0.1);
+
+	/* Accent colors */
+	--accent-light: #6b7280;
+	--accent-regular: #374151;
+	--accent-dark: #1f2937;
+	--accent-overlay: hsla(220, 13%, 18%, 0.15);
+	--accent-text-over: var(--color-999);
+
+	/* Transitions */
+	--theme-transition: 0.3s ease-in-out;
+
+	/* Gradients */
+	--gradient-subtle: linear-gradient(150deg, var(--color-800) 0%, var(--color-900) 100%);
+	--gradient-accent: linear-gradient(150deg, var(--accent-light), var(--accent-regular), var(--accent-dark));
 }
 
 html.dark {
-	--bg: #000000; /* dark background */
-	--text: #ffffff; /* dark text */
+	/* Color scale - Dark mode (inverted) */
+	--color-0: #ffffff;
+	--color-50: #f5f5f5;
+	--color-100: #e8e8e8;
+	--color-200: #d0d0d0;
+	--color-300: #b0b0b0;
+	--color-400: #909090;
+	--color-500: #707070;
+	--color-600: #505050;
+	--color-700: #303030;
+	--color-800: #1a1a1a;
+	--color-900: #0f0f0f;
+	--color-999: #000000;
+
+	/* Semantic colors - Dark mode */
+	--bg: var(--color-999);
+	--bg-secondary: var(--color-900);
+	--text: var(--color-100);
+	--text-secondary: var(--color-400);
+	--border: #2a2a2a;
+	--shadow: rgba(0, 0, 0, 0.5);
+
+	/* Accent colors - Dark mode */
+	--accent-light: #d1d5db;
+	--accent-regular: #9ca3af;
+	--accent-dark: #6b7280;
+	--accent-overlay: hsla(220, 13%, 69%, 0.2);
+	--accent-text-over: var(--color-999);
+
+	/* Gradients - Dark mode */
+	--gradient-subtle: linear-gradient(150deg, var(--color-800) 0%, var(--color-999) 100%);
 }
 
 /* Apply to body so background is site-wide */
 body {
 	background-color: var(--bg);
 	color: var(--text);
-	transition: background-color 200ms ease, color 200ms ease;
+	transition: background-color var(--theme-transition), 
+	            color var(--theme-transition);
 }
 
-/* Theme toggle button basics */
+/* Theme toggle button */
 .theme-toggle {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 	gap: 0.5rem;
 	background: transparent;
-	border: none;
+	border: 1px solid var(--border);
 	cursor: pointer;
-	padding: 0.35rem;
-	border-radius: 0.375rem;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	transition: all var(--theme-transition);
+	box-shadow: 0 1px 3px var(--shadow);
 }
+
+.theme-toggle:hover {
+	border-color: var(--accent-regular);
+	box-shadow: 0 2px 6px var(--shadow);
+	transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+	transform: translateY(0);
+}
+
 .theme-toggle svg {
 	display: block;
-	color: inherit;
+	color: var(--text);
+	transition: color var(--theme-transition), transform var(--theme-transition);
+}
+
+.theme-toggle:hover svg {
+	color: var(--accent-regular);
+	transform: rotate(15deg);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
 }
