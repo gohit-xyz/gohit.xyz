@@ -2,10 +2,8 @@
 
 /* Theme variables for light/dark */
 :root {
-  /* Color scale - Dark mode (inverted) */
-  /* --color-0: #ff0000;
-  --color-999: #00910c; */
-  /* Transitions */
+  --bg: white;
+  --text: black;
   --theme-transition: 0.3s ease-in-out;
 }
 
@@ -29,7 +27,6 @@ body {
     color var(--theme-transition);
   display: flex;
   min-height: 100vh;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
