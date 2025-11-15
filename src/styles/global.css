@@ -1,1 +1,36 @@
 @import 'tailwindcss';
+
+/* Theme variables for light/dark */
+:root {
+	--bg: #ffffff; /* light background */
+	--text: #0b0b0b; /* light text */
+}
+
+html.dark {
+	--bg: #000000; /* dark background */
+	--text: #ffffff; /* dark text */
+}
+
+/* Apply to body so background is site-wide */
+body {
+	background-color: var(--bg);
+	color: var(--text);
+	transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Theme toggle button basics */
+.theme-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0.35rem;
+	border-radius: 0.375rem;
+}
+.theme-toggle svg {
+	display: block;
+	color: inherit;
+}

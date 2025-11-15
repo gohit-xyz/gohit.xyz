@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 // prettier-ignore
 import { FacebookIcon, LinkedInIcon, YouTubeIcon } from '@/components/icons/icons.ts';
+import ThemeToggle from '@/components/ThemeToggle.tsx';
 ---
 
 <Layout>
@@ -12,4 +13,7 @@ import { FacebookIcon, LinkedInIcon, YouTubeIcon } from '@/components/icons/icon
 
   <a href="/linux">aa</a>
   <a href="/me">aa</a>
+
+  <!-- Here Button dark and light mode -->
+    <ThemeToggle client:idle />
 </Layout>
