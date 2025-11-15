@@ -2,10 +2,10 @@
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle.tsx'
 
-// prettier-ignore
-import { GitHubIcon, InstagramIcon, FacebookIcon, LinkedInIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, YouTubeIcon } from '@/components/icons/icons.ts';
-import LinuxButton from '@/components/ui/buttons/LinuxButton.astro'
-import ExtensionButton from '@/components/ui/buttons/ExtensionButton.astro'
+import Hero from '@/sections/Hero.astro'
+import YouTubeVideo from '@/sections/YouTubeVideo.astro'
+import SocialLinks from '@/sections/SocialLinks.astro'
+import Projects from '@/sections/Projects.astro'
 ---
 
 <Layout>
@@ -15,156 +15,9 @@ import ExtensionButton from '@/components/ui/buttons/ExtensionButton.astro'
       <ThemeToggle client:idle />
     </div>
 
-    <!-- ============= Container ============= -->
-    <div class="flex flex-col items-center justify-center space-y-6 text-center sm:space-y-8">
-      <!-- Img Me-->
-      <div class="flex flex-col items-center">
-        <div
-          class="h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-[40%] border-[3px] border-[#1a1a1a] shadow-lg transition-all duration-300 hover:grayscale"
-        >
-          <a href="/me">
-            <img src="/src/assets/images/me.jpg" alt="Profile" class="h-full w-full object-cover" />
-          </a>
-        </div>
-        <!-- Username -->
-        <div class="flex items-center">
-          <!-- <InstagramIcon className="h-5 w-5 mt-1" /> -->
-          <h2 class="cursor-default pt-1 text-[14px]">@gohitx</h2>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======== YouTube Last Video ======== -->
-    <section class="w-full max-w-3xl pt-5">
-      <!-- Video -->
-      <a
-        href="https://www.youtube.com/watch?v=SNN2cU8zOEQ&t=1s"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group relative block aspect-video overflow-hidden rounded-xl"
-      >
-        <img
-          src="https://img.youtube.com/vi/SNN2cU8zOEQ/maxresdefault.jpg"
-          alt="Latest YouTube Video"
-          loading="lazy"
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <!-- Button Play-->
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div
-            class="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-red-600/90 shadow-lg transition-transform duration-300 group-hover:scale-110"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="ml-1 h-[35px] w-[35px] text-white"
-            >
-              <path d="M8 5v14l11-7z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-    </section>
-
-    <!-- ======== Social Media ======== -->
-    <div class="animate-rise-up flex flex-wrap justify-center gap-6 pt-6">
-      <a
-        href="https://www.youtube.com/@gohitx?sub_confirmation=1"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="YouTube - gohitx"
-        class="social-link"
-      >
-        <YouTubeIcon className="h-6 w-6" />
-      </a>
-
-      <a
-        href="https://github.com/gohitx"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub - gohitx"
-        class="social-link"
-      >
-        <GitHubIcon className="h-6 w-6" />
-      </a>
-
-      <a
-        href="https://soundcloud.com/gohitx"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="SoundCloud - gohitx"
-        class="social-link"
-      >
-        <SoundCloudIcon className="h-6 w-6" />
-      </a>
-
-      <a
-        href="https://instagram.com/gohitx"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram - gohitx"
-        class="social-link"
-      >
-        <InstagramIcon className="h-6 w-6" />
-      </a>
-
-      <a
-        href="https://tiktok.com/@gohitx"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="TikTok - gohitx"
-        class="social-link"
-      >
-        <TikTokIcon className="h-6 w-6" />
-      </a>
-
-      <a
-        href="https://twitter.com/gohitx"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Twitter - gohitx"
-        class="social-link"
-      >
-        <TwitterIcon className="h-6 w-6" />
-      </a>
-    </div>
-
-    <!-- ======== My Projects ======== -->
-    <div class="pt-8">
-      <h3
-        class="mt-2 text-center text-sm font-bold tracking-[1.5px] text-[#f84f00] transition-colors duration-600"
-      >
-        MY PROJECTS
-      </h3>
-      <!-- Button Linux -->
-      <div class="flex w-full justify-center pt-3">
-        <a href="/linux" class="linux-link w-full">
-          <LinuxButton />
-        </a>
-      </div>
-      <!-- Buttons Extension -->
-      <div class="pt-6">
-        <ExtensionButton />
-      </div>
-    </div>
+    <Hero />
+    <YouTubeVideo />
+    <SocialLinks />
+    <Projects />
   </div>
 </Layout>
-
-<!-- --- --- -- --- -- -- MARK:Styles -->
-<style>
-  .social-link {
-    transition:
-      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 260ms ease;
-    will-change: transform;
-  }
-
-  .social-link:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-  }
-</style>
-
-<!-- --- --- -- --- -- -- MARK:Script -->
-<script></script>
