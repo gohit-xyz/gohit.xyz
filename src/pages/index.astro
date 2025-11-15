@@ -1,14 +1,10 @@
 ---
-import ThemeToggle from '@/components/ThemeToggle'
-import ButtonNIghtLight from '@/components/ui/buttons/ButtonNIghtLight.astro'
 import Layout from '@/layouts/Layout.astro'
+import Hero from '@/sections/Hero.astro'
 ---
 
 <Layout>
-  <h1>Test 1</h1>
-    <ThemeToggle client:idle />
-  <main class=" w-full max-w-2xl bg-amber-600 px-4 py-8 sm:px-6">
-    <h2>test 2</h2>
-    <ButtonNIghtLight />
+  <main class="w-full max-w-2xl bg-amber-600 px-4 py-8 sm:px-6">
+    <Hero />
   </main>
 </Layout>

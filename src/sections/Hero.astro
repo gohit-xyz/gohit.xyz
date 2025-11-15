@@ -2,25 +2,18 @@
 import ThemeToggle from '@/components/ThemeToggle'
 ---
 
-<div class="absolute top-8 right-4 sm:top-12 sm:right-6">
-  <ThemeToggle client:idle />
-</div>
-
-<!-- ============= Container ============= -->
-<div class="flex flex-col items-center justify-center space-y-6 text-center sm:space-y-8">
-  <!-- Img Me-->
-  <div class="flex flex-col items-center">
+<section class="">
+  <div class="">
+    <ThemeToggle client:idle />
+  </div>
+  <article class="flex flex-col items-center">
     <div
-      class="h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-[40%] border-[3px] border-[#1a1a1a] shadow-lg transition-all duration-300 hover:grayscale"
+      class="Me h-[90px] w-[90px] cursor-pointer overflow-hidden rounded-[40%] border-[3px] border-[#1a1a1a] shadow-lg transition-all duration-300 hover:grayscale"
     >
       <a href="/me">
         <img src="/src/assets/images/me.jpg" alt="Profile" class="h-full w-full object-cover" />
       </a>
     </div>
-    <!-- Username -->
-    <div class="flex items-center">
-      <!-- <InstagramIcon className="h-5 w-5 mt-1" /> -->
-      <h2 class="cursor-default pt-1 text-[14px]">@gohitx</h2>
-    </div>
-  </div>
-</div>
+    <h2 class="cursor-default pt-1 text-[14px]">@gohitx</h2>
+  </article>
+</section>
