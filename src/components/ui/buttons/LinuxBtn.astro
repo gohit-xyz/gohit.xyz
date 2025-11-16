@@ -1,5 +1,9 @@
-<div class="btn-wrapper">
-  <button type="button" class="btn">
+---
+const { href } = Astro.props;
+---
+
+<a href={href} class="btn-wrapper">
+  <div class="btn">
     <strong>LINUX</strong>
     <div id="container-stars">
       <canvas id="stars-canvas"></canvas>
@@ -8,8 +12,8 @@
       <div class="circle"></div>
       <div class="circle"></div>
     </div>
-  </button>
-</div>
+  </div>
+</a>
 
 <style>
   :root {
