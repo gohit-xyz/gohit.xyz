@@ -4,9 +4,7 @@ import ThemeToggle from '@/components/ThemeToggle'
 
 <section class="relative flex flex-col items-center p-4">
   <!-- Theme toggle positioned at the top right -->
-  <div class="absolute top-0 right-0">
-    <ThemeToggle client:idle />
-  </div>
+  <ThemeToggle client:idle />
 
   <!-- Profile section centered -->
   <article class="flex flex-col items-center">
@@ -24,3 +22,20 @@ import ThemeToggle from '@/components/ThemeToggle'
     <h2 class="cursor-default pt-1 text-[14px]">@gohitx</h2>
   </article>
 </section>
+
+<!-- --- --- -- --- -- -- MARK:Styles -->
+<style>
+  :global(.theme-toggle) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: green;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid rgb(75, 75, 75);
+  }
+</style>
+
+<!-- --- --- -- --- -- -- MARK:Script -->
+<script></script>
