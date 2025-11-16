@@ -4,8 +4,12 @@ import { Hero, Projects, SocialLinks, YouTubeVideo } from '@/sections/sections'
 ---
 
 <Layout>
-  <main class="w-full max-w-2xl bg-amber-600 px-4 py-8 sm:px-6">
-    <Hero />
-    <!-- <YouTubeVideo/> -->
-  </main>
+  <div class="flex min-h-screen w-full items-center justify-center">
+    <main class="w-full max-w-2xl  px-4 py-8 sm:px-6">
+      <Hero />
+      <YouTubeVideo />
+      <SocialLinks />
+      <Projects />
+    </main>
+  </div>
 </Layout>
