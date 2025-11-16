@@ -11,7 +11,7 @@ import { extensions } from '@/data/extensions'
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${ext.name} — VS Code Marketplace`}
-        style={`animation-delay: ${0.1 + index * 0.1}s;`}
+        style={`animation-delay: ${0.3 + index * 0.1}s;`}
       >
         <img src={ext.imgSrc} alt={ext.alt} class="work-icon" />
         <span>{ext.name}</span>
@@ -27,7 +27,6 @@ import { extensions } from '@/data/extensions'
     font-family: 'IBM Plex Mono', monospace;
   }
 
-  /* Work Grid */
   .work-grid {
     @apply grid w-full grid-cols-2 gap-3;
   }
@@ -38,7 +37,6 @@ import { extensions } from '@/data/extensions'
     }
   }
 
-  /* Work Card Base Styles */
   .work-card {
     position: relative;
     display: flex;
@@ -55,32 +53,31 @@ import { extensions } from '@/data/extensions'
     letter-spacing: 0.025em;
     color: var(--text-primary);
     text-decoration: none;
+    border: 1px solid transparent;
+    animation: slideUp 0.6s ease-out forwards;
+    opacity: 0;
     transition:
       transform 0.3s ease-out,
       background-color 0.3s ease-out,
       box-shadow 0.3s ease-out,
       border-color 0.3s ease-out;
     box-shadow: var(--shadow-sm);
-    animation: slideUp 0.6s ease-out forwards;
-    opacity: 0;
     will-change: transform, opacity;
-    border: 1px solid transparent; /* Base border for light mode */
   }
 
-  /* Radial gradient glow effect on hover */
   .work-card::before {
     content: '';
     position: absolute;
     inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    will-change: opacity;
     background: radial-gradient(
       circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(34, 139, 34, 0.2),
-      transparent 70% /* Adjusted transparency for visibility */
+      rgba(0, 139, 108, 0.2),
+      transparent 70%
     );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    will-change: opacity;
   }
 
   /* Dark mode specific styles */
@@ -91,7 +88,7 @@ import { extensions } from '@/data/extensions'
   html.dark .work-card::before {
     background: radial-gradient(
       circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(34, 139, 34, 0.35),
+      rgba(0, 139, 108, 0.35),
       transparent 60% /* Adjusted transparency for visibility in dark mode */
     );
   }
@@ -100,18 +97,19 @@ import { extensions } from '@/data/extensions'
     opacity: 1;
   }
 
+  /* Reduced border to 1px */
   .work-card:hover {
     transform: translateY(-4px);
     background-color: var(--bg-card-hover);
     box-shadow:
       0 12px 30px -5px var(--shadow-card),
-      0 0 0 1px var(--border-card); /* Reduced border to 1px */
+      0 0 0 1px var(--border-card);
   }
 
   html.dark .work-card:hover {
     box-shadow:
       0 12px 30px -5px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(34, 139, 34, 0.5); /* Reduced border to 1px */
+      0 0 0 1px rgba(0, 139, 108, 0.5);
   }
 
   /* Icon Styles */
@@ -142,7 +140,7 @@ import { extensions } from '@/data/extensions'
   }
 
   html.dark .work-card:hover .work-icon {
-    background-color: rgba(34, 139, 34, 0.25);
+    background-color: rgba(0, 139, 108, 0.25);
   }
 
   /* Keyframes */
@@ -159,24 +157,21 @@ import { extensions } from '@/data/extensions'
 </style>
 
 <script>
-  const cards = document.querySelectorAll<HTMLElement>('.work-card');
+  const cards = document.querySelectorAll<HTMLElement>('.work-card')
 
   cards.forEach((card) => {
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
 
-      const xPercent = (x / rect.width) * 100;
-      const yPercent = (y / rect.height) * 100;
-
-      card.style.setProperty('--mouse-x', `${xPercent}%`);
-      card.style.setProperty('--mouse-y', `${yPercent}%`);
-    });
+      card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`)
+      card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`)
+    })
 
     card.addEventListener('mouseleave', () => {
-      card.style.setProperty('--mouse-x', '50%');
-      card.style.setProperty('--mouse-y', '50%');
-    });
-  });
+      card.style.setProperty('--mouse-x', '50%')
+      card.style.setProperty('--mouse-y', '50%')
+    })
+  })
 </script>
