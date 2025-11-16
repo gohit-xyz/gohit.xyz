@@ -38,5 +38,20 @@ body {
 }
 
 /* ==================== 
-   RESET & Scrollbar
+   Cursor & Scrollbar
    ==================== */
+body {
+  cursor: url('/cursors/Pointer.ico'), default;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"] {
+  cursor: url('/cursors/link.ico'), pointer;
+}
+
+.cursor-none {
+  cursor: none !important;
+}
+
+/* ::-webkit-scrollbar {
+  width: 0px;
+} */
