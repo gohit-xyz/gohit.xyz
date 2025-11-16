@@ -1,7 +1,5 @@
 <div class="absolute inset-0 flex items-center justify-center">
-  <div
-    class="youtube-button flex items-center justify-center transition-all duration-300"
-  >
+  <div class="youtube-button flex items-center justify-center transition-all duration-300">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -15,16 +13,16 @@
 
 <style>
   .youtube-button {
-    width: 100px;
-    height: 70px;
-    background-color: #FF0000;
+    width: clamp(60px, 12vw, 100px);
+    height: clamp(42px, 8.4vw, 70px);
+    background-color: #ff0000;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
   }
 
   .youtube-button:hover {
-    background-color: #CC0000;
+    background-color: #cc0000;
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
@@ -35,5 +33,13 @@
 
   .play-icon {
     margin-left: 3px;
+    width: clamp(24px, 3vw, 40px);
+    height: clamp(24px, 3vw, 40px);
+  }
+
+  @media (max-width: 480px) {
+    .youtube-button {
+      border-radius: 12px;
+    }
   }
 </style>
