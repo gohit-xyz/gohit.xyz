@@ -52,10 +52,8 @@ import { extensions } from '@/data/extensions'
     letter-spacing: 0.025em;
     color: var(--text-primary);
     text-decoration: none;
-    box-shadow: 
-      0 1px 3px 0 var(--shadow-card),
-      0 0 0 1px var(--border-card);
     transition: all 0.5s ease-in-out;
+    box-shadow: var(--shadow-sm);
   }
 
   .work-card::before {
@@ -71,29 +69,35 @@ import { extensions } from '@/data/extensions'
     transition: opacity 0.3s ease;
   }
 
-html.dark .work-card::before {
-  background: radial-gradient(
-    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(34, 139, 34, 0.15),
-    transparent 60%
-  );
-}  .work-card:hover::before {
+  html.dark .work-card {
+    border: 1px solid rgb(0, 26, 12);
+  }
+
+  html.dark .work-card::before {
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(34, 139, 34, 0.15),
+      transparent 60%
+    );
+  }
+  .work-card:hover::before {
     opacity: 1;
   }
 
   .work-card:hover {
     transform: translateY(-2px);
     background-color: var(--bg-card-hover);
-    box-shadow: 
+    box-shadow:
       0 10px 25px -5px var(--shadow-card),
       0 0 0 1px var(--border-card);
   }
 
-html.dark .work-card:hover {
-  box-shadow: 
-    0 10px 25px -5px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(34, 139, 34, 0.3);
-}  .work-icon {
+  html.dark .work-card:hover {
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(34, 139, 34, 0.3);
+  }
+  .work-icon {
     height: 2.5rem;
     width: 2.5rem;
     min-width: 2.5rem;
@@ -114,9 +118,9 @@ html.dark .work-card:hover {
     filter: brightness(1.1);
   }
 
-html.dark .work-card:hover .work-icon {
-  background-color: rgba(34, 139, 34, 0.15);
-}  /* Animations */
+  html.dark .work-card:hover .work-icon {
+    background-color: rgba(34, 139, 34, 0.15);
+  } /* Animations */
   @keyframes fadeIn {
     from {
       opacity: 0;
