@@ -75,14 +75,13 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     transform: rotate(15deg) scale(1.1);
   }
 
-  /* Icon Toolbar (Sponsor + GitHub) */
+  /* Icon toolbar */
   .icon-toolbar {
     position: absolute;
     top: 16px;
     right: 50px;
-    /* Initial hidden state - will animate in after 1s, sliding left from the right */
     opacity: 0;
-    transform: translateX(16px) scale(0.98);
+    transform: translateX(20px) scale(0.985);
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -91,16 +90,17 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     border-radius: 12px;
     padding: 2px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: none;
     z-index: 20;
   }
-
-  /* Show animation triggered after a short delay with JS */
+  /* Entrance: fade + slide */
   .icon-toolbar.show {
     opacity: 1;
     transform: translateX(0) scale(1);
     pointer-events: auto;
-    transition: opacity 210ms cubic-bezier(.2,.9,.25,1), transform 210ms cubic-bezier(.2,.9,.25,1);
+    transition:
+      opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .icon-toolbar:hover {
@@ -158,9 +158,10 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     }
   }
 
-  /* Respect reduced motion preference */
+  /* Reduced motion: show immediately */
   @media (prefers-reduced-motion: reduce) {
-    .icon-toolbar, .icon-toolbar.show {
+    .icon-toolbar,
+    .icon-toolbar.show {
       transition: none !important;
       transform: none !important;
       opacity: 1 !important;
@@ -171,20 +172,20 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
 
 <!-- --- --- -- --- -- -- MARK:Script -->
 <script type="module">
-  // Animate icon toolbar in after 1s; respect reduced-motion preference
+  // show toolbar:reduced-motion
   document.addEventListener('DOMContentLoaded', () => {
-    const toolbar = document.querySelector('.icon-toolbar');
-    if (!toolbar) return;
+    const toolbar = document.querySelector('.icon-toolbar')
+    if (!toolbar) return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) {
-      toolbar.classList.add('show');
-      return;
+      toolbar.classList.add('show')
+      return
     }
 
-    // Add a small delay (half-second) so the rest of the layout has time to paint.
+    // 200ms
     setTimeout(() => {
-      toolbar.classList.add('show');
-    }, 200);
-  });
+      toolbar.classList.add('show')
+    }, 200)
+  })
 </script>
