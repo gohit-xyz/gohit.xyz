@@ -1,5 +1,5 @@
 ---
-const { href } = Astro.props;
+const { href } = Astro.props
 ---
 
 <a href={href} class="btn-wrapper">
@@ -102,7 +102,10 @@ const { href } = Astro.props;
   /* Hover Effects */
   .btn:hover #container-stars {
     z-index: 1;
-    background-color: var(--hover-bg);
+    background-color: rgb(250, 255, 253);
+  }
+  html.dark .btn:hover #container-stars {
+    background-color: rgb(3, 3, 3);
   }
 
   .btn:hover #glow {
