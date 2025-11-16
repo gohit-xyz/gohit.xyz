@@ -78,8 +78,12 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
   /* Icon Toolbar (Sponsor + GitHub) */
   .icon-toolbar {
     position: absolute;
-    top: 14px;
+    top: 16px;
     right: 50px;
+    /* Initial hidden state - will animate in after 1s, sliding left from the right */
+    opacity: 0;
+    transform: translateX(16px) scale(0.98);
+    pointer-events: none;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -89,6 +93,14 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     z-index: 20;
+  }
+
+  /* Show animation triggered after a short delay with JS */
+  .icon-toolbar.show {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+    transition: opacity 210ms cubic-bezier(.2,.9,.25,1), transform 210ms cubic-bezier(.2,.9,.25,1);
   }
 
   .icon-toolbar:hover {
@@ -145,7 +157,34 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
       min-height: 32px;
     }
   }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .icon-toolbar, .icon-toolbar.show {
+      transition: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+  }
 </style>
 
 <!-- --- --- -- --- -- -- MARK:Script -->
-<script></script>
+<script type="module">
+  // Animate icon toolbar in after 1s; respect reduced-motion preference
+  document.addEventListener('DOMContentLoaded', () => {
+    const toolbar = document.querySelector('.icon-toolbar');
+    if (!toolbar) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      toolbar.classList.add('show');
+      return;
+    }
+
+    // Add a small delay (half-second) so the rest of the layout has time to paint.
+    setTimeout(() => {
+      toolbar.classList.add('show');
+    }, 200);
+  });
+</script>
