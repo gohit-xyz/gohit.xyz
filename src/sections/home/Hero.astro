@@ -1,10 +1,23 @@
 ---
 import ThemeToggle from '@/components/ThemeToggle'
 import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
+import GithubStart from '@/components/ui/buttons/GithubStartBtn.astro'
+import { SponsorIcon } from '@/components/icons/global/sponsor'
 ---
 
 <section class="relative flex flex-col items-center p-4">
   <GlowEffect />
+
+  <!-- Social icons toolbar -->
+  <div class="icon-toolbar">
+    <a href="/sponsors" aria-label="Sponsor" class="icon-button group">
+      <SponsorIcon className="transition-colors duration-300 group-hover:text-pink-500" />
+    </a>
+    <div class="icon-button">
+      <GithubStart />
+    </div>
+  </div>
+
   <!-- Theme toggle -->
   <ThemeToggle client:idle />
 
@@ -30,11 +43,11 @@ import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
   /* Theme Toggle Icon */
   :global(.theme-toggle) {
     position: absolute;
-    top: 14px;
-    right: 0;
+    top: 20px;
+    right: 5px;
     background-color: #4a4a4a3a;
     border-radius: 50%;
-    padding: 8px;
+    padding: 6px;
     cursor: pointer;
     border: 1px solid rgba(65, 65, 65, 0.2);
     transition: all 0.3s ease;
@@ -54,10 +67,68 @@ import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
   :global(.theme-toggle svg) {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     transition: transform 0.3s ease;
+    width: 22px;
+    height: 22px;
   }
 
   :global(.theme-toggle:hover svg) {
     transform: rotate(15deg) scale(1.1);
+  }
+
+  /* Icon Toolbar (Sponsor + GitHub) */
+  .icon-toolbar {
+    position: absolute;
+    top: 14px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 20;
+  }
+
+  .icon-toolbar:hover {
+    background-color: rgba(74, 74, 74, 0.35);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Individual Icon Buttons */
+  .icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    color: currentColor;
+    text-decoration: none;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .icon-button:active {
+    transform: translateY(0);
+  }
+
+  /* Dark mode adjustments */
+  :global(.dark) .icon-toolbar {
+    background-color: rgba(30, 30, 30, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :global(.dark) .icon-toolbar:hover {
+    background-color: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 </style>
 
