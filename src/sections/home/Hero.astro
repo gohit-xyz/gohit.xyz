@@ -1,8 +1,7 @@
 ---
 import ThemeToggle from '@/components/ThemeToggle'
-import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
-import GithubStart from '@/components/ui/buttons/GithubStartBtn.astro'
-import { SponsorIcon } from '@/components/icons/global/sponsor'
+import { SponsorIcon } from '@/components/icons/icons'
+import { GlowEffect, GithubStartBtn } from '@/components/ui/ui'
 ---
 
 <section class="relative flex flex-col items-center p-4">
@@ -14,7 +13,7 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
       <SponsorIcon className="transition-colors duration-300 group-hover:text-pink-500" />
     </a>
     <div class="icon-button">
-      <GithubStart />
+      <GithubStartBtn />
     </div>
   </div>
 
@@ -75,11 +74,14 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     transform: rotate(15deg) scale(1.1);
   }
 
-  /* Icon Toolbar (Sponsor + GitHub) */
+  /* Icon toolbar */
   .icon-toolbar {
     position: absolute;
-    top: 14px;
+    top: 16px;
     right: 50px;
+    opacity: 0;
+    transform: translateX(20px) scale(0.985);
+    pointer-events: none;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -87,8 +89,17 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     border-radius: 12px;
     padding: 2px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: none;
     z-index: 20;
+  }
+  /* Entrance: fade + slide */
+  .icon-toolbar.show {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+    transition:
+      opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .icon-toolbar:hover {
@@ -130,7 +141,50 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     background-color: rgba(30, 30, 30, 0.6);
     border-color: rgba(255, 255, 255, 0.2);
   }
+
+  /* Responsive adjustments for mobile */
+  @media (max-width: 768px) {
+    .icon-toolbar {
+      position: absolute;
+      top: 18px;
+      right: 42px;
+    }
+
+    .icon-button {
+      padding: 6px;
+      min-width: 32px;
+      min-height: 32px;
+    }
+  }
+
+  /* Reduced motion: show immediately */
+  @media (prefers-reduced-motion: reduce) {
+    .icon-toolbar,
+    .icon-toolbar.show {
+      transition: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+  }
 </style>
 
 <!-- --- --- -- --- -- -- MARK:Script -->
-<script></script>
+<script type="module">
+  // show toolbar:reduced-motion
+  document.addEventListener('DOMContentLoaded', () => {
+    const toolbar = document.querySelector('.icon-toolbar')
+    if (!toolbar) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      toolbar.classList.add('show')
+      return
+    }
+
+    // 200ms
+    setTimeout(() => {
+      toolbar.classList.add('show')
+    }, 200)
+  })
+</script>

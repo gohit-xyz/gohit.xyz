@@ -11,7 +11,7 @@ import { extensions } from '@/data/extensions'
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${ext.name} — VS Code Marketplace`}
-        style={`animation-delay: ${0.3 + index * 0.15}s;`}
+        style={`animation-delay: ${0.3 + index * 0.1}s;`}
       >
         <img src={ext.imgSrc} alt={ext.alt} class="work-icon" />
         <span>{ext.name}</span>
@@ -22,10 +22,11 @@ import { extensions } from '@/data/extensions'
 
 <style>
   @reference "tailwindcss";
+
   span {
     font-family: 'IBM Plex Mono', monospace;
   }
-  /* Work Grid */
+
   .work-grid {
     @apply grid w-full grid-cols-2 gap-3;
   }
@@ -52,25 +53,34 @@ import { extensions } from '@/data/extensions'
     letter-spacing: 0.025em;
     color: var(--text-primary);
     text-decoration: none;
-    transition: all 0.5s ease-in-out;
-    box-shadow: var(--shadow-sm);
-    animation: fadeIn 0.6s ease-in forwards;
+    border: 1px solid transparent;
+    animation: slideUp 0.6s ease-out forwards;
     opacity: 0;
+    transition:
+      transform 0.3s ease-out,
+      background-color 0.3s ease-out,
+      box-shadow 0.3s ease-out,
+      border-color 0.3s ease-out;
+    box-shadow: var(--shadow-sm);
+    will-change: transform, opacity;
   }
 
   .work-card::before {
     content: '';
     position: absolute;
     inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    will-change: opacity;
     background: radial-gradient(
       circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(99, 102, 241, 0.08),
-      transparent 60%
+      rgba(0, 139, 108, 0.2),
+      transparent 70%
     );
-    opacity: 0;
-    transition: opacity 0.3s ease;
   }
 
+  /* Dark mode specific styles */
   html.dark .work-card {
     border: 1px solid rgb(0, 26, 12);
   }
@@ -78,27 +88,31 @@ import { extensions } from '@/data/extensions'
   html.dark .work-card::before {
     background: radial-gradient(
       circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(34, 139, 34, 0.15),
-      transparent 60%
+      rgba(0, 139, 108, 0.35),
+      transparent 60% /* Adjusted transparency for visibility in dark mode */
     );
   }
+
   .work-card:hover::before {
     opacity: 1;
   }
 
+  /* Reduced border to 1px */
   .work-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
     background-color: var(--bg-card-hover);
     box-shadow:
-      0 10px 25px -5px var(--shadow-card),
+      0 12px 30px -5px var(--shadow-card),
       0 0 0 1px var(--border-card);
   }
 
   html.dark .work-card:hover {
     box-shadow:
-      0 10px 25px -5px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(34, 139, 34, 0.3);
+      0 12px 30px -5px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(0, 139, 108, 0.5);
   }
+
+  /* Icon Styles */
   .work-icon {
     height: 2.5rem;
     width: 2.5rem;
@@ -108,34 +122,32 @@ import { extensions } from '@/data/extensions'
     background-color: rgba(255, 255, 255, 0.5);
     object-fit: contain;
     padding: 0.125rem;
-    transition: all 0.5s ease-in-out;
+    transition:
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      filter 0.3s ease-out,
+      background-color 0.3s ease-out;
+    will-change: transform, filter, background-color;
   }
 
   html.dark .work-icon {
     background-color: rgba(255, 255, 255, 0.1);
   }
 
+  /* Icon animation on hover */
   .work-card:hover .work-icon {
-    transform: scale(1.1) rotate(5deg);
-    filter: brightness(1.1);
+    transform: scale(1.2) rotate(8deg);
+    filter: brightness(1.2);
   }
 
   html.dark .work-card:hover .work-icon {
-    background-color: rgba(34, 139, 34, 0.15);
-  } /* Animations */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    background-color: rgba(0, 139, 108, 0.25);
   }
 
+  /* Keyframes */
   @keyframes slideUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(25px);
     }
     to {
       opacity: 1;
@@ -143,3 +155,23 @@ import { extensions } from '@/data/extensions'
     }
   }
 </style>
+
+<script>
+  const cards = document.querySelectorAll<HTMLElement>('.work-card')
+
+  cards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+
+      card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`)
+      card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`)
+    })
+
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--mouse-x', '50%')
+      card.style.setProperty('--mouse-y', '50%')
+    })
+  })
+</script>
