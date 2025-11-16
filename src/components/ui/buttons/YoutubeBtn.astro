@@ -1,0 +1,39 @@
+<div class="absolute inset-0 flex items-center justify-center">
+  <div
+    class="youtube-button flex items-center justify-center transition-all duration-300"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="play-icon h-10 w-10 text-white"
+    >
+      <path d="M8 5v14l11-7z"></path>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .youtube-button {
+    width: 100px;
+    height: 70px;
+    background-color: #FF0000;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  .youtube-button:hover {
+    background-color: #CC0000;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .youtube-button:active {
+    transform: scale(0.98);
+  }
+
+  .play-icon {
+    margin-left: 3px;
+  }
+</style>

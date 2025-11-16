@@ -1,36 +1,24 @@
 ---
-
+import YoutubeBtn from '@/components/ui/buttons/YoutubeBtn.astro'
 ---
 
-<!-- ======== YouTube Last Video ======== -->
-<section class="w-full max-w-3xl pt-5">
-  <!-- Video -->
-  <a
-    href="https://www.youtube.com/watch?v=SNN2cU8zOEQ&t=1s"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="group relative block aspect-video overflow-hidden rounded-xl"
-  >
-    <img
-      src="https://img.youtube.com/vi/SNN2cU8zOEQ/maxresdefault.jpg"
-      alt="Latest YouTube Video"
-      loading="lazy"
-      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-    />
-    <!-- Button Play-->
-    <div class="absolute inset-0 flex items-center justify-center">
-      <div
-        class="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-red-600/90 shadow-lg transition-transform duration-300 group-hover:scale-110"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="ml-1 h-[35px] w-[35px] text-white"
-        >
-          <path d="M8 5v14l11-7z"></path>
-        </svg>
-      </div>
-    </div>
-  </a>
+<section class="flex w-full justify-center pt-2">
+  <div class="w-full max-w-3xl">
+    <a
+      href="https://www.youtube.com/watch?v=SNN2cU8zOEQ"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group relative block aspect-video overflow-hidden rounded-xl shadow-lg"
+    >
+      <img
+        src="https://img.youtube.com/vi/SNN2cU8zOEQ/maxresdefault.jpg"
+        alt="Latest YouTube Video"
+        loading="lazy"
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      <!--  -->
+      <YoutubeBtn />
+      <!--  -->
+    </a>
+  </div>
 </section>
