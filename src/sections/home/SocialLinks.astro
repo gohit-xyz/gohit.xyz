@@ -3,7 +3,7 @@
 import { GitHubIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, YouTubeIcon } from '@/components/icons/icons.ts';
 ---
 
-<div class="animate-rise-up flex flex-wrap justify-center gap-6 pt-6">
+<section class="animate-rise-up flex flex-wrap justify-center gap-6 pt-6">
   <div
     style="--clr: #FF0000;"
     class="social-link"
@@ -57,7 +57,7 @@ import { GitHubIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, You
   >
     <TwitterIcon className="h-6 w-6" />
   </div>
-</div>
+</section>
 
 <!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
@@ -101,7 +101,8 @@ import { GitHubIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, You
     element.addEventListener('mouseleave', function () {
       const changingLight = document.querySelector('.changing_light') as HTMLElement
       if (changingLight) {
-        changingLight.style.background = 'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
+        changingLight.style.background =
+          'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
       }
     })
   })
