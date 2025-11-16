@@ -1,12 +1,16 @@
 ---
 import ThemeToggle from '@/components/ThemeToggle'
 import GlowEffect from '@/components/ui/effects/GlowEffect.astro'
+import GithubStart from '@/components/ui/buttons/githubStartBtn.astro'
 ---
 
 <section class="relative flex flex-col items-center p-4">
   <GlowEffect />
   <!-- Theme toggle -->
-  <ThemeToggle client:idle />
+  <div class="flex bg-amber-400">
+    <GithubStart />
+    <ThemeToggle client:idle />
+  </div>
 
   <!-- Profile section centered -->
   <article class="z-10 flex flex-col items-center">
