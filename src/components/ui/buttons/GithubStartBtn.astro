@@ -1,10 +1,6 @@
----
-import { GitHubIcon } from '../../icons/social-media/github'
----
-
 <body>
   <a
-    href="https://github.com/bastndev/Lynxjs-Pack"
+    href="https://github.com/gohit-xyz/gohit.xyz"
     target="_blank"
     rel="noopener noreferrer"
     class="github-link"
@@ -59,7 +55,7 @@ import { GitHubIcon } from '../../icons/social-media/github'
     if (!starsElement) return
 
     try {
-      const response = await fetch('https://api.github.com/repos/bastndev/Lynxjs-Pack')
+      const response = await fetch('https://api.github.com/repos/gohit-xyz/gohit.xyz')
       const data = await response.json()
       starsElement.textContent = String(data.stargazers_count || 0)
     } catch (error) {
