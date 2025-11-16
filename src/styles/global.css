@@ -38,5 +38,13 @@ body {
 }
 
 /* ==================== 
-   RESET & Scrollbar
+   Cursor & Scrollbar
    ==================== */
+
+body {
+  cursor: url('/cursors/Pointer.ico'), default;
+}
+
+/* ::-webkit-scrollbar {
+  width: 0px;
+} */
