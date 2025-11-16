@@ -1,11 +1,9 @@
 <div class="btn-wrapper">
   <button type="button" class="btn">
-    <!-- <span>🐧 </span> -->
     <strong>LINUX</strong>
     <div id="container-stars">
-      <div id="stars"></div>
+      <canvas id="stars-canvas"></canvas>
     </div>
-
     <div id="glow">
       <div class="circle"></div>
       <div class="circle"></div>
@@ -14,6 +12,21 @@
 </div>
 
 <style>
+  :root {
+    --btn-height: 3rem;
+    --star-color: #ffffff;
+    --glow-color-1: rgba(13, 255, 159, 0.636);
+    --glow-color-2: rgba(0, 255, 200, 0.704);
+    --hover-bg: #080808;
+    --active-glow: #0dff9f;
+  }
+
+  .btn-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .btn {
     position: relative;
     display: flex;
@@ -21,15 +34,26 @@
     align-items: center;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
-    height: 3rem;
-    background-size: 300% 300%;
+    height: var(--btn-height);
+    background-color: transparent;
     cursor: pointer;
     backdrop-filter: blur(1rem);
-    transition: 0.5s;
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    border: 0;
+    transition:
+      background-color 0.5s,
+      transform 0.2s ease-in-out;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden; /* Important to keep particles within bounds */
+  }
+
+  strong {
+    z-index: 2;
+    font-family: 'Avalors Personal Use', sans-serif; /* Fallback font */
+    font-size: 16px;
+    letter-spacing: 5px;
+    color: var(--star-color);
+    text-shadow: 0 0 4px var(--star-color);
+    user-select: none;
   }
 
   #container-stars {
@@ -38,22 +62,14 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    transition: 0.5s;
     border-radius: 5px;
+    transition: background-color 0.5s;
   }
 
-  strong {
-    z-index: 2;
-    font-family: 'Avalors Personal Use';
-    font-size: 16px;
-    letter-spacing: 5px;
-    color: #ffffff;
-    text-shadow: 0 0 4px white;
-  }
-
-  span {
-    z-index: 2;
-    font-size: 16px;
+  #stars-canvas {
+    width: 100%;
+    height: 100%;
+    display: block; /* avoid extra space below the canvas */
   }
 
   #glow {
@@ -61,6 +77,8 @@
     display: flex;
     width: 12rem;
     pointer-events: none;
+    opacity: 0; /* hidden by default */
+    transition: opacity 0.5s ease-in-out;
   }
 
   .circle {
@@ -71,16 +89,21 @@
   }
 
   .circle:nth-of-type(1) {
-    background: rgba(13, 255, 159, 0.636);
+    background: var(--glow-color-1);
   }
 
   .circle:nth-of-type(2) {
-    background: rgba(0, 255, 200, 0.704);
+    background: var(--glow-color-2);
   }
 
+  /* Hover Effects */
   .btn:hover #container-stars {
     z-index: 1;
-    background-color: #080808;
+    background-color: var(--hover-bg);
+  }
+
+  .btn:hover #glow {
+    opacity: 1; /* show glow on hover */
   }
 
   .btn:active {
@@ -88,108 +111,10 @@
   }
 
   .btn:active .circle {
-    background: #0dff9f;
+    background: var(--active-glow);
   }
 
-  #stars {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    top: 0;
-    left: -50%;
-  }
-
-  /* system of particles */
-  #stars::before,
-  #stars::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-
-  #stars::before {
-    background-image:
-      radial-gradient(circle, #ffffff 1px, transparent 1px),
-      radial-gradient(circle, #ffffff 0.5px, transparent 0.5px);
-    background-size:
-      50px 50px,
-      80px 80px;
-    background-position:
-      0 0,
-      25px 25px;
-    animation: animStarLayer1 8s linear infinite;
-  }
-
-  #stars::after {
-    background-image:
-      radial-gradient(circle, rgba(255, 255, 255, 0.5) 1.5px, transparent 1.5px),
-      radial-gradient(circle, rgba(255, 255, 255, 0.3) 0.8px, transparent 0.8px);
-    background-size:
-      60px 60px,
-      90px 90px;
-    background-position:
-      10px 10px,
-      40px 40px;
-    animation: animStarLayer2 12s linear infinite;
-  }
-
-  /* Additional particles */
-  #container-stars::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    top: 0;
-    left: -50%;
-    background-image:
-      radial-gradient(circle, rgba(255, 255, 255, 0.6) 1.2px, transparent 1.2px),
-      radial-gradient(circle, rgba(255, 255, 255, 0.3) 0.6px, transparent 0.6px);
-    background-size:
-      70px 70px,
-      100px 100px;
-    background-position:
-      15px 15px,
-      50px 50px;
-    animation: animStarLayer3 16s linear infinite;
-  }
-
-  @keyframes animStarLayer1 {
-    0% {
-      transform: translateY(0) translateX(0);
-    }
-    100% {
-      transform: translateY(-30%) translateX(8px);
-    }
-  }
-
-  @keyframes animStarLayer2 {
-    0% {
-      transform: translateY(0) translateX(0);
-    }
-    100% {
-      transform: translateY(-20%) translateX(-12px);
-    }
-  }
-
-  @keyframes animStarLayer3 {
-    0% {
-      transform: translateY(0) translateX(0);
-    }
-    100% {
-      transform: translateY(-35%) translateX(6px);
-    }
-  }
-
-  .btn-wrapper {
-    width: 100%;
-    max-width: 100%;
-    position: relative;
-  }
-
-  /* Animation button*/
+  /* Animation button wrapper */
   .btn-wrapper::before {
     content: '';
     position: absolute;
@@ -222,10 +147,128 @@
     }
   }
 
-  .btn:hover ~ .btn-wrapper::before,
   .btn-wrapper:hover::before {
     animation: none;
+    opacity: 1;
   }
 </style>
 
-<script></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const baseCanvas = document.querySelector('#stars-canvas')
+    const canvas = baseCanvas instanceof HTMLCanvasElement ? baseCanvas : null
+    const ctx = canvas ? canvas.getContext('2d') : null
+    const btnContainer = document.querySelector('#container-stars')
+
+    /**
+     * Particle type definition
+     */
+    interface Particle {
+      x: number
+      y: number
+      size: number
+      speedX: number
+      speedY: number
+      opacity: number
+      color: string
+      life: number
+      maxLife: number
+    }
+
+    /** @type {Particle[]} */
+    let particles: Particle[] = []
+
+    function canvasWidth() {
+      return canvas instanceof HTMLCanvasElement ? canvas.width : 0
+    }
+
+    function canvasHeight() {
+      return canvas instanceof HTMLCanvasElement ? canvas.height : 0
+    }
+    const numParticles = 40 // number of particles
+
+    // adjust canvas resolution to container size (high-DPI aware)
+    function resizeCanvas() {
+      if (!canvas || !btnContainer || !ctx) return
+      const dpr = window.devicePixelRatio || 1
+      if (canvas instanceof HTMLCanvasElement && btnContainer instanceof HTMLElement) {
+        canvas.style.width = `${btnContainer.offsetWidth}px`
+        canvas.style.height = `${btnContainer.offsetHeight}px`
+        canvas.width = btnContainer.offsetWidth * dpr
+        canvas.height = btnContainer.offsetHeight * dpr
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    // create a random particle
+    function createParticle() {
+      return {
+        x: Math.random() * canvasWidth(),
+        y: Math.random() * canvasHeight(),
+        size: Math.random() * 0.8 + 0.4,
+        speedX: (Math.random() - 0.5) * 0.08,
+        speedY: (Math.random() - 0.5) * 0.08,
+        opacity: Math.random() * 0.6 + 0.2,
+        color: `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`,
+        life: 0,
+        maxLife: Math.random() * 200 + 80,
+      }
+    }
+
+    // initialize particles
+    function initParticles() {
+      particles = []
+      for (let i = 0; i < numParticles; i++) {
+        particles.push(createParticle())
+      }
+    }
+
+    // draw particles
+    function drawParticles() {
+      if (!ctx || !canvas) return
+      ctx.clearRect(0, 0, canvasWidth(), canvasHeight())
+      particles.forEach((p) => {
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+        ctx.fillStyle = p.color
+        ctx.fill()
+      })
+    }
+
+    // update particle positions and lifecycle
+    function updateParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i]
+
+        p.x += p.speedX
+        p.y += p.speedY
+        p.life++
+
+        // regenerate particle if out of bounds or life expired
+        if (
+          p.x < 0 ||
+          p.x > canvasWidth() ||
+          p.y < 0 ||
+          p.y > canvasHeight() ||
+          p.life >= p.maxLife
+        ) {
+          particles[i] = createParticle()
+        }
+      }
+    }
+
+    // animation loop
+    function animate() {
+      updateParticles()
+      drawParticles()
+      requestAnimationFrame(animate)
+    }
+
+    // Event Listeners
+    window.addEventListener('resize', resizeCanvas)
+    if (!ctx || !canvas || !btnContainer) return
+    resizeCanvas()
+    initParticles()
+    animate()
+  })
+</script>
