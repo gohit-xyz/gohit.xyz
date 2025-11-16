@@ -1,0 +1,107 @@
+---
+// prettier-ignore
+import { GitHubIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, YouTubeIcon } from '@/components/icons/icons.ts';
+---
+
+<section class="animate-rise-up flex flex-wrap justify-center gap-3 pt-6 md:gap-6">
+  <div
+    style="--clr: #FF0000;"
+    class="social-link h-8 w-8 md:h-10 md:w-10"
+    data-url="https://www.youtube.com/@gohitx?sub_confirmation=1"
+    aria-label="YouTube - gohitx"
+  >
+    <YouTubeIcon className="h-5 w-5 md:h-6 md:w-6" />
+  </div>
+
+  <div
+    style="--clr: #ffffff;"
+    class="social-link h-8 w-8 md:h-10 md:w-10"
+    data-url="https://github.com/gohitx"
+    aria-label="GitHub - gohitx"
+  >
+    <GitHubIcon className="h-5 w-5 md:h-6 md:w-6" />
+  </div>
+
+  <div
+    style="--clr: #FF5500;"
+    class="social-link h-8 w-8 md:h-10 md:w-10"
+    data-url="https://soundcloud.com/gohitx"
+    aria-label="SoundCloud - gohitx"
+  >
+    <SoundCloudIcon className="h-5 w-5 md:h-6 md:w-6" />
+  </div>
+
+  <div
+    style="--clr: #E4405F;"
+    class="social-link h-8 w-8 md:h-10 md:w-10"
+    data-url="https://instagram.com/gohitx"
+    aria-label="Instagram - gohitx"
+  >
+    <InstagramIcon className="h-5 w-5 md:h-6 md:w-6" />
+  </div>
+
+  <div
+    style="--clr: #000000;"
+    class="social-link h-8 w-8 md:h-10 md:w-10"
+    data-url="https://tiktok.com/@gohitx"
+    aria-label="TikTok - gohitx"
+  >
+    <TikTokIcon className="h-5 w-5 md:h-6 md:w-6" />
+  </div>
+
+  <div
+    style="--clr: #1DA1F2;"
+    class="social-link h-8 w-8 md:h-10 md:w-10"
+    data-url="https://twitter.com/gohitx"
+    aria-label="Twitter - gohitx"
+  >
+    <TwitterIcon className="h-5 w-5 md:h-6 md:w-6" />
+  </div>
+</section>
+
+<!-- --- --- -- --- -- -- MARK:Styles -->
+<style>
+  .social-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15%;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+    cursor: pointer;
+  }
+
+  .social-link:hover {
+    transform: translateY(-3px);
+  }
+</style>
+
+<!-- --- --- -- --- -- -- MARK:Script -->
+<script>
+  document.querySelectorAll('.social-link').forEach((element) => {
+    element.addEventListener('click', function () {
+      const url = element.getAttribute('data-url')
+      if (url) {
+        window.open(url, '_blank')
+      }
+    })
+
+    element.addEventListener('mouseenter', function (event) {
+      if (event.target) {
+        let color = (event.target as HTMLElement).style.getPropertyValue('--clr')
+        const changingLight = document.querySelector('.changing_light') as HTMLElement
+        if (changingLight) {
+          changingLight.style.background = `radial-gradient(circle 400px at 50% 300px, ${color}36, transparent)`
+        }
+      }
+    })
+
+    element.addEventListener('mouseleave', function () {
+      const changingLight = document.querySelector('.changing_light') as HTMLElement
+      if (changingLight) {
+        changingLight.style.background =
+          'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
+      }
+    })
+  })
+</script>

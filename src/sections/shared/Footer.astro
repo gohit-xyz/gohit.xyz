@@ -1,0 +1,48 @@
+---
+import { GitHubIcon, LinkedInIcon, TwitterIcon, YouTubeIcon } from '../../components/icons/icons.ts';
+---
+
+<footer class="bg-gray-100 dark:bg-black text-gray-900 dark:text-white py-8 border-t border-gray-200 dark:border-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- About Section -->
+      <div class="text-center md:text-left">
+        <h3 class="text-xl font-semibold mb-2">Gohit X</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Made with <span style="color: #f84f00;">♥</span> by
+          <a href="https://github.com/gohitx" target="_blank" style="color: #f84f00;" class="hover:opacity-80 transition-opacity">@gohitx</a>
+        </p>
+        <p class="text-gray-500 dark:text-gray-500 text-sm">© 2025 All Rights Reserved</p>
+      </div>
+
+      <!-- Social Links -->
+      <div class="text-center">
+        <h4 class="text-lg font-medium mb-4">Connect</h4>
+        <div class="flex justify-center space-x-4">
+          <a href="https://github.com/gohitx" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <GitHubIcon className="w-6 h-6" />
+          </a>
+          <a href="https://linkedin.com/in/gohitx" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <LinkedInIcon className="w-6 h-6" />
+          </a>
+          <a href="https://twitter.com/gohitx" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <TwitterIcon className="w-6 h-6" />
+          </a>
+          <a href="https://www.youtube.com/@gohitx?sub_confirmation=1" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <YouTubeIcon className="w-6 h-6" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="text-center md:text-right">
+        <h4 class="text-lg font-medium mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+          <li><a href="/" class="hover:text-gray-900 dark:hover:text-white transition-colors">Home</a></li>
+          <li><a href="/linux" class="hover:text-gray-900 dark:hover:text-white transition-colors">Linux</a></li>
+          <li><a href="/me" class="hover:text-gray-900 dark:hover:text-white transition-colors">About Me</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

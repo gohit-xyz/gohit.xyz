@@ -1,23 +1,21 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import ThemeToggle from '@/components/ThemeToggle.tsx'
-
-import Hero from '@/sections/Hero.astro'
-import YouTubeVideo from '@/sections/YouTubeVideo.astro'
-import SocialLinks from '@/sections/SocialLinks.astro'
-import Projects from '@/sections/Projects.astro'
+import { Hero, Projects, SocialLinks, YouTubeVideo } from '@/sections/sections'
 ---
 
 <Layout>
-  <div class="relative w-full max-w-2xl px-4 py-8 sm:px-6">
-    <!-- ============ Theme Toggle ============ -->
-    <div class="absolute top-8 right-4 sm:top-12 sm:right-6">
-      <ThemeToggle client:idle />
-    </div>
-
-    <Hero />
-    <YouTubeVideo />
-    <SocialLinks />
-    <Projects />
+  <div class="flex min-h-screen w-full items-center justify-center">
+    <main class="relative w-full max-w-2xl px-4 py-2 sm:px-6">
+      <Hero />
+      <YouTubeVideo />
+      <SocialLinks />
+      <Projects />
+    </main>
   </div>
 </Layout>
+
+<style is:global>
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+</style>

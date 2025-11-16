@@ -1,3 +1,4 @@
+// --- Global
 export { MoonIcon } from './global/moon'
 export { SunIcon } from './global/sun'
 
