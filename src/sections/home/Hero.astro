@@ -8,22 +8,18 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
 <section class="relative flex flex-col items-center p-4">
   <GlowEffect />
 
-  <div class="icons-container">
-    <!-- Social icons -->
-    <div class="icon-toolbar">
-      <a href="/sponsors" aria-label="Sponsor" class="icon-button group">
-        <SponsorIcon className="transition-colors duration-300 group-hover:text-pink-500" />
-      </a>
-      <div class="icon-button">
-        <GithubStart />
-      </div>
-    </div>
-
-    <!-- Theme toggle (separate) -->
-    <div class="theme-toggle-container">
-      <ThemeToggle client:idle />
+  <!-- Social icons toolbar -->
+  <div class="icon-toolbar">
+    <a href="/sponsors" aria-label="Sponsor" class="icon-button group">
+      <SponsorIcon className="transition-colors duration-300 group-hover:text-pink-500" />
+    </a>
+    <div class="icon-button">
+      <GithubStart />
     </div>
   </div>
+
+  <!-- Theme toggle -->
+  <ThemeToggle client:idle />
 
   <!-- Profile section centered -->
   <article class="z-10 flex flex-col items-center">
@@ -44,53 +40,59 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
 
 <!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  /* Icons Container */
-  .icons-container {
+  /* Theme Toggle Icon */
+  :global(.theme-toggle) {
     position: absolute;
     top: 14px;
     right: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    background-color: #4a4a4a3a;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid rgba(65, 65, 65, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 20;
+  }
+
+  :global(.theme-toggle:hover) {
+    background-color: #4a4a4a73;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  :global(.theme-toggle:active) {
+    background-color: #3a3a3a;
+  }
+
+  :global(.theme-toggle svg) {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+  }
+
+  :global(.theme-toggle:hover svg) {
+    transform: rotate(15deg) scale(1.1);
   }
 
   /* Icon Toolbar (Sponsor + GitHub) */
   .icon-toolbar {
+    position: absolute;
+    top: 14px;
+    right: 60px;
     display: flex;
     align-items: center;
     gap: 8px;
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2px;
+    margin-right: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    z-index: 20;
   }
 
   .icon-toolbar:hover {
     background-color: rgba(74, 74, 74, 0.35);
     border-color: rgba(255, 255, 255, 0.3);
-  }
-
-  /* Theme Toggle Container (separate) */
-  .theme-toggle-container {
-    display: flex;
-    align-items: center;
-    background-color: rgba(74, 74, 74, 0.3);
-    backdrop-filter: blur(10px);
-    border-radius: 50%;
-    padding: 8px;
-    border: 1px solid rgba(65, 65, 65, 0.2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    pointer-events: none;
-  }
-
-  .theme-toggle-container:hover {
-    background-color: rgba(74, 74, 74, 0.45);
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: scale(1.05);
   }
 
   /* Individual Icon Buttons */
@@ -117,31 +119,6 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
     transform: translateY(0);
   }
 
-  /* Theme Toggle Specific Styles */
-  :global(.theme-toggle) {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    position: static !important;
-    cursor: pointer !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: auto;
-  }
-
-  :global(.theme-toggle svg) {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    transition: transform 0.3s ease;
-    width: 20px;
-    height: 20px;
-  }
-
-  :global(.theme-toggle:hover svg) {
-    transform: rotate(15deg) scale(1.1);
-  }
-
   /* Dark mode adjustments */
   :global(.dark) .icon-toolbar {
     background-color: rgba(30, 30, 30, 0.4);
@@ -151,16 +128,6 @@ import { SponsorIcon } from '@/components/icons/global/sponsor'
   :global(.dark) .icon-toolbar:hover {
     background-color: rgba(30, 30, 30, 0.6);
     border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  :global(.dark) .theme-toggle-container {
-    background-color: rgba(30, 30, 30, 0.5);
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  :global(.dark) .theme-toggle-container:hover {
-    background-color: rgba(30, 30, 30, 0.7);
-    border-color: rgba(255, 255, 255, 0.25);
   }
 </style>
 
