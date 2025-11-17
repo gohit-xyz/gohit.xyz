@@ -48,7 +48,7 @@ const sortedArticles = articles.sort((a, b) => {
 
                 {/* Article Content */}
                 <div
-                  class={`bg-white pt-6 pr-6 pb-6 pl-6 text-black transition-shadow hover:shadow-lg ${article.data.banner ? 'rounded-b-lg' : 'rounded-lg'}`}
+                  class={`bg-white/90 pt-6 pr-6 pb-6 pl-6 text-black transition-shadow hover:shadow-lg ${article.data.banner ? 'rounded-b-lg' : 'rounded-lg'}`}
                 >
                   {/* Author Info */}
                   <div class="mb-4 flex items-center gap-2">
@@ -86,7 +86,7 @@ const sortedArticles = articles.sort((a, b) => {
                     {article.data.tags && article.data.tags.length > 0 && (
                       <div class="flex flex-wrap gap-2">
                         {article.data.tags.map((tag) => (
-                          <span class="rounded-[10px] bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
+                          <span class="rounded-[10px] bg-white px-2 py-1 text-xs font-medium text-gray-700">
                             {tag}
                           </span>
                         ))}
