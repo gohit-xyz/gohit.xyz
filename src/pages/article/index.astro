@@ -1,8 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import ThemeToggle from '@/components/ThemeToggle'
+import gbImage from '@/assets/images/gb.jpg'
 import { getCollection } from 'astro:content'
 import { ArrowLeftIcon } from '@/components/icons/icons'
-import ThemeToggle from '@/components/ThemeToggle'
 
 const articles = await getCollection('articles', ({ data }) => {
   return data.draft !== true
@@ -15,13 +16,13 @@ const sortedArticles = articles.sort((a, b) => {
 
 <Layout>
   <div class="custom-cursor flex min-h-screen w-full items-center justify-center">
-    <main class="relative w-full max-w-4xl px-4 py-2 sm:px-6">
+    <main class="relative mt-10 mb-10 w-full max-w-4xl px-4 py-2 sm:px-6">
       <!-- Title -->
       <div class="mb-8 flex items-center gap-3">
         <a href="/">
           <ArrowLeftIcon className="h-8 w-8 opacity-60 hover:opacity-80" />
         </a>
-        <h1 class="text-4xl font-bold">Articles</h1>
+        <h1 class="text-4xl font-bold">My articles</h1>
       </div>
 
       <!-- Theme toggle -->
@@ -31,25 +32,45 @@ const sortedArticles = articles.sort((a, b) => {
       <div class="grid gap-6">
         {
           sortedArticles.map((article) => (
-            <article class="style rounded-lg border border-gray-200 p-6 transition hover:shadow-lg">
+            <article>
               <a href={`/article/${article.slug}`} class="block">
-                <h2 class="mb-2 text-2xl font-bold hover:text-blue-600">{article.data.title}</h2>
-                <p class="mb-4 text-gray-600">{article.data.description}</p>
-                <div class="flex items-center gap-4 text-sm text-gray-500">
-                  <time datetime={article.data.publishDate.toString()}>
-                    {new Date(article.data.publishDate).toLocaleDateString('es-ES', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </time>
-                  {article.data.tags && (
-                    <div class="flex flex-wrap gap-2">
-                      {article.data.tags.map((tag) => (
-                        <span class="rounded-full bg-gray-200 px-2 py-1 text-xs">{tag}</span>
-                      ))}
+                {/* IMG */}
+                <div class="h-[250px] w-full overflow-hidden rounded-t-lg">
+                  <img
+                    src="/src/assets/images/test.jpg"
+                    alt=""
+                    class="h-full w-full object-cover object-center"
+                  />
+                </div>
+                {/* TXT */}
+                <div class="rounded-b-lg bg-white p-6 text-black">
+                  <div class="flex items-center gap-2">
+                    <img
+                      src="/src/assets/images/gb.jpg"
+                      alt=""
+                      class="h-10 w-10 rounded-full object-cover shadow-md sm:h-10 sm:w-10"
+                    />
+                    <div class="flex flex-col gap-0">
+                      <h2 class="leading-tight text-black/80">Gohit Bastian</h2>
+                      <span class="text-[15px] leading-tight text-black/60">Nov 17</span>
                     </div>
-                  )}
+                  </div>
+                  {/* Title */}
+                  <div class="p-4">
+                    <div class="">
+                      <h2 class="mb-2 text-2xl font-bold text-black hover:text-orange-600">
+                        {article.data.title}
+                      </h2>
+                    </div>
+                    {/* hashtag */}
+                    {article.data.tags && (
+                      <div class="flex flex-wrap gap-2">
+                        {article.data.tags.map((tag) => (
+                          <span class="rounded-[10px] bg-gray-200 px-2 py-1 text-xs">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </a>
             </article>
@@ -63,7 +84,7 @@ const sortedArticles = articles.sort((a, b) => {
     /* Theme Toggle Icon */
     :global(.theme-toggle) {
       position: absolute;
-      top: 15px;
+      top: 13px;
       right: 21px;
       background-color: #4a4a4a3a;
       border-radius: 50%;
