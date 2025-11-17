@@ -6,7 +6,7 @@ import OrangeBtn from '@/components/ui/buttons/OrangeBtn.astro'
 ---
 
 <Layout>
-  <div class="flex min-h-screen w-full items-center justify-center">
+  <div class="custom-cursor flex min-h-screen w-full items-center justify-center">
     <main class="relative mx-auto w-full max-w-4xl px-6 py-8 sm:px-6">
       <!-- Date -->
       <div class="mb-6 flex items-center gap-2">
@@ -172,3 +172,13 @@ import OrangeBtn from '@/components/ui/buttons/OrangeBtn.astro'
     </main>
   </div>
 </Layout>
+
+<style is:global>
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  .custom-cursor {
+    cursor: url('/cursors/Pointer.ico'), default;
+  }
+</style>
