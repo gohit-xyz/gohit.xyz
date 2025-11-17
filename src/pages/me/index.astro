@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import meImage from '@/assets/images/me.jpg'
 import { TwitterIcon, GitHubIcon, ArrowBackIcon } from '@/components/icons/icons'
+import OrangeBtn from '@/components/ui/buttons/OrangeBtn.astro'
 ---
 
 <Layout>
@@ -162,6 +163,11 @@ import { TwitterIcon, GitHubIcon, ArrowBackIcon } from '@/components/icons/icons
           <a href="/linux" class="text-blue-400 hover:underline"> Linux </a>
           .
         </p>
+      </div>
+
+      <!-- Button Article -->
+      <div class="pt-6">
+        <OrangeBtn href="/article" text="More Articles" />
       </div>
     </main>
   </div>
