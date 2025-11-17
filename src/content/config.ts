@@ -12,6 +12,7 @@ const articlesCollection = defineCollection({
 		profile: z.string().optional(),
 		tags: z.array(z.string()).optional(),
 		draft: z.boolean().optional(),
+		url: z.string().optional(),
 	}),
 });
 
