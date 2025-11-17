@@ -20,7 +20,7 @@ import { GitHubIcon } from '../../components/icons/icons.ts';
     <!-- Right Side: Theme Toggle and GitHub -->
     <div class="flex items-center space-x-4">
       <ThemeToggle client:load />
-      <a href="https://github.com/gohit-xyz/linux.gohit.xyz" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+      <a href="https://github.com/gohit-xyz/gohit.xyz" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
         <GitHubIcon className="w-6 h-6" />
         <span id="github-stars" class="text-sm">Loading...</span>
       </a>
@@ -57,7 +57,7 @@ import { GitHubIcon } from '../../components/icons/icons.ts';
   // Fetch GitHub stars
   async function fetchGitHubStars() {
     try {
-    const response = await fetch('https://api.github.com/repos/bastndev/Compare-Code');
+      const response = await fetch('https://api.github.com/repos/gohit-xyz/gohit.xyz');
       const data = await response.json();
       const starsElement = document.getElementById('github-stars');
       if (starsElement) {
