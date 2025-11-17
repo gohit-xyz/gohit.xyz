@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
 import { getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
 import { ArrowLeftIcon } from '@/components/icons/icons'
 
 const articles = await getCollection('articles', ({ data }) => {
@@ -18,8 +19,8 @@ const sortedArticles = articles.sort((a, b) => {
     <main class="relative mt-10 mb-10 w-full max-w-4xl px-4 py-2 sm:px-6">
       <!-- Title -->
       <div class="mb-8 flex items-center gap-3">
-        <a href="/">
-          <ArrowLeftIcon className="h-8 w-8 opacity-60 hover:opacity-80" />
+        <a href="/" aria-label="Volver al inicio">
+          <ArrowLeftIcon className="h-8 w-8 opacity-60 transition-opacity hover:opacity-80" />
         </a>
         <h1 class="text-4xl font-bold">My articles</h1>
       </div>
@@ -27,54 +28,67 @@ const sortedArticles = articles.sort((a, b) => {
       <!-- Theme toggle -->
       <ThemeToggle client:idle />
 
-      <!-- Article -->
+      <!-- Articles List -->
       <div class="grid gap-6">
         {
           sortedArticles.map((article) => (
-            <article>
+            <article class="group">
               <a href={`/article/${article.slug}`} class="block">
-                {/* IMG - banner */}
+                {/* Banner Image */}
                 {article.data.banner && (
                   <div class="banner-container h-[250px] w-full overflow-hidden rounded-t-lg">
                     <img
                       src={article.data.banner}
-                      alt={article.data.title}
+                      alt={`Banner de ${article.data.title}`}
                       class="banner-image h-full w-full object-cover object-center"
+                      loading="lazy"
                     />
                   </div>
                 )}
-                {/* TXT */}
+
+                {/* Article Content */}
                 <div
-                  class={`bg-white pt-6 pr-6 pl-6 text-black ${article.data.banner ? 'rounded-b-lg' : 'rounded-lg'}`}
+                  class={`bg-white pt-6 pr-6 pb-6 pl-6 text-black transition-shadow hover:shadow-lg ${article.data.banner ? 'rounded-b-lg' : 'rounded-lg'}`}
                 >
-                  <div class="flex items-center gap-2">
+                  {/* Author Info */}
+                  <div class="mb-4 flex items-center gap-2">
                     <img
-                      src={article.data.profile || 'src/assets/images/test/user.png'}
-                      alt={article.data.author}
-                      class="h-10 w-10 rounded-full object-cover shadow-md sm:h-10 sm:w-10"
+                      src={article.data.profile || '/src/assets/images/test/user.png'}
+                      alt={`Picture ${article.data.author}`}
+                      class="h-10 w-10 rounded-full object-cover shadow-md"
+                      loading="lazy"
                     />
                     <div class="flex flex-col gap-0">
-                      <h2 class="leading-tight text-black/80">{article.data.author}</h2>
-                      <span class="text-[15px] leading-tight text-black/60">
+                      <h2 class="leading-tight font-medium text-black/80">{article.data.author}</h2>
+                      <time
+                        class="text-[15px] leading-tight text-black/60"
+                        datetime={
+                          typeof article.data.publishDate === 'string'
+                            ? article.data.publishDate
+                            : article.data.publishDate.toISOString()
+                        }
+                      >
                         {new Date(article.data.publishDate).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
                         })}
-                      </span>
+                      </time>
                     </div>
                   </div>
+
                   {/* Title */}
-                  <div class="p-4">
-                    <div class="">
-                      <h2 class="mb-2 text-2xl font-bold text-black hover:text-orange-600">
-                        {article.data.title}
-                      </h2>
-                    </div>
-                    {/* hashtag */}
-                    {article.data.tags && (
+                  <div class="px-4">
+                    <h3 class="mb-3 text-2xl font-bold text-black transition-colors group-hover:text-orange-600">
+                      {article.data.title}
+                    </h3>
+
+                    {/* Tags */}
+                    {article.data.tags && article.data.tags.length > 0 && (
                       <div class="flex flex-wrap gap-2">
                         {article.data.tags.map((tag) => (
-                          <span class="rounded-[10px] bg-gray-200 px-2 py-1 text-xs">{tag}</span>
+                          <span class="rounded-[10px] bg-gray-200 px-2 py-1 text-xs font-medium text-gray-700">
+                            {tag}
+                          </span>
                         ))}
                       </div>
                     )}
@@ -93,8 +107,8 @@ const sortedArticles = articles.sort((a, b) => {
   /* Theme Toggle Icon */
   :global(.theme-toggle) {
     position: absolute;
-    top: 13px;
-    right: 21px;
+    top: 1rem;
+    right: 1.5rem;
     background-color: #4a4a4a3a;
     border-radius: 50%;
     padding: 6px;
@@ -112,6 +126,7 @@ const sortedArticles = articles.sort((a, b) => {
 
   :global(.theme-toggle:active) {
     background-color: #3a3a3a;
+    transform: scale(0.95);
   }
 
   :global(.theme-toggle svg) {
@@ -128,7 +143,7 @@ const sortedArticles = articles.sort((a, b) => {
   /* Banner Effects */
   .banner-container {
     position: relative;
-    transition: transform 0.3s ease;
+    overflow: hidden;
   }
 
   .banner-image {
@@ -140,7 +155,17 @@ const sortedArticles = articles.sort((a, b) => {
     transform: scale(1.1);
   }
 
-  .style {
-    background-color: white;
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    :global(.theme-toggle) {
+      top: 0.75rem;
+      right: 1rem;
+      padding: 5px;
+    }
+
+    :global(.theme-toggle svg) {
+      width: 20px;
+      height: 20px;
+    }
   }
 </style>
