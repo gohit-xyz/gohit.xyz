@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
-import gbImage from '@/assets/images/gb.jpg'
 import { getCollection } from 'astro:content'
 import { ArrowLeftIcon } from '@/components/icons/icons'
 
@@ -43,7 +42,7 @@ const sortedArticles = articles.sort((a, b) => {
                   />
                 </div>
                 {/* TXT */}
-                <div class="rounded-b-lg bg-white p-6 text-black">
+                <div class="rounded-b-lg bg-white pt-6 pr-6 pl-6 text-black">
                   <div class="flex items-center gap-2">
                     <img
                       src="/src/assets/images/gb.jpg"
