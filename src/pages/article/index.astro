@@ -66,7 +66,7 @@ const sortedArticles = articles.sort((a, b) => {
       <div class="grid gap-8 md:grid-cols-2">
         {
           sortedArticles.map((article) => (
-            <article class="group relative">
+            <article class="group relative bg-black rounded-lg ">
               <a href={`/article/${article.slug}`} class="block h-full">
                 {/* Card Container */}
                 <div class="relative h-full overflow-hidden rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white hover:shadow-xl dark:border-gray-800 dark:bg-black/40 dark:hover:border-gray-700 dark:hover:bg-black/60">
