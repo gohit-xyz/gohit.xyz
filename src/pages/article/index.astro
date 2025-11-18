@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
 import { getCollection } from 'astro:content'
 import { ArrowLeftIcon } from '@/components/icons/icons'
+import Footer from '@/sections/shared/Footer.astro'
 
 const articles = await getCollection('articles', ({ data }) => {
   return data.draft !== true
@@ -20,10 +21,10 @@ const sortedArticles = articles.sort((a, b) => {
       class="fixed top-0 left-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
     >
     </div>
-    <div
+    <!-- <div
       class="fixed top-0 right-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
     >
-    </div>
+    </div> -->
 
     <!-- Top Decorative Line -->
     <div
@@ -66,7 +67,7 @@ const sortedArticles = articles.sort((a, b) => {
       <div class="grid gap-8 md:grid-cols-2">
         {
           sortedArticles.map((article) => (
-            <article class="group relative bg-black rounded-lg ">
+            <article class="group relative rounded-lg bg-black">
               <a href={`/article/${article.slug}`} class="block h-full">
                 {/* Card Container */}
                 <div class="relative h-full overflow-hidden rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white hover:shadow-xl dark:border-gray-800 dark:bg-black/40 dark:hover:border-gray-700 dark:hover:bg-black/60">
@@ -204,11 +205,12 @@ const sortedArticles = articles.sort((a, b) => {
         )
       }
 
-      {/* Footer Decorative Line */}
+      {/* Decorative Line & Footer */}
       <div
         class="mt-16 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
       >
       </div>
+      <Footer />
     </main>
   </div>
 </Layout>
