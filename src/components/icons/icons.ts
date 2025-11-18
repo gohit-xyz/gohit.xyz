@@ -4,6 +4,7 @@ export { ArrowLeftIcon } from './global/arrow-left'
 export { SunIcon } from './global/sun'
 export { MoonIcon } from './global/moon'
 export { SponsorIcon } from './global/sponsor'
+export { ExternalLinkIcon } from './global/external-link'
 
 // --- Social Media Icons
 export { FacebookIcon } from './social-media/facebook'
