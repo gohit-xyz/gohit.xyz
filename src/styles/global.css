@@ -8,13 +8,13 @@
 }
 
 :root {
-  --bg: white;
+  --bg: #f6f6f6;
   --text: black;
   --transition: 0.3s ease-in-out;
 }
 
 html.dark {
-  --bg: black;
+  --bg: #000000;
   --text: white;
 }
 
@@ -40,6 +40,6 @@ body {
 /* ==================== 
    Cursor & Scrollbar
    ==================== */
-body {
+/* body {
   cursor: url('/cursors/Pointer.ico'), default;
-}
+} */
