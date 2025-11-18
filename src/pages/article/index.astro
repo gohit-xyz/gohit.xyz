@@ -1,9 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
+import Footer from '@/sections/shared/Footer.astro'
 import { getCollection } from 'astro:content'
 import { ArrowLeftIcon, ExternalLinkIcon } from '@/components/icons/icons'
-import Footer from '@/sections/shared/Footer.astro'
+import { ArrowRightIcon } from '@/components/icons/global/arrow-right'
 
 const articles = await getCollection('articles', ({ data }) => {
   return data.draft !== true
@@ -154,19 +155,7 @@ const sortedArticles = articles.sort((a, b) => {
                     {/* Read more */}
                     <div class="flex items-center gap-2 pt-2 text-sm font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
                       <span>Read article</span>
-                      <svg
-                        class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                      <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
 
