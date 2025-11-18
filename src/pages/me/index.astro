@@ -1,9 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import meImage from '@/assets/images/me.jpg'
-import { TwitterIcon, GitHubIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/icons'
-import OrangeBtn from '@/components/ui/buttons/OrangeBtn.astro'
 import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
+import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/icons'
 ---
 
 <Layout>
@@ -118,7 +117,7 @@ import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
       <!-- MARK: Articles-->
       <div class="space-y-8 leading-relaxed opacity-80">
         <!-- Section Title -->
-        <h2 class="mb-6 text-3xl font-bold text-center">Currently Working On - Linux 💛</h2>
+        <h2 class="mb-6 text-center text-3xl font-bold">Currently Working On - Linux 💛</h2>
 
         <p>
           Selecting a Linux distribution shouldn't require days of research and trial-and-error. Our
@@ -169,7 +168,7 @@ import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
       </div>
 
       <!-- Button Article -->
-      <div class="pt-6 flex justify-end">
+      <div class="flex justify-end pt-6">
         <NextPageBtn href="/article" text="More Articles" class="cursor-pointer" />
       </div>
     </main>
