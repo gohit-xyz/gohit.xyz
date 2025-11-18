@@ -38,8 +38,12 @@ body {
 }
 
 /* ==================== 
-   Cursor & Scrollbar
+    Scrollbar & Cursor
    ==================== */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #888 transparent;
+}
 /* body {
   cursor: url('/cursors/Pointer.ico'), default;
 } */

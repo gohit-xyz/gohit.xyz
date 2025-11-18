@@ -175,10 +175,10 @@ import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
 </Layout>
 
 <style is:global>
-  ::-webkit-scrollbar {
-    width: 0px;
+  * {
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
   }
-
   .custom-cursor {
     cursor: url('/cursors/Pointer.ico'), default;
   }
