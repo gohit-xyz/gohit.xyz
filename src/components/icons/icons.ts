@@ -1,10 +1,13 @@
 // --- Global
 export { ArrowBackIcon } from './global/arrow-back'
 export { ArrowLeftIcon } from './global/arrow-left'
+export { ArrowRightIcon } from './global/arrow-right'
+export { ExternalLinkIcon } from './global/external-link'
 export { SunIcon } from './global/sun'
 export { MoonIcon } from './global/moon'
 export { SponsorIcon } from './global/sponsor'
-export { ExternalLinkIcon } from './global/external-link'
+export { ShareIcon } from './global/share'
+export { TimeIcon } from './global/time'
 
 // --- Social Media Icons
 export { FacebookIcon } from './social-media/facebook'
