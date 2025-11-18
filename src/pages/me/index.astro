@@ -10,12 +10,14 @@ import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
   <div class="custom-cursor flex min-h-screen w-full items-center justify-center">
     <main class="relative mx-auto w-full max-w-4xl px-6 py-8 sm:px-6">
       <!-- Date -->
-      <div class="mb-6 flex items-center gap-2">
-        <a href="/">
-          <ArrowBackIcon className="opacity-60 hover:opacity-80" />
+      <nav class="mb-12 flex items-center gap-2 text-sm text-gray-400">
+        <a href="/" class="flex items-center gap-2 transition-colors hover:text-gray-300">
+          <ArrowBackIcon className="h-4 w-4" />
+          Home
         </a>
-        <div class="text-sm opacity-60">Nov 14th, 2025</div>
-      </div>
+        <span class="opacity-40">/</span>
+        <time datetime="2025-11-14" class="text-gray-500">Nov 14th, 2025</time>
+      </nav>
 
       <!-- Main title -->
       <h1 class="mb-12 text-4xl font-bold md:text-5xl">
@@ -28,23 +30,22 @@ import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
         </span>
       </h1>
 
-      <!-- Author Cards -->
-      <div class="mb-2 flex flex-wrap gap-6">
-        <!-- Profile -->
-        <div class="flex items-center gap-4 py-3 pr-3">
+      <!-- Author Profile -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4">
           <div
-            class="relative h-16 w-16 overflow-hidden rounded-full bg-linear-to-br from-gray-600 to-gray-700"
+            class="relative h-16 w-16 overflow-hidden rounded-full border-4 border-black shadow-xl ring-2 ring-gray-800"
           >
             <img
               src={meImage.src}
-              alt="Profile"
+              alt="Gohit Bastian Profile"
               class="h-full w-full object-cover"
               loading="eager"
             />
           </div>
           <div>
             <div class="text-xl font-semibold">Gohit Bastian</div>
-            <div class="flex items-center gap-2 text-sm opacity-60">
+            <div class="flex items-center gap-2 text-sm text-gray-400">
               <span>@gohitx</span>
               <div class="flex gap-1.5">
                 <a
@@ -102,14 +103,15 @@ import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
       </div>
 
       <!-- TODO:  -->
-      <div class="my-8 flex items-center justify-center gap-4 pt-10">
-        <div class="flex-1 border-t border-dashed border-current opacity-20"></div>
-        <span
-          class="rounded-lg bg-[#363636] px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm"
-        >
-          Latest Article
-        </span>
-        <div class="flex-1 border-t border-dashed border-current opacity-20"></div>
+      <div class="relative mx-auto my-16 max-w-4xl">
+        <div class="h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <span
+            class="rounded-lg bg-[#0e0e0e] px-4 py-2 text-sm font-semibold text-white ring-1 ring-gray-800"
+          >
+            Latest Article
+          </span>
+        </div>
       </div>
       <!-- TODO:  -->
 
