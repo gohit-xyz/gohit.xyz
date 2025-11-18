@@ -3,8 +3,9 @@
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
 import Footer from '@/sections/shared/Footer.astro'
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
 import { getCollection } from 'astro:content'
-import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
+import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
 
 // Get Articles Collection
 const articles = await getCollection('articles', ({ data }) => {
@@ -53,16 +54,7 @@ const formatDate = (date: Date | string) => {
       <header class="mb-16">
         
         <!-- Back Button -->
-        <div class="mb-8 flex items-center gap-4">
-          <a
-            href="/"
-            aria-label="back"
-            class="group flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
-          >
-            <ArrowLeftIcon className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-            <span class="text-sm">Back</span>
-          </a>
-        </div>
+         <BackButtonOne/>
 
         <!-- Title & Description -->
         <div class="space-y-4">
