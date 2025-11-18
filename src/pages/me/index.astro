@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import meImage from '@/assets/images/me.jpg'
 import { TwitterIcon, GitHubIcon, ArrowBackIcon } from '@/components/icons/icons'
 import OrangeBtn from '@/components/ui/buttons/OrangeBtn.astro'
+import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
 ---
 
 <Layout>
@@ -167,7 +168,7 @@ import OrangeBtn from '@/components/ui/buttons/OrangeBtn.astro'
 
       <!-- Button Article -->
       <div class="pt-6">
-        <OrangeBtn href="/article" text="More Articles" />
+        <NextPageBtn href="/article" text="More Articles" class="cursor-pointer" />
       </div>
     </main>
   </div>
