@@ -16,11 +16,7 @@ const sortedArticles = articles.sort((a, b) => {
 
 <Layout>
   <div class="relative min-h-screen w-full">
-    <!-- Decorative Background Lines -->
-    <!-- <div
-      class="absolute top-0 left-0 hidden h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent lg:block"
-    >
-    </div> -->
+    <!-- Decorative background lines -->
     <div
       class="absolute top-0 left-110 hidden h-full w-px bg-linear-to-b from-transparent via-gray-600 to-transparent opacity-50 lg:block"
     >
@@ -33,22 +29,17 @@ const sortedArticles = articles.sort((a, b) => {
       class="fixed top-0 left-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
     >
     </div>
-    <!-- <div
-      class="fixed top-0 right-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
-    >
-    </div> -->
 
-    <!-- Top Decorative Line -->
+    <!-- Top decorative line -->
     <div
       class="fixed top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"
     >
     </div>
 
     <main class="relative mx-auto max-w-4xl px-6 pt-8 pb-2 lg:px-8">
-      <!-- Theme toggle -->
       <ThemeToggle client:idle />
 
-      <!-- Header Section -->
+      <!-- Header section -->
       <header class="mb-16">
         <div class="mb-8 flex items-center gap-4">
           <a
@@ -68,23 +59,20 @@ const sortedArticles = articles.sort((a, b) => {
           </p>
         </div>
 
-        <!-- Decorative line -->
         <div
           class="mt-8 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
         >
         </div>
       </header>
 
-      <!-- Articles Grid -->
-      <!-- Change: single-column layout so every article takes the full width of the content area -->
+      <!-- Articles grid -->
       <div class="grid grid-cols-1 gap-8">
         {
           sortedArticles.map((article) => (
             <article class="group relative rounded-lg bg-black">
               <a href={`/article/${article.slug}`} class="block h-full w-full">
-                {/* Card Container */}
                 <div class="relative h-full overflow-hidden rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white hover:shadow-xl dark:border-gray-800 dark:bg-black/40 dark:hover:border-gray-700 dark:hover:bg-black/60">
-                  {/* Banner Image */}
+                  {/* Banner image */}
                   {article.data.banner && (
                     <div class="relative h-48 w-full overflow-hidden">
                       <img
@@ -93,14 +81,13 @@ const sortedArticles = articles.sort((a, b) => {
                         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />
-                      {/* Gradient Overlay */}
                       <div class="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-60" />
                     </div>
                   )}
 
                   {/* Content */}
                   <div class="space-y-4 bg-black p-6">
-                    {/* Meta Info - Author & Date */}
+                    {/* Author and date */}
                     <div class="flex items-center justify-between">
                       <div class="flex items-center gap-3">
                         <img
@@ -130,7 +117,7 @@ const sortedArticles = articles.sort((a, b) => {
                         </div>
                       </div>
 
-                      {/* External Link Icon */}
+                      {/* External link icon */}
                       {article.data.url && (
                         <svg
                           class="h-5 w-5 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400"
@@ -176,7 +163,7 @@ const sortedArticles = articles.sort((a, b) => {
                       </div>
                     )}
 
-                    {/* Read More */}
+                    {/* Read more */}
                     <div class="flex items-center gap-2 pt-2 text-sm font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
                       <span>Read article</span>
                       <svg
@@ -195,7 +182,7 @@ const sortedArticles = articles.sort((a, b) => {
                     </div>
                   </div>
 
-                  {/* Hover Border Effect */}
+                  {/* Hover border effect */}
                   <div class="absolute inset-0 rounded-lg opacity-0 ring-1 ring-blue-500/50 transition-opacity group-hover:opacity-100 dark:ring-blue-500/50" />
                 </div>
               </a>
@@ -204,7 +191,7 @@ const sortedArticles = articles.sort((a, b) => {
         }
       </div>
 
-      {/* Empty State */}
+      {/* Empty state */}
       {
         sortedArticles.length === 0 && (
           <div class="flex min-h-[400px] items-center justify-center">
@@ -218,7 +205,6 @@ const sortedArticles = articles.sort((a, b) => {
         )
       }
 
-      {/* Decorative Line & Footer */}
       <div
         class="mt-16 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
       >
@@ -229,7 +215,7 @@ const sortedArticles = articles.sort((a, b) => {
 </Layout>
 
 <style>
-  /* Theme Toggle Icon */
+  /* Theme toggle styling */
   :global(.theme-toggle) {
     position: absolute;
     top: 3rem;
@@ -258,12 +244,11 @@ const sortedArticles = articles.sort((a, b) => {
     height: 20px;
   }
 
-  /* Smooth scroll */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Line clamp for description */
+  /* Line clamp utility */
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -271,7 +256,7 @@ const sortedArticles = articles.sort((a, b) => {
     overflow: hidden;
   }
 
-  /* Prevent text flicker on theme change */
+  /* Prevent text flicker on theme transitions */
   h1,
   h2,
   h3,
@@ -285,7 +270,6 @@ const sortedArticles = articles.sort((a, b) => {
     will-change: color;
   }
 
-  /* Responsive adjustments */
   @media (max-width: 768px) {
     :global(.theme-toggle) {
       top: 1rem;
@@ -299,7 +283,7 @@ const sortedArticles = articles.sort((a, b) => {
     }
   }
 
-  /* Animation for cards on load */
+  /* Staggered fade-in animation for articles */
   @keyframes fadeInUp {
     from {
       opacity: 0;
