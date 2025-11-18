@@ -4,8 +4,7 @@ import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
 import Footer from '@/sections/shared/Footer.astro'
 import { getCollection } from 'astro:content'
-import { ArrowLeftIcon, ExternalLinkIcon } from '@/components/icons/icons'
-import { ArrowRightIcon } from '@/components/icons/global/arrow-right'
+import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
 
 // Get Articles Collection
 const articles = await getCollection('articles', ({ data }) => {
@@ -86,7 +85,7 @@ const formatDate = (date: Date | string) => {
             <a href={`/article/${article.slug}`} class="block h-full w-full">
               <div class="relative h-full overflow-hidden rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white hover:shadow-xl dark:border-gray-800 dark:bg-black/40 dark:hover:border-gray-700 dark:hover:bg-black/60">
                 
-                <!-- Banner Image -->
+                {/* Banner Image*/}
                 {article.data.banner && (
                   <div class="relative h-48 w-full overflow-hidden">
                     <img
@@ -99,13 +98,13 @@ const formatDate = (date: Date | string) => {
                   </div>
                 )}
 
-                <!-- Card Content -->
+                {/* Card Content */}
                 <div class="space-y-4 bg-black p-6">
                   
-                  <!-- Author & Date Row -->
+                  {/* Author & Date Row */}
                   <div class="flex items-center justify-between">
                     
-                    <!-- Author Info -->
+                    {/* Author Info */}
                     <div class="flex items-center gap-3">
                       <img
                         src={article.data.profile || '/src/assets/images/test/user.png'}
@@ -128,23 +127,23 @@ const formatDate = (date: Date | string) => {
                       </div>
                     </div>
 
-                    <!-- External Link Icon -->
+                    {/* External Link Icon */}
                     <ExternalLinkIcon className="h-5 w-5 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
                   </div>
 
-                  <!-- Article Title -->
+                  {/* Article Title */}
                   <h2 class="text-2xl font-bold leading-tight tracking-tight text-black transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
                     {article.data.title}
                   </h2>
 
-                  <!-- Article Description -->
+                  {/* Article Description */}
                   {article.data.description && (
                     <p class="line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                       {article.data.description}
                     </p>
                   )}
 
-                  <!-- Tags -->
+                  {/*  Tags*/}
                   {article.data.tags && article.data.tags.length > 0 && (
                     <div class="flex flex-wrap gap-2 pt-2">
                       {article.data.tags.slice(0, 3).map((tag) => (
@@ -160,14 +159,14 @@ const formatDate = (date: Date | string) => {
                     </div>
                   )}
 
-                  <!-- Read More Link -->
+                  {/* Read More Link */}
                   <div class="flex items-center gap-2 pt-2 text-sm font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
                     <span>Read article</span>
                     <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
 
-                <!-- Hover Border Effect -->
+                {/* Hover Border Effect */}
                 <div class="absolute inset-0 rounded-lg opacity-0 ring-1 ring-blue-500/50 transition-opacity group-hover:opacity-100 dark:ring-blue-500/50" />
               </div>
             </a>
@@ -199,7 +198,7 @@ const formatDate = (date: Date | string) => {
 
 <style>
   /* ========== THEME TOGGLE ========== */
-  
+
   :global(.theme-toggle) {
     position: absolute;
     top: 3rem;
@@ -242,7 +241,7 @@ const formatDate = (date: Date | string) => {
   }
 
   /* ========== GLOBAL STYLES ========== */
-  
+
   html {
     scroll-behavior: smooth;
   }
@@ -270,7 +269,7 @@ const formatDate = (date: Date | string) => {
   }
 
   /* ========== ANIMATIONS ========== */
-  
+
   /* Staggered Fade-in for Articles */
   @keyframes fadeInUp {
     from {
@@ -288,10 +287,22 @@ const formatDate = (date: Date | string) => {
     opacity: 0;
   }
 
-  article:nth-child(1) { animation-delay: 0.1s; }
-  article:nth-child(2) { animation-delay: 0.2s; }
-  article:nth-child(3) { animation-delay: 0.3s; }
-  article:nth-child(4) { animation-delay: 0.4s; }
-  article:nth-child(5) { animation-delay: 0.5s; }
-  article:nth-child(6) { animation-delay: 0.6s; }
+  article:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  article:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  article:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  article:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  article:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  article:nth-child(6) {
+    animation-delay: 0.6s;
+  }
 </style>
