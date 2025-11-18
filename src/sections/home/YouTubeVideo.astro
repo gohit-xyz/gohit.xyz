@@ -114,35 +114,26 @@ const videoId = youtubeVideoUrl.split('v=')[1]?.split('&')[0] || ''
     const skeletonOverlay = document.querySelector('.skeleton-overlay') as HTMLElement;
 
     if (highQualityImg && blurPlaceholder && skeletonOverlay) {
-      // Check if image is already cached
       if (highQualityImg.complete && highQualityImg.naturalHeight !== 0) {
-        // Image is ALREADY cached - show instantly without effects
         highQualityImg.classList.add('instant-show');
         blurPlaceholder.classList.add('hide');
         skeletonOverlay.classList.add('hide');
       } else {
-        // Image is NOT cached - show placeholders
         blurPlaceholder.classList.add('show');
         skeletonOverlay.classList.add('show');
         
         const handleImageLoad = () => {
-          // Fade-in the HD image
           highQualityImg.classList.add('fade-in');
-          
-          // Hide blur and skeleton after fade-in
           setTimeout(() => {
             blurPlaceholder.classList.add('hide');
             skeletonOverlay.classList.add('hide');
-          }, 700); // Matches the opacity transition duration
+          }, 700);
         };
 
         highQualityImg.addEventListener('load', handleImageLoad);
-        // Fallback for error loading image
         highQualityImg.addEventListener('error', () => {
-          console.error('Failed to load high-quality image.');
           blurPlaceholder.classList.add('hide');
           skeletonOverlay.classList.add('hide');
-          // Optionally show a broken image icon or alternative content
         });
       }
     }
