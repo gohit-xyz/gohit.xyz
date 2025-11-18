@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import meImage from '@/assets/images/me.jpg'
 import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
 import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/icons'
+import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
 ---
 
 <Layout>
@@ -10,10 +11,7 @@ import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/ic
     <main class="relative mx-auto w-full max-w-4xl px-6 py-8 sm:px-6">
       <!-- Back & Date -->
       <nav class="mb-8 flex items-center gap-2 text-sm text-gray-400">
-        <a href="/" class="flex items-center gap-2 transition-colors hover:text-gray-300">
-          <ArrowBackIcon className="h-4 w-4" />
-          Home
-        </a>
+        <BackButtonTwo href="/" text="Home" />
         <span class="opacity-40">/</span>
         <time datetime="2025-11-14" class="text-gray-500">Nov 14th, 2025</time>
       </nav>

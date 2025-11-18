@@ -1,14 +1,16 @@
 ---
-import { ArrowLeftIcon } from '@/components/icons/icons'
+import { ArrowBackIcon } from '@/components/icons/icons'
+
+interface Props {
+  href?: string
+  text?: string
+  className?: string
+}
+
+const { href = '/', text = 'Home', className = '' } = Astro.props
 ---
 
-<div class="mb-8 flex items-center gap-4">
-  <a
-    href="/"
-    aria-label="Go back to home"
-    class="group flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
-  >
-    <ArrowLeftIcon className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-    <span class="text-sm">Back</span>
-  </a>
-</div>
+<a href={href} class={`flex items-center gap-2 transition-colors hover:text-gray-300 ${className}`}>
+  <ArrowBackIcon className="h-4 w-4" />
+  {text}
+</a>
