@@ -17,6 +17,18 @@ const sortedArticles = articles.sort((a, b) => {
 <Layout>
   <div class="relative min-h-screen w-full">
     <!-- Decorative Background Lines -->
+    <!-- <div
+      class="absolute top-0 left-0 hidden h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent lg:block"
+    >
+    </div> -->
+    <div
+      class="absolute top-0 left-110 hidden h-full w-px bg-linear-to-b from-transparent via-gray-600 to-transparent opacity-50 lg:block"
+    >
+    </div>
+    <div
+      class="absolute top-0 right-110 hidden h-full w-px bg-linear-to-b from-transparent via-gray-600 to-transparent opacity-50 lg:block"
+    >
+    </div>
     <div
       class="fixed top-0 left-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
     >
@@ -65,7 +77,7 @@ const sortedArticles = articles.sort((a, b) => {
 
       <!-- Articles Grid -->
       <!-- Change: single-column layout so every article takes the full width of the content area -->
-      <div class="grid gap-8 grid-cols-1">
+      <div class="grid grid-cols-1 gap-8">
         {
           sortedArticles.map((article) => (
             <article class="group relative rounded-lg bg-black">
