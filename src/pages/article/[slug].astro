@@ -182,7 +182,94 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
     background: linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.3), transparent);
     animation: fadeIn 1s ease-in;
   }
+
+  /* COPY Button Styles */
+  :global(.code-wrapper) {
+    position: relative;
+  }
+
+  :global(.copy-btn) {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(31, 41, 55, 0.9);
+    border: 1px solid rgba(75, 85, 99, 0.6);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+
+  :global(.copy-btn:hover) {
+    background: rgba(55, 65, 81, 0.95);
+    border-color: rgba(107, 114, 128, 0.8);
+    transform: scale(1.05);
+  }
+
+  :global(.copy-btn:active) {
+    transform: scale(0.95);
+  }
+
+  :global(.copy-btn svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: #9ca3af;
+    transition: stroke 0.2s;
+  }
+
+  :global(.copy-btn:hover svg) {
+    stroke: #d1d5db;
+  }
+
+  :global(.copy-btn.copied svg) {
+    stroke: #10b981;
+  }
 </style>
 
 <!-- --- --- -- --- -- -- MARK:Script -->
- <script></script>
+<script>
+  const ICONS = {
+    copy: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`,
+    check: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
+  }
+
+  async function copyCode(btn: HTMLButtonElement, code: string) {
+    try {
+      await navigator.clipboard.writeText(code)
+      btn.classList.add('copied')
+      btn.innerHTML = ICONS.check
+      setTimeout(() => {
+        btn.classList.remove('copied')
+        btn.innerHTML = ICONS.copy
+      }, 1500)
+    } catch (err) {
+      console.error('Copy failed:', err)
+    }
+  }
+
+  function initCopyButtons() {
+    // Only select in code <pre> 
+    document.querySelectorAll('pre:has(code):not(.code-wrapper pre)').forEach((pre) => {
+      const code = pre.querySelector('code')?.textContent?.trim()
+      if (!code) return
+
+      const wrapper = document.createElement('div')
+      wrapper.className = 'code-wrapper'
+      pre.parentNode?.insertBefore(wrapper, pre)
+      wrapper.appendChild(pre)
+
+      const btn = document.createElement('button')
+      btn.className = 'copy-btn'
+      btn.setAttribute('aria-label', 'Copy code')
+      btn.innerHTML = ICONS.copy
+      btn.onclick = () => copyCode(btn, code)
+      wrapper.appendChild(btn)
+    })
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', initCopyButtons)
+  document.addEventListener('astro:page-load', initCopyButtons)
+</script>
