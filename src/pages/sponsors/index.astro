@@ -1,10 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
 import { sponsors } from '@/data/sponsors'
 ---
 
 <Layout>
   <div class="sponsors-container">
+    <div class="back-button-container">
+      <BackButtonOne href="/" text="Home" />
+    </div>
     <!-- Hero Section -->
     <div class="hero-section">
       <div class="hero-content">
@@ -109,12 +113,18 @@ import { sponsors } from '@/data/sponsors'
     overflow: hidden;
   }
 
+  .back-button-container {
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 2rem; */
+  }
+
   /* Hero Section */
   .hero-section {
     position: relative;
     text-align: center;
     margin-bottom: 5rem;
-    padding: 3rem 0;
+    padding: 1rem 0;
   }
 
   .hero-content {
