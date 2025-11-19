@@ -1,11 +1,10 @@
 ---
-// Imports
 import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
-import { ArrowBackIcon, ShareIcon, TimeIcon } from '@/components/icons/icons'
+import { TimeIcon, ShareIcon } from '@/components/icons/icons'
 import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
 
-// Static Paths Generation
+// Static Paths
 export async function getStaticPaths() {
   const articles = await getCollection('articles')
   return articles.map((article) => ({
@@ -14,140 +13,134 @@ export async function getStaticPaths() {
   }))
 }
 
-// Props & Data
+// Props & Computed Values
 const { article } = Astro.props
 const { Content } = await article.render()
 
-// Reading Time Calculation
-const WORDS_PER_MINUTE = 200
-const wordCount = article.body.split(/\s+/).length
-const readingTime = Math.ceil(wordCount / WORDS_PER_MINUTE)
-
-// Format Date
+const readingTime = Math.ceil(article.body.split(/\s+/).length / 200)
 const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
 })
+
+// Decorative line component (future r)
+const DecorativeLine = ({ position }: { position: string }) => {
+  const baseClasses = "absolute top-0 hidden h-full w-px lg:block bg-gradient-to-b"
+  const variants = {
+    'left-primary': `${baseClasses} left-0 from-gray-800 via-gray-700 to-transparent`,
+    'left-secondary': `${baseClasses} left-20 from-transparent via-gray-800 to-transparent opacity-50`,
+    'right-primary': `${baseClasses} right-0 from-gray-800 via-gray-700 to-transparent`,
+    'right-secondary': `${baseClasses} right-20 from-transparent via-gray-800 to-transparent opacity-50`,
+  }
+  return variants[position as keyof typeof variants]
+}
+
+const Corner = ({ position }: { position: string }) => {
+  const positions = {
+    'top-left': 'left-0 top-0 border-l-2 border-t-2',
+    'top-right': 'right-0 top-0 border-r-2 border-t-2',
+    'bottom-left': 'bottom-0 left-0 border-b-2 border-l-2',
+    'bottom-right': 'bottom-0 right-0 border-b-2 border-r-2',
+  }
+  return `absolute h-16 w-16 border-gray-800 opacity-60 ${positions[position as keyof typeof positions]}`
+}
 ---
 
 <Layout>
   <article class="relative mx-auto max-w-5xl px-6 py-16 lg:px-8">
     
-    <!-- ========== DECORATIVE ELEMENTS ========== -->
+    <!-- Decorative Elements (optimized) -->
+    <div class={DecorativeLine({ position: 'left-primary' })}></div>
+    <div class={DecorativeLine({ position: 'left-secondary' })}></div>
+    <div class={DecorativeLine({ position: 'right-primary' })}></div>
+    <div class={DecorativeLine({ position: 'right-secondary' })}></div>
     
-    <!-- Vertical Lines - Left -->
-    <div class="absolute left-0 top-0 hidden h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent lg:block"></div>
-    <div class="absolute left-20 top-0 hidden h-full w-px bg-linear-to-b from-transparent via-gray-800 to-transparent opacity-50 lg:block"></div>
+    <div class={Corner({ position: 'top-left' })}></div>
+    <div class={Corner({ position: 'top-right' })}></div>
+    <div class={Corner({ position: 'bottom-left' })}></div>
+    <div class={Corner({ position: 'bottom-right' })}></div>
 
-    <!-- Vertical Lines - Right -->
-    <div class="absolute right-0 top-0 hidden h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent lg:block"></div>
-    <div class="absolute right-20 top-0 hidden h-full w-px bg-linear-to-b from-transparent via-gray-800 to-transparent opacity-50 lg:block"></div>
-
-    <!-- Corner Decorations - Top -->
-    <div class="absolute left-0 top-0 h-16 w-16 border-l-2 border-t-2 border-gray-800 opacity-60"></div>
-    <div class="absolute right-0 top-0 h-16 w-16 border-r-2 border-t-2 border-gray-800 opacity-60"></div>
-
-    <!-- Corner Decorations - Bottom -->
-    <div class="absolute bottom-0 left-0 h-16 w-16 border-b-2 border-l-2 border-gray-800 opacity-60"></div>
-    <div class="absolute bottom-0 right-0 h-16 w-16 border-b-2 border-r-2 border-gray-800 opacity-60"></div>
-
-    <!-- ========== MAIN CONTENT ========== -->
-    
+    <!-- Main Content -->
     <div class="relative z-10">
       
-      <!-- Breadcrumb Navigation -->
-      <nav class="mb-12 flex items-center justify-center gap-2 text-sm text-gray-400">
+      <!-- Breadcrumb -->
+      <nav class="mb-12 flex items-center justify-center text-sm text-gray-400" aria-label="Breadcrumb">
         <BackButtonTwo href="/article" text="Articles ◉" />
       </nav>
 
-      <!-- ========== HEADER SECTION ========== -->
-      
+      <!-- Header -->
       <header class="mb-16 text-center">
-        
-        <!-- Title -->
         <h1 class="mb-12 text-5xl font-bold leading-tight tracking-tight lg:text-6xl">
           {article.data.title}
         </h1>
 
         <!-- Author Avatar -->
-        <div class="mb-12 flex justify-center">
-          <div class="flex -space-x-3">
-            <a href="/">
-              <img
-                src={article.data.profile || '/src/assets/images/test/user.png'}
-                alt={`${article.data.author || 'Author'}'s avatar`}
-                class="h-12 w-12 rounded-full border-4 border-black object-cover shadow-xl ring-2 ring-gray-800 grayscale-0 hover:grayscale"
-                loading="lazy"
-              />
-            </a>
-          </div>
-        </div>
+        <a href="/" class="mb-12 inline-flex">
+          <img
+            src={article.data.profile || '/src/assets/images/test/user.png'}
+            alt={`${article.data.author || 'Author'}'s avatar`}
+            class="h-12 w-12 rounded-full border-4 border-black object-cover shadow-xl ring-2 ring-gray-800 transition-all hover:grayscale"
+            width="48"
+            height="48"
+            loading="lazy"
+          />
+        </a>
 
         <!-- Divider -->
-        <div class="mx-auto mb-8 h-px w-full max-w-4xl bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
+        <hr class="mx-auto mb-8 h-px w-full max-w-4xl border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent" />
 
-        <!-- Meta Information -->
+        <!-- Meta Info -->
         <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400">
-          
-          <!-- Reading Time -->
           <div class="flex items-center gap-2">
             <TimeIcon className="h-4 w-4" />
             <span>{readingTime} min read</span>
           </div>
 
-          <!-- External URL -->
           {article.data.url && (
             <a
               href={article.data.url}
               target="_blank"
               rel="noopener noreferrer"
               class="flex items-center gap-2 text-blue-400 transition-colors hover:text-blue-300"
-              title="Open external URL"
+              aria-label="Open external article URL"
             >
               <ShareIcon className="h-4 w-4" />
               <span>Open URL</span>
             </a>
           )}
 
-          <!-- Publish Date -->
           <time datetime={article.data.publishDate.toString()} class="text-gray-500">
             {formattedDate}
           </time>
         </div>
       </header>
 
-      <!-- Section Divider with Diamond -->
+      <!-- Diamond Divider -->
       <div class="relative mx-auto mb-12 max-w-4xl">
-        <div class="h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div class="h-2 w-2 rotate-45 border border-gray-700 bg-black"></div>
-        </div>
+        <hr class="h-px w-full border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent" />
+        <div class="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gray-700 bg-black"></div>
       </div>
 
-      <!-- ========== CONTENT SECTION ========== -->
-      
-      <div class="prose prose-invert prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-3xl prose-h3:mb-4 prose-h3:mt-8 prose-p:leading-normal prose-p:text-gray-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 prose-strong:text-white prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:py-0 prose-code:text-blue-300 prose-code:font-mono prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:shadow-lg mx-auto max-w-3xl"> 
-        <!-- Description/Lead -->
+      <!-- Content -->
+      <div class="prose prose-invert prose-lg mx-auto max-w-3xl prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-3xl prose-h3:mb-4 prose-h3:mt-8 prose-p:leading-normal prose-p:text-gray-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 prose-strong:text-white prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:text-blue-300 prose-code:font-mono prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:shadow-lg"> 
         {article.data.description && (
           <p class="lead mb-10 text-xl leading-relaxed text-gray-400">
             {article.data.description}
           </p>
         )}
-
-        <!-- Article Content -->
         <Content />
       </div>
 
-      <!-- ========== TAGS SECTION ========== -->
-      
-      {article.data.tags && article.data.tags.length > 0 && (
+      <!-- Tags -->
+      {(article.data.tags ?? []).length > 0 && (
         <footer class="mx-auto mt-16 max-w-3xl border-t border-gray-800 pt-8">
-          <div class="flex flex-wrap gap-2">
-            {article.data.tags.map((tag: string) => (
+          <div class="flex flex-wrap gap-2" role="list">
+            {(article.data.tags ?? []).map((tag: string) => (
               <a
                 href={`/tags/${tag.toLowerCase()}`}
                 class="rounded-full bg-gray-900 px-4 py-2 text-sm text-gray-300 ring-1 ring-gray-800 transition-all hover:bg-gray-800 hover:ring-gray-700"
+                role="listitem"
               >
                 {tag}
               </a>
@@ -159,17 +152,7 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
   </article>
 </Layout>
 
-<!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
   article::before {
     content: '';
     position: absolute;
@@ -183,7 +166,12 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
     animation: fadeIn 1s ease-in;
   }
 
-  /* COPY Button Styles */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Copy Button*/
   :global(.code-wrapper) {
     position: relative;
   }
@@ -228,16 +216,15 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
   }
 </style>
 
-<!-- --- --- -- --- -- -- MARK:Script -->
 <script>
   const ICONS = {
-    copy: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>`,
-    check: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
-  }
+    copy: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>',
+    check: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>'
+  } as const
 
-  async function copyCode(btn: HTMLButtonElement, code: string) {
+  const copyToClipboard = async (btn: HTMLButtonElement, text: string) => {
     try {
-      await navigator.clipboard.writeText(code)
+      await navigator.clipboard.writeText(text)
       btn.classList.add('copied')
       btn.innerHTML = ICONS.check
       setTimeout(() => {
@@ -249,27 +236,28 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
     }
   }
 
-  function initCopyButtons() {
-    // Only select in code <pre> 
-    document.querySelectorAll('pre:has(code):not(.code-wrapper pre)').forEach((pre) => {
+  const createCopyButton = (code: string) => {
+    const btn = document.createElement('button')
+    btn.className = 'copy-btn'
+    btn.setAttribute('aria-label', 'Copy code to clipboard')
+    btn.innerHTML = ICONS.copy
+    btn.onclick = () => copyToClipboard(btn, code)
+    return btn
+  }
+
+  const initCopyButtons = () => {
+    document.querySelectorAll<HTMLPreElement>('pre:has(code):not(.code-wrapper pre)').forEach((pre) => {
       const code = pre.querySelector('code')?.textContent?.trim()
       if (!code) return
 
       const wrapper = document.createElement('div')
       wrapper.className = 'code-wrapper'
-      pre.parentNode?.insertBefore(wrapper, pre)
-      wrapper.appendChild(pre)
-
-      const btn = document.createElement('button')
-      btn.className = 'copy-btn'
-      btn.setAttribute('aria-label', 'Copy code')
-      btn.innerHTML = ICONS.copy
-      btn.onclick = () => copyCode(btn, code)
-      wrapper.appendChild(btn)
+      pre.replaceWith(wrapper)
+      wrapper.append(pre, createCopyButton(code))
     })
   }
 
-  // Initialize
+  // Initialize on load and SPA navigation
   document.addEventListener('DOMContentLoaded', initCopyButtons)
   document.addEventListener('astro:page-load', initCopyButtons)
 </script>
