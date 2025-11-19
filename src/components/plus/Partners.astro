@@ -13,25 +13,84 @@ import {
   TheGuardianIcon,
   MichelinIcon,
   ProtonIcon,
-  WebflowIcon,
 } from '@/components/icons/icons'
 ---
 
-<div
-  class="astro-user-logos -mb-16 flex max-h-64 flex-wrap items-center justify-center gap-x-8 gap-y-6 px-4 sm:mb-0 sm:gap-x-10 sm:gap-y-8"
->
-  <GoogleIcon className="h-6 w-auto translate-y-0.5 sm:h-9" />
-  <UnileverIcon className="h-9 w-auto sm:h-14" />
-  <VisaIcon className="h-4 w-auto sm:h-6" />
-  <MicrosoftIcon className="h-4 w-auto sm:h-6" />
-  <PorscheIcon className="h-2 w-auto sm:h-3.5" />
-  <OpenAIIcon className="h-6 w-auto sm:h-9" />
-  <NetlifyIcon className="h-8 w-auto sm:h-12" />
-  <NordVPNIcon className="h-5 w-auto sm:h-8" />
-  <CloudflareIcon className="h-6 w-auto sm:h-9" />
-  <NBCNewsIcon className="h-3 w-auto sm:h-5" />
-  <TheGuardianIcon className="h-5 w-auto sm:h-8" />
-  <MichelinIcon className="h-6 w-auto sm:h-9" />
-  <ProtonIcon className="h-4 w-auto sm:h-6" />
-  <WebflowIcon className="h-4 w-auto sm:h-6" />
+<div class="partners-carousel-wrapper relative overflow-hidden py-8">
+  <!-- Gradient fade on left edge -->
+  <div
+    class="pointer-events-none absolute top-0 left-0 z-10 h-full w-32 bg-linear-to-r from-(--gradient-color) to-transparent"
+  >
+  </div>
+
+  <!-- Gradient fade on right edge -->
+  <div
+    class="pointer-events-none absolute top-0 right-0 z-10 h-full w-32 bg-linear-to-l from-(--gradient-color) to-transparent"
+  >
+  </div>
+
+  <!-- Carousel track -->
+  <div class="partners-carousel-track flex items-center gap-x-12">
+    <!-- First set of logos -->
+    <div class="partners-carousel-content flex shrink-0 items-center gap-x-12">
+      <GoogleIcon className="h-6 w-auto translate-y-0.5 sm:h-9" />
+      <UnileverIcon className="h-9 w-auto sm:h-14" />
+      <VisaIcon className="h-4 w-auto sm:h-6" />
+      <MicrosoftIcon className="h-4 w-auto sm:h-6" />
+      <PorscheIcon className="h-2 w-auto sm:h-3.5" />
+      <OpenAIIcon className="h-6 w-auto sm:h-9" />
+      <NetlifyIcon className="h-8 w-auto sm:h-12" />
+      <NordVPNIcon className="h-5 w-auto sm:h-8" />
+      <CloudflareIcon className="h-6 w-auto sm:h-9" />
+      <NBCNewsIcon className="h-3 w-auto sm:h-5" />
+      <TheGuardianIcon className="h-5 w-auto sm:h-8" />
+      <MichelinIcon className="h-6 w-auto sm:h-9" />
+      <ProtonIcon className="h-4 w-auto sm:h-6" />
+    </div>
+
+    <!-- Duplicate set for seamless loop -->
+    <div class="partners-carousel-content flex shrink-0 items-center gap-x-12">
+      <GoogleIcon className="h-6 w-auto translate-y-0.5 sm:h-9" />
+      <UnileverIcon className="h-9 w-auto sm:h-14" />
+      <VisaIcon className="h-4 w-auto sm:h-6" />
+      <MicrosoftIcon className="h-4 w-auto sm:h-6" />
+      <PorscheIcon className="h-2 w-auto sm:h-3.5" />
+      <OpenAIIcon className="h-6 w-auto sm:h-9" />
+      <NetlifyIcon className="h-8 w-auto sm:h-12" />
+      <NordVPNIcon className="h-5 w-auto sm:h-8" />
+      <CloudflareIcon className="h-6 w-auto sm:h-9" />
+      <NBCNewsIcon className="h-3 w-auto sm:h-5" />
+      <TheGuardianIcon className="h-5 w-auto sm:h-8" />
+      <MichelinIcon className="h-6 w-auto sm:h-9" />
+      <ProtonIcon className="h-4 w-auto sm:h-6" />
+    </div>
+  </div>
 </div>
+
+<style>
+  .partners-carousel-wrapper {
+    --gradient-color: #f6f6f6;
+  }
+
+  html.dark .partners-carousel-wrapper {
+    --gradient-color: #000000;
+  }
+
+  .partners-carousel-track {
+    animation: scroll 40s linear infinite;
+    will-change: transform;
+  }
+
+  .partners-carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
