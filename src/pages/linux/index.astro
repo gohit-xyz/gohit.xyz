@@ -2,7 +2,26 @@
 import Layout from '@/layouts/Layout.astro'
 import Partners from '@/components/plus/Partners.astro'
 import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
-import { linuxData } from '@/data/linux'
+import { LINUX_COMMAND } from '@/data/linux'
+
+const PAGE_DATA = {
+  badge: {
+    text: '💖 Sponsor Project',
+    link: '/sponsors',
+  },
+  title: 'The open-source platform for new users',
+  subtitle:
+    "These are the tools I use. If you want to install them on Linux, just copy and paste the commands into your terminal — it's that easy.",
+  getStartedButton: {
+    text: 'Get Started',
+    link: 'https://openlinux.com',
+  },
+  codeSnippet: {
+    label: 'My tools',
+    command: LINUX_COMMAND,
+  },
+  partnersTitle: 'If you want to become a partner, write to us',
+} as const
 ---
 
 <Layout>
@@ -11,60 +30,45 @@ import { linuxData } from '@/data/linux'
       <div class="back-button-container">
         <BackButtonOne href="/" text="Home" />
       </div>
-      <!-- Hero Section -->
+
       <div class="hero-section flex flex-col items-center text-center">
-        <!-- Badge -->
         <a
-          href={linuxData.hero.badge.link}
+          href={PAGE_DATA.badge.link}
           class="badge mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
         >
-          <span>{linuxData.hero.badge.text}</span>
+          <span>{PAGE_DATA.badge.text}</span>
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
             ></path>
           </svg>
         </a>
 
-        <!-- Main Title -->
         <h1
           class="hero-title mb-6 max-w-4xl text-5xl leading-tight font-bold sm:text-6xl md:text-7xl"
         >
-          {linuxData.hero.title}
+          {PAGE_DATA.title}
         </h1>
 
-        <!-- <p class="hero-subtitle mb-10 max-w-2xl text-lg leading-relaxed sm:text-xl">
-          {linuxData.hero.subtitle}
-        </p> -->
-
-        <!-- CTA Buttons -->
         <div class="mb-15 flex flex-wrap items-center justify-center gap-4">
           <a
-            href={linuxData.hero.buttons.getStarted.link}
+            href={PAGE_DATA.getStartedButton.link}
             class="get-started-btn flex rounded-full px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
           >
-            {linuxData.hero.buttons.getStarted.text}
+            {PAGE_DATA.getStartedButton.text}
             <img class="ml-2 h-6 w-6" src="/src/assets/svg/linux.svg" alt="Linux" />
           </a>
-
-          <!-- <a
-            href={linuxData.hero.buttons.sponsor.link}
-            class="sponsor-btn rounded-lg border-2 px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105"
-          >
-            {linuxData.hero.buttons.sponsor.text}
-          </a> -->
         </div>
 
-        <!-- Subtitle -->
         <p class="hero-subtitle mb-6 max-w-2xl text-lg leading-relaxed sm:text-xl">
-          {linuxData.hero.subtitle}
+          {PAGE_DATA.subtitle}
         </p>
-        <!-- Code Snippet -->
+
         <div class="code-container group relative mb-16 w-full max-w-md overflow-hidden rounded-lg">
           <div class="code-header flex items-center justify-between px-4 py-2">
-            <span class="text-xs font-medium opacity-70">{linuxData.hero.codeSnippet.label}</span>
+            <span class="text-xs font-medium opacity-70">{PAGE_DATA.codeSnippet.label}</span>
             <button
               class="copy-btn flex items-center gap-1 text-xs font-medium opacity-70 transition-opacity hover:opacity-100"
-              data-code={linuxData.hero.codeSnippet.command}
+              data-code={PAGE_DATA.codeSnippet.command}
             >
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -80,15 +84,14 @@ import { linuxData } from '@/data/linux'
           <div class="code-content px-4 py-3">
             <code class="font-mono text-sm">
               <span class="command-prompt">$ </span>
-              <span class="command-text">{linuxData.hero.codeSnippet.command}</span>
+              <span class="command-text">{PAGE_DATA.codeSnippet.command}</span>
             </code>
           </div>
         </div>
 
-        <!-- Partners Component -->
         <div class="mt-15">
           <p class="partners-title mb-8 text-sm font-medium tracking-wider uppercase opacity-60">
-            {linuxData.partners.title}
+            {PAGE_DATA.partnersTitle}
             <a class="text-blue-500 hover:underline" href="/plus">Here</a>
           </p>
           <Partners />
@@ -108,12 +111,10 @@ import { linuxData } from '@/data/linux'
     cursor: url('/cursors/Pointer.ico'), default;
   }
 
-  /* Hero Section Styles */
   .hero-section {
     position: relative;
   }
 
-  /* Badge Styles */
   .badge {
     background: linear-gradient(135deg, rgba(0, 139, 108, 0.1), rgba(0, 179, 139, 0.1));
     border: 1px solid rgba(0, 139, 108, 0.3);
@@ -125,7 +126,6 @@ import { linuxData } from '@/data/linux'
     border: 1px solid rgba(0, 139, 108, 0.4);
   }
 
-  /* Title with Gradient */
   .hero-title {
     background: linear-gradient(135deg, #008b6c 0%, #00d4aa 30%, #fbbf24 70%, #f59e0b 100%);
     -webkit-background-clip: text;
@@ -146,13 +146,11 @@ import { linuxData } from '@/data/linux'
     }
   }
 
-  /* Subtitle */
   .hero-subtitle {
     color: var(--text);
     opacity: 0.8;
   }
 
-  /* Get Started Button */
   .get-started-btn {
     background: linear-gradient(135deg, #008b6c 0%, #00b38b 50%, #00d4aa 100%);
     color: white;
@@ -186,19 +184,6 @@ import { linuxData } from '@/data/linux'
     transform: translateY(-2px);
   }
 
-  /* Sponsor Button */
-  .sponsor-btn {
-    background: transparent;
-    border-color: rgba(0, 139, 108, 0.5);
-    color: var(--text);
-  }
-
-  .sponsor-btn:hover {
-    background: rgba(0, 139, 108, 0.1);
-    border-color: rgba(0, 139, 108, 0.8);
-  }
-
-  /* Code Container */
   .code-container {
     background: rgba(0, 139, 108, 0.05);
     border: 1px solid rgba(0, 139, 108, 0.2);
@@ -249,20 +234,16 @@ import { linuxData } from '@/data/linux'
     color: var(--text);
   }
 
-  /* Back Button Container */
   .back-button-container {
     display: flex;
     justify-content: center;
     width: 100%;
-    /* margin-bottom: 2rem; */
   }
 
-  /* Partners Title */
   .partners-title {
     color: var(--text);
   }
 
-  /* Responsive adjustments */
   @media (max-width: 640px) {
     .hero-title {
       font-size: 2.5rem;
@@ -272,8 +253,7 @@ import { linuxData } from '@/data/linux'
       font-size: 1rem;
     }
 
-    .get-started-btn,
-    .sponsor-btn {
+    .get-started-btn {
       width: 100%;
       text-align: center;
     }
@@ -281,7 +261,6 @@ import { linuxData } from '@/data/linux'
 </style>
 
 <script>
-  // Copy to clipboard functionality
   document.addEventListener('DOMContentLoaded', () => {
     const copyBtn = document.querySelector('.copy-btn') as HTMLButtonElement
     const copyText = copyBtn?.querySelector('.copy-text')
