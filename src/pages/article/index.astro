@@ -7,17 +7,13 @@ import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
 import { getCollection } from 'astro:content'
 import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
 
-// Get Articles Collection
-const articles = await getCollection('articles', ({ data }) => {
-  return data.draft !== true
-})
+// Get Articles Collection & Sort
+const articles = await getCollection('articles', ({ data }) => data.draft !== true)
+const sortedArticles = articles.sort((a, b) => 
+  new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+)
 
-// Sort Articles by Date (newest first)
-const sortedArticles = articles.sort((a, b) => {
-  return new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
-})
-
-// Helper Function - Format Date
+// Helper Functions
 const formatDate = (date: Date | string) => {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -25,22 +21,37 @@ const formatDate = (date: Date | string) => {
     day: 'numeric',
   })
 }
+
+// Decorative line component (optimized)
+const DecorativeLine = ({ position }: { position: string }) => {
+  const baseClasses = "absolute top-0 hidden h-full w-px lg:block bg-linear-to-b"
+  const variants = {
+    'left-inner': `${baseClasses} left-110 from-transparent via-gray-600 to-transparent opacity-50`,
+    'right-inner': `${baseClasses} right-110 from-transparent via-gray-600 to-transparent opacity-50`,
+    'left-edge': 'fixed left-0 top-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30',
+  }
+  return variants[position as keyof typeof variants]
+}
+
+// Horizontal line component (optimized)
+const HorizontalLine = ({ position }: { position: string }) => {
+  const variants = {
+    'top': 'fixed left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent',
+    'header': 'mt-8 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800',
+    'footer': 'mt-16 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800',
+  }
+  return variants[position as keyof typeof variants]
+}
 ---
 
 <Layout>
   <div class="relative min-h-screen w-full">
     
-    <!-- ========== DECORATIVE BACKGROUND ========== -->
-    
-    <!-- Vertical Lines - Inner -->
-    <div class="absolute left-110 top-0 hidden h-full w-px bg-linear-to-b from-transparent via-gray-600 to-transparent opacity-50 lg:block"></div>
-    <div class="absolute right-110 top-0 hidden h-full w-px bg-linear-to-b from-transparent via-gray-600 to-transparent opacity-50 lg:block"></div>
-    
-    <!-- Vertical Line - Left Edge -->
-    <div class="fixed left-0 top-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"></div>
-
-    <!-- Horizontal Line - Top -->
-    <div class="fixed left-0 top-0 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
+    <!-- ========== DECORATIVE BACKGROUND (optimized) ========== -->
+    <div class={DecorativeLine({ position: 'left-inner' })}></div>
+    <div class={DecorativeLine({ position: 'right-inner' })}></div>
+    <div class={DecorativeLine({ position: 'left-edge' })}></div>
+    <div class={HorizontalLine({ position: 'top' })}></div>
 
     <!-- ========== MAIN CONTENT ========== -->
     
@@ -65,7 +76,7 @@ const formatDate = (date: Date | string) => {
         </div>
 
         <!-- Header Divider -->
-        <div class="mt-8 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"></div>
+        <div class={HorizontalLine({ position: 'header' })}></div>
       </header>
 
       <!-- ========== ARTICLES GRID ========== -->
@@ -83,6 +94,8 @@ const formatDate = (date: Date | string) => {
                       src={article.data.banner}
                       alt={`Banner for ${article.data.title}`}
                       class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      width="800"
+                      height="192"
                       loading="lazy"
                     />
                     <div class="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-60" />
@@ -101,6 +114,8 @@ const formatDate = (date: Date | string) => {
                         src={article.data.profile || '/src/assets/images/test/user.png'}
                         alt={`${article.data.author}'s avatar`}
                         class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover ring-2 ring-gray-100 dark:border-gray-800 dark:ring-black/50"
+                        width="40"
+                        height="40"
                         loading="lazy"
                       />
                       <div>
@@ -179,7 +194,7 @@ const formatDate = (date: Date | string) => {
       )}
 
       <!-- Footer Divider -->
-      <div class="mt-16 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"></div>
+      <div class={HorizontalLine({ position: 'footer' })}></div>
       
       <!-- Footer Component -->
       <Footer />
