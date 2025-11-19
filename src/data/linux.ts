@@ -2,11 +2,11 @@ export const linuxData = {
   // Hero Section
   hero: {
     badge: {
-      text: 'Add ❤️ Star this',
+      text: '💖 Sponsor Project',
       link: '/sponsors'
     },
-    title: 'The open-source platform for power users',
-    subtitle: 'Linux powers the world\'s fastest supercomputing, most reliable servers, and endless possibilities for developers.',
+    title: 'The open-source platform for new users',
+    subtitle: 'These are the tools I use. If you want to install them on Linux, just copy and paste the commands into your terminal — it\'s that easy.',
     buttons: {
       getStarted: {
         text: 'Get Started',
@@ -19,12 +19,12 @@ export const linuxData = {
     },
     codeSnippet: {
       command: 'sudo apt update',
-      label: 'Quick install'
+      label: 'My tools'
     }
   },
   
   // Partners Section
   partners: {
-    title: 'Used by the largest companies around the world'
+    title: 'If you want to become a partner, write to us'
   }
 }
