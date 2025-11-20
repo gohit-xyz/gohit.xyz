@@ -2,6 +2,7 @@
 export { ArrowBackIcon } from './global/arrow-back'
 export { ArrowLeftIcon } from './global/arrow-left'
 export { ArrowRightIcon } from './global/arrow-right'
+export { ArrowUpIcon } from './global/arrow-up'
 export { ArrowDownIcon } from './global/arrow-down'
 export { ExternalLinkIcon } from './global/external-link'
 export { SunIcon } from './global/sun'
