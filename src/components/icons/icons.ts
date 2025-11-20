@@ -1,9 +1,11 @@
 // --- Global
+export { ArticlesIcon } from './global/articles'
 export { ArrowBackIcon } from './global/arrow-back'
 export { ArrowLeftIcon } from './global/arrow-left'
 export { ArrowRightIcon } from './global/arrow-right'
 export { ArrowUpIcon } from './global/arrow-up'
 export { ArrowDownIcon } from './global/arrow-down'
+export { CopyIcon } from './global/copy'
 export { ExternalLinkIcon } from './global/external-link'
 export { SunIcon } from './global/sun'
 export { MoonIcon } from './global/moon'
