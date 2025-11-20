@@ -4,7 +4,7 @@ export interface Props {
   href?: string
   text?: string
 }
-const { href = '/article', text = 'More Articles' } = Astro.props as Props
+const { href = '/blog', text = 'More Blog Posts' } = Astro.props as Props
 ---
 
 <a href={href} class="group btn-more-articles inline-block" aria-label={text}>

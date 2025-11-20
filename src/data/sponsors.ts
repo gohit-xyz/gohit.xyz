@@ -10,7 +10,7 @@ export const sponsors: Sponsor[] = [
     name: 'M',
     photo: 'https://avatars.githubusercontent.com/u/22199520?v=4',
     tier: 'gold',
-    website: 'https://gohit.xyz/article'
+    website: 'https://gohit.xyz/blog'
   },
   {
     name: 'Lams',

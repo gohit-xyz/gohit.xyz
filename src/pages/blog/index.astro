@@ -69,7 +69,7 @@ const HorizontalLine = ({ position }: { position: string }) => {
 
         <!-- Title & Description -->
         <div class="space-y-4">
-          <h1 class="text-5xl font-bold tracking-tight lg:text-6xl">Articles</h1>
+          <h1 class="text-5xl font-bold tracking-tight lg:text-6xl">Blog X</h1>
           <p class="text-xl text-gray-600 dark:text-gray-400">
             Thoughts, insights, and learnings from our journey
           </p>
@@ -84,7 +84,7 @@ const HorizontalLine = ({ position }: { position: string }) => {
       <div class="grid grid-cols-1 gap-8">
         {sortedArticles.map((article) => (
           <article class="group relative rounded-lg bg-black">
-            <a href={`/article/${article.slug}`} class="block h-full w-full">
+            <a href={`/blog/${article.slug}`} class="block h-full w-full">
               <div class="relative h-full overflow-hidden rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white hover:shadow-xl dark:border-gray-800 dark:bg-black/40 dark:hover:border-gray-700 dark:hover:bg-black/60">
                 
                 {/* Banner Image*/}
