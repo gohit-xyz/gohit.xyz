@@ -2,12 +2,9 @@
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
 import Footer from '@/sections/shared/Footer.astro'
-import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
-import Decorative from '@/components/ui/effects/Decorative.astro'
-import ArrowUpBtn from '@/components/ui/buttons/ArrowUpBtn.astro'
 import { getCollection } from 'astro:content'
 import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
-import CircleBtn from '@/components/ui/buttons/CircleBtn.astro'
+import {Decorative ,BackButtonOne, CircleButtonUp} from '@/components/ui/ui'
 
 // Get Articles Collection & Sort
 const articles = await getCollection('articles', ({ data }) => data.draft !== true)
@@ -186,7 +183,7 @@ const formatDate = (date: Date | string) => {
 
     <!-- Scroll to Top Button -->
     <div class="scroll-to-top-wrapper">
-      <CircleBtn />
+      <CircleButtonUp />
     </div>
   </div>
 </Layout>

@@ -1,8 +1,7 @@
 // Buttons
-export { default as ArrowUpBtn } from './buttons/ArrowUpBtn.astro';
 export { default as BackButtonOne } from './buttons/BackButtonOne.astro';
 export { default as BackButtonTwo } from './buttons/BackButtonTwo.astro';
-export { default as CircleBtn } from './buttons/CircleBtn.astro';
+export { default as CircleButtonUp } from './buttons/CircleButtonUp.astro';
 export { default as GithubStartBtn } from './buttons/GithubStartBtn.astro';
 export { default as LinuxBtn } from './buttons/LinuxBtn.astro';
 export { default as NextPageBtn } from './buttons/NextPageBtn.astro';

@@ -2,10 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { TimeIcon, ShareIcon } from '@/components/icons/icons'
-import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
-import Decorative from '@/components/ui/effects/Decorative.astro'
-import ArrowUpBtn from '@/components/ui/buttons/ArrowUpBtn.astro'
-import CircleBtn from '@/components/ui/buttons/CircleBtn.astro'
+import {Decorative,BackButtonTwo, CircleButtonUp} from '@/components/ui/ui'
 
 // Static Paths
 export async function getStaticPaths() {
@@ -140,7 +137,7 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
 
   <!-- Floating Scroll to Top Button -->
   <div class="scroll-to-top-wrapper">
-    <CircleBtn />
+    <CircleButtonUp />
   </div>
 
 </Layout>
