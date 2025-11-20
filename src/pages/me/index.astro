@@ -4,6 +4,26 @@ import meImage from '@/assets/images/profile/me.jpg'
 import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
 import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
 import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/icons'
+import { ArrowDownIcon } from '@/components/icons/global/arrow-down'
+import { getCollection } from 'astro:content'
+
+// Get latest article
+const articles = await getCollection('articles', ({ data }) => data.draft !== true)
+const latestArticle = articles.sort(
+  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+)[0]
+
+// Format date helper
+const formatDate = (date: Date | string) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+// Render the article content
+const { Content } = await latestArticle.render()
 ---
 
 <Layout>
@@ -13,7 +33,14 @@ import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/ic
       <nav class="mb-8 flex items-center gap-2 text-sm text-gray-400">
         <BackButtonTwo href="/" text="Back" />
         <span class="opacity-40">/</span>
-        <time datetime="2025-11-14" class="text-gray-500">Nov 14th, 2025</time>
+        <time
+          datetime={latestArticle.data.publishDate instanceof Date
+            ? latestArticle.data.publishDate.toISOString()
+            : latestArticle.data.publishDate}
+          class="text-gray-500"
+        >
+          {formatDate(latestArticle.data.publishDate)}
+        </time>
       </nav>
 
       <!-- Main title -->
@@ -100,70 +127,45 @@ import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/ic
       </div>
 
       <!-- TODO:  -->
-      <div class="relative mx-auto my-16 max-w-4xl">
+      <div class="relative mx-auto my-5 mt-24 max-w-4xl">
         <div class="h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <span
             class="rounded-lg bg-[#0e0e0e] px-4 py-2 text-sm font-semibold text-white ring-1 ring-gray-800"
           >
-            Latest Blog Post
+            Latest Blog
           </span>
         </div>
       </div>
       <!-- TODO:  -->
 
-      <!-- MARK: Blog-->
-      <div class="space-y-8 leading-relaxed opacity-80">
-        <!-- Section Title -->
-        <h2 class="mb-6 text-center text-3xl font-bold">Currently Working On - Linux 💛</h2>
+      <!-- MARK: Latest Blog Post Preview -->
+      {
+        latestArticle && (
+          <div class="relative mx-auto w-full">
+            {/* Article Content Preview (Limited Height) */}
+            <div class="relative overflow-hidden" style="max-height: 54rem;">
+              <div class="space-y-8 leading-relaxed opacity-80">
+                <div class="prose prose-invert prose-lg mx-auto max-w-none">
+                  <Content />
+                </div>
+              </div>
 
-        <p>
-          Selecting a Linux distribution shouldn't require days of research and trial-and-error. Our
-          smart selector asks simple questions about your hardware—RAM, CPU, storage—and your use
-          case, whether it's gaming, development, privacy, or just daily browsing. Within seconds,
-          you get personalized recommendations tailored to your machine. No more downloading distros
-          that won't boot or run sluggishly. We believe that finding the right Linux distribution
-          should be{' '}
-          <span class="font-semibold italic opacity-100"> effortless and instant </span>
-          .
-        </p>
+              {/* Fade Gradient Overlay */}
+              <div class="pointer-events-none absolute right-0 bottom-0 left-0 h-48 bg-linear-to-t from-(--bg) via-(--bg)/80 to-transparent" />
+            </div>
 
-        <p>
-          Once you've found your ideal distribution, the next challenge is getting it onto a
-          bootable USB drive. Traditional methods involve downloading ISOs, finding third-party
-          tools like{' '}
-          <span class="font-semibold">Rufus</span> or{' '}
-          <span class="font-semibold italic">Etcher</span>, and hoping nothing goes wrong during the
-          process. Our platform simplifies this entirely—select your distro, choose your USB drive,
-          and we handle the rest. From download to bootable creation, everything happens in one
-          place, eliminating the need for multiple tools or technical knowledge. We believe testing
-          Linux distributions should be{' '}
-          <span class="font-semibold italic opacity-100"> as simple as a few clicks </span>
-          .
-        </p>
-
-        <p>
-          Beyond selection and installation, understanding what makes each Linux distribution unique
-          is crucial. Our comprehensive database catalogs hundreds of distributions with detailed
-          specifications—minimum{' '}
-          <span class="font-semibold opacity-100">RAM requirements</span>, recommended{' '}
-          <span class="font-semibold opacity-100">CPU architectures</span>, storage needs, desktop
-          environments, and package managers. Compare{' '}
-          <span class="font-semibold opacity-100">Debian</span> stability against <span
-            class="font-semibold opacity-100">Arch</span
-          >{' '}
-          bleeding-edge updates, or explore lightweight options like{' '}
-          <span class="font-semibold opacity-100">Puppy Linux</span> for older hardware. Every distro
-          includes user reviews, use-case recommendations, and community ratings. We believe informed
-          choices lead to better experiences, and finding your perfect Linux match should be backed by{
-            ' '
-          }
-          <span class="font-semibold italic opacity-100"> complete, accessible information </span>
-          . Explore the full catalog at{' '}
-          <a href="/linux" class="text-blue-400 hover:underline"> Linux </a>
-          .
-        </p>
-      </div>
+            {/* Read Full Article Button */}
+            <div class="mt-8 flex justify-center">
+              <a href={`/blog/${latestArticle.slug}`}>
+                <button class="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-gray-800 bg-black transition-all duration-300 hover:border-gray-700 hover:bg-gray-900 hover:shadow-lg dark:border-gray-800 dark:hover:border-gray-700">
+                  <ArrowDownIcon className="h-5 w-5  transition-transform group-hover:translate-y-0.5 text-white" />
+                </button>
+              </a>
+            </div>
+          </div>
+        )
+      }
 
       <!-- Button Article -->
       <div class="flex justify-end pt-6">
@@ -180,5 +182,114 @@ import { TwitterIcon, GitHubTwoIcon, ArrowBackIcon } from '@/components/icons/ic
   }
   .custom-cursor {
     cursor: url('/cursors/Pointer.ico'), default;
+  }
+
+  /* Prose Styling for Blog Content */
+  .prose {
+    max-width: 65ch;
+    color: #e5e7eb;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: #f9fafb;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .prose h1 {
+    font-size: 2.25rem;
+  }
+  .prose h2 {
+    font-size: 1.875rem;
+  }
+  .prose h3 {
+    font-size: 1.5rem;
+  }
+
+  .prose p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+  }
+
+  .prose a {
+    color: #60a5fa;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+
+  .prose a:hover {
+    color: #93c5fd;
+  }
+
+  .prose code {
+    background-color: #1f2937;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    color: #fbbf24;
+  }
+
+  .prose pre {
+    background-color: #111827;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid #374151;
+  }
+
+  .prose pre code {
+    background-color: transparent;
+    padding: 0;
+    color: #e5e7eb;
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose blockquote {
+    border-left: 4px solid #60a5fa;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #9ca3af;
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: #f9fafb;
+  }
+
+  .prose hr {
+    border-color: #374151;
+    margin: 2rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .prose {
+      font-size: 0.95rem;
+    }
+    .prose h1 {
+      font-size: 1.875rem;
+    }
+    .prose h2 {
+      font-size: 1.5rem;
+    }
+    .prose h3 {
+      font-size: 1.25rem;
+    }
   }
 </style>
