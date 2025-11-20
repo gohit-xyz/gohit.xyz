@@ -16,7 +16,7 @@ export { TimeIcon } from './global/time'
 // --- Social Media Icons
 export { FacebookIcon } from './social-media/facebook'
 export { GitHubIcon } from './social-media/github'
-export { GitHubTwoIcon } from './social-media/github-two'
+export { GitHubThinIcon } from './social-media/github-thin'
 export { InstagramIcon } from './social-media/instagram'
 export { LinkedInIcon } from './social-media/linkedin'
 export { SoundCloudIcon } from './social-media/soundcloud'

@@ -4,7 +4,7 @@ import meImage from '@/assets/images/profile/me.jpg'
 import NextPageBtn from '@/components/ui/buttons/NextPageBtn.astro'
 import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
 import { getCollection } from 'astro:content'
-import { TwitterIcon, GitHubTwoIcon, ArrowDownIcon } from '@/components/icons/icons'
+import { TwitterIcon, GitHubIcon, ArrowDownIcon } from '@/components/icons/icons'
 
 // Get latest article
 const articles = await getCollection('articles', ({ data }) => data.draft !== true)
@@ -85,7 +85,7 @@ const { Content } = await latestArticle.render()
                   rel="noopener noreferrer"
                   class="transition-colors hover:text-[#f84f00]"
                 >
-                  <GitHubTwoIcon className="h-4 w-4" />
+                  <GitHubIcon className="h-4 w-4" />
                 </a>
               </div>
             </div>
