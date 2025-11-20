@@ -5,6 +5,14 @@ const { href } = Astro.props
 <a href={href} class="btn-wrapper">
   <div class="btn">
     <strong>LINUX</strong>
+
+    <!-- NEW Badge -->
+    <span
+      class="absolute -top-1 -right-1 z-10 flex h-5 items-center justify-center rounded-full bg-gray-300 px-2 text-[10px] font-bold text-black"
+    >
+      NEW
+    </span>
+
     <div id="container-stars">
       <canvas id="stars-canvas"></canvas>
     </div>
