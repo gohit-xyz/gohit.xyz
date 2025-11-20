@@ -3,7 +3,27 @@ import { ArrowDownIcon, ArrowUpIcon } from '@/components/icons/icons'
 ---
 
 <button
-  class="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-gray-800 bg-black"
+  id="scroll-to-top"
+  class="group invisible flex h-12 w-12 translate-y-4 cursor-pointer items-center justify-center rounded-full border-2 border-gray-800 bg-black opacity-0 transition-all duration-300"
 >
-  <ArrowDownIcon className="h-5 w-5 text-white transition-transform group-hover:translate-y-0.5" />
+  <ArrowUpIcon className="h-5 w-5 text-white transition-transform group-hover:-translate-y-0.5" />
 </button>
+
+<script>
+  const btn = document.getElementById('scroll-to-top')
+
+  window.addEventListener('scroll', () => {
+    const scrolled =
+      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+
+    if (scrolled > 20) {
+      btn?.classList.remove('opacity-0', 'invisible', 'translate-y-4')
+    } else {
+      btn?.classList.add('opacity-0', 'invisible', 'translate-y-4')
+    }
+  })
+
+  btn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
+</script>

@@ -5,6 +5,7 @@ import { TimeIcon, ShareIcon } from '@/components/icons/icons'
 import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
 import Decorative from '@/components/ui/effects/Decorative.astro'
 import ArrowUpBtn from '@/components/ui/buttons/ArrowUpBtn.astro'
+import CircleBtn from '@/components/ui/buttons/CircleBtn.astro'
 
 // Static Paths
 export async function getStaticPaths() {
@@ -137,11 +138,34 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
     </div>
   </article>
 
+  <!-- Floating Scroll to Top Button -->
+  <div class="scroll-to-top-wrapper">
+    <CircleBtn />
+  </div>
+
   <!-- Scroll to Top Button -->
-  <ArrowUpBtn />
+
+  <!-- <ArrowUpBtn /> -->
 </Layout>
 
 <style>
+  /* Scroll to Top Button Positioning */
+  .scroll-to-top-wrapper {
+    position: fixed;
+    bottom: 2rem;
+    right: 1.5rem;
+    z-index: 50;
+  }
+
+  /* Desktop: Align with article container */
+  @media (min-width: 1024px) {
+    .scroll-to-top-wrapper {
+      left: 50%;
+      right: auto;
+      transform: translateX(calc(512px - 4rem));
+    }
+  }
+
   article::before {
     content: '';
     position: absolute;
