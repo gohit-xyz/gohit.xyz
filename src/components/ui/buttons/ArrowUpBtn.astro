@@ -1,0 +1,199 @@
+---
+// Scroll to Top Button Component
+// Appears when user scrolls down 50% of the page
+---
+
+<button id="scroll-to-top" class="scroll-to-top-btn" aria-label="Scroll to top" title="Back to top">
+  <!-- Arrow Up Icon (inline SVG for better performance) -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M6 9l6 -6l6 6"></path>
+  </svg>
+</button>
+
+<style>
+  .scroll-to-top-btn {
+    /* Positioning - Aligned with decorative lines */
+    position: fixed;
+    bottom: 2rem;
+    right: 28.5rem; /* Moved 5rem more to the left */
+    z-index: 100;
+
+    /* Size & Shape */
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+
+    /* Flexbox for centering icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Appearance */
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Initially hidden */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+  }
+
+  /* Visible State */
+  .scroll-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Hover State */
+  .scroll-to-top-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Active State */
+  .scroll-to-top-btn:active {
+    transform: translateY(-2px) scale(0.95);
+  }
+
+  /* Icon Styling */
+  .scroll-to-top-btn svg {
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+
+  .scroll-to-top-btn:hover svg {
+    transform: translateY(-2px);
+  }
+
+  /* Dark Theme (default) */
+  :global(.dark) .scroll-to-top-btn {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :global(.dark) .scroll-to-top-btn:hover {
+    background: rgba(30, 30, 30, 0.95);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Light Theme */
+  :global(.light) .scroll-to-top-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.light) .scroll-to-top-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  :global(.light) .scroll-to-top-btn svg {
+    color: #000000;
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 1024px) {
+    .scroll-to-top-btn {
+      /* On smaller screens, move closer to edge */
+      right: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .scroll-to-top-btn {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .scroll-to-top-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-to-top-btn {
+      transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+    }
+
+    .scroll-to-top-btn:hover {
+      transform: none;
+    }
+
+    .scroll-to-top-btn svg {
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Scroll to Top Functionality
+  const initScrollToTop = () => {
+    const button = document.getElementById('scroll-to-top')
+    if (!button) return
+
+    // Show/Hide button based on scroll position
+    const toggleButtonVisibility = () => {
+      const scrollPosition = window.scrollY
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+
+      // Show button when user scrolls past 30% of the page (earlier than 50%)
+      const scrollPercentage = (scrollPosition / (documentHeight - windowHeight)) * 100
+
+      if (scrollPercentage > 30) {
+        button.classList.add('visible')
+      } else {
+        button.classList.remove('visible')
+      }
+    }
+
+    // Scroll to top with smooth behavior
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
+
+    // Event Listeners
+    window.addEventListener('scroll', toggleButtonVisibility, { passive: true })
+    button.addEventListener('click', scrollToTop)
+
+    // Initial check
+    toggleButtonVisibility()
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initScrollToTop)
+
+  // Re-initialize for Astro View Transitions
+  document.addEventListener('astro:page-load', initScrollToTop)
+</script>

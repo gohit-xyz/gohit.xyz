@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content'
 import { TimeIcon, ShareIcon } from '@/components/icons/icons'
 import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
 import Decorative from '@/components/ui/effects/Decorative.astro'
+import ArrowUpBtn from '@/components/ui/buttons/ArrowUpBtn.astro'
 
 // Static Paths
 export async function getStaticPaths() {
@@ -135,6 +136,9 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
       }
     </div>
   </article>
+
+  <!-- Scroll to Top Button -->
+  <ArrowUpBtn />
 </Layout>
 
 <style>

@@ -4,6 +4,7 @@ import ThemeToggle from '@/components/ThemeToggle'
 import Footer from '@/sections/shared/Footer.astro'
 import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
 import Decorative from '@/components/ui/effects/Decorative.astro'
+import ArrowUpBtn from '@/components/ui/buttons/ArrowUpBtn.astro'
 import { getCollection } from 'astro:content'
 import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
 
@@ -181,6 +182,9 @@ const formatDate = (date: Date | string) => {
       <!-- Footer Component -->
       <Footer />
     </main>
+
+    <!-- Scroll to Top Button -->
+    <ArrowUpBtn />
   </div>
 </Layout>
 
