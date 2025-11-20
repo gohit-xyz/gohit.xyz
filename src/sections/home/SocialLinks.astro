@@ -4,77 +4,57 @@ import { GitHubIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, You
 ---
 
 <section class="animate-rise-up flex flex-wrap justify-center gap-3 pt-2 md:gap-4">
-  <!-- YouTube Link -->
-  <a
-    href="https://www.youtube.com/@gohitx?sub_confirmation=1"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="YouTube - gohitx"
-    style="--clr: #FF0000;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-  >
-    <YouTubeIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </a>
-
-  <!-- GitHub Link -->
-  <a
-    href="https://github.com/gohitx"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="GitHub - gohitx"
-    style="--clr: #ffffff;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-  >
-    <GitHubIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </a>
-
-  <!-- SoundCloud Link -->
-  <a
-    href="https://soundcloud.com/gohitx"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="SoundCloud - gohitx"
-    style="--clr: #FF5500;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-  >
-    <SoundCloudIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </a>
-
-  <!-- Instagram Link -->
-  <a
-    href="https://instagram.com/gohitx"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Instagram - gohitx"
-    style="--clr: #E4405F;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-  >
-    <InstagramIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </a>
-
-  <!-- TikTok Link -->
-  <a
-    href="https://tiktok.com/@gohitx"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="TikTok - gohitx"
-    style="--clr: #000000;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-  >
-    <TikTokIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </a>
-
-  <!-- Twitter Link -->
-  <a
-    href="https://twitter.com/gohitx"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Twitter - gohitx"
-    style="--clr: #1DA1F2;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-  >
-    <TwitterIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </a>
+  {
+    [
+      {
+        href: 'https://www.youtube.com/@gohitx?sub_confirmation=1',
+        label: 'YouTube - gohitx',
+        color: '#FF0000',
+        Icon: YouTubeIcon,
+      },
+      {
+        href: 'https://github.com/gohitx',
+        label: 'GitHub - gohitx',
+        color: '#ffffff',
+        Icon: GitHubIcon,
+      },
+      {
+        href: 'https://soundcloud.com/gohitx',
+        label: 'SoundCloud - gohitx',
+        color: '#f84f00',
+        Icon: SoundCloudIcon,
+      },
+      {
+        href: 'https://instagram.com/gohitx',
+        label: 'Instagram - gohitx',
+        color: '#FF4ACF',
+        Icon: InstagramIcon,
+      },
+      {
+        href: 'https://tiktok.com/@gohitx',
+        label: 'TikTok - gohitx',
+        color: '#000000',
+        Icon: TikTokIcon,
+      },
+      {
+        href: 'https://twitter.com/gohitx',
+        label: 'Twitter - gohitx',
+        color: '#1DA1F2',
+        Icon: TwitterIcon,
+      },
+    ].map(({ href, label, color, Icon }) => (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        style={{ '--clr': color }}
+        class="social-link h-8 w-8 md:h-10 md:w-10"
+      >
+        <Icon className="h-5 w-5 md:h-6 md:w-6" />
+      </a>
+    ))
+  }
 </section>
 
 <style>
