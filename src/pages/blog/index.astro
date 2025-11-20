@@ -7,6 +7,7 @@ import Decorative from '@/components/ui/effects/Decorative.astro'
 import ArrowUpBtn from '@/components/ui/buttons/ArrowUpBtn.astro'
 import { getCollection } from 'astro:content'
 import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
+import CircleBtn from '@/components/ui/buttons/CircleBtn.astro'
 
 // Get Articles Collection & Sort
 const articles = await getCollection('articles', ({ data }) => data.draft !== true)
@@ -184,12 +185,31 @@ const formatDate = (date: Date | string) => {
     </main>
 
     <!-- Scroll to Top Button -->
-    <ArrowUpBtn />
+    <div class="scroll-to-top-wrapper">
+      <CircleBtn />
+    </div>
   </div>
 </Layout>
 
 <!--========== THEME TOGGLE ========== -->
 <style>
+  /* Scroll to Top Button Positioning */
+  .scroll-to-top-wrapper {
+    position: fixed;
+    bottom: 2rem;
+    right: 1.5rem;
+    z-index: 50;
+  }
+
+  /* Desktop: Align with article container */
+  @media (min-width: 1024px) {
+    .scroll-to-top-wrapper {
+      left: 50%;
+      right: auto;
+      transform: translateX(calc(512px - 4rem));
+    }
+  }
+
   :global(.theme-toggle) {
     position: absolute;
     top: 3rem;
