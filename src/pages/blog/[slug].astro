@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { TimeIcon, ShareIcon } from '@/components/icons/icons'
 import BackButtonTwo from '@/components/ui/buttons/BackButtonTwo.astro'
+import Decorative from '@/components/ui/effects/Decorative.astro'
 
 // Static Paths
 export async function getStaticPaths() {
@@ -23,55 +24,26 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
   month: 'short',
   day: 'numeric',
 })
-
-// Decorative line component (future r)
-const DecorativeLine = ({ position }: { position: string }) => {
-  const baseClasses = "absolute top-0 hidden h-full w-px lg:block bg-gradient-to-b"
-  const variants = {
-    'left-primary': `${baseClasses} left-0 from-gray-800 via-gray-700 to-transparent`,
-    'left-secondary': `${baseClasses} left-20 from-transparent via-gray-800 to-transparent opacity-50`,
-    'right-primary': `${baseClasses} right-0 from-gray-800 via-gray-700 to-transparent`,
-    'right-secondary': `${baseClasses} right-20 from-transparent via-gray-800 to-transparent opacity-50`,
-  }
-  return variants[position as keyof typeof variants]
-}
-
-const Corner = ({ position }: { position: string }) => {
-  const positions = {
-    'top-left': 'left-0 top-0 border-l-2 border-t-2',
-    'top-right': 'right-0 top-0 border-r-2 border-t-2',
-    'bottom-left': 'bottom-0 left-0 border-b-2 border-l-2',
-    'bottom-right': 'bottom-0 right-0 border-b-2 border-r-2',
-  }
-  return `absolute h-16 w-16 border-gray-800 opacity-60 ${positions[position as keyof typeof positions]}`
-}
 ---
 
 <Layout>
   <article class="relative mx-auto max-w-5xl px-6 py-16 lg:px-8">
-    
-    <!-- Decorative Elements (optimized) -->
-    <div class={DecorativeLine({ position: 'left-primary' })}></div>
-    <div class={DecorativeLine({ position: 'left-secondary' })}></div>
-    <div class={DecorativeLine({ position: 'right-primary' })}></div>
-    <div class={DecorativeLine({ position: 'right-secondary' })}></div>
-    
-    <div class={Corner({ position: 'top-left' })}></div>
-    <div class={Corner({ position: 'top-right' })}></div>
-    <div class={Corner({ position: 'bottom-left' })}></div>
-    <div class={Corner({ position: 'bottom-right' })}></div>
+    <!-- Decorative Elements -->
+    <Decorative variant="blog-post" />
 
     <!-- Main Content -->
     <div class="relative z-10">
-      
       <!-- Breadcrumb -->
-      <nav class="mb-12 flex items-center justify-center text-sm text-gray-400" aria-label="Breadcrumb">
+      <nav
+        class="mb-12 flex items-center justify-center text-sm text-gray-400"
+        aria-label="Breadcrumb"
+      >
         <BackButtonTwo href="/blog" text="Blog ◉" />
       </nav>
 
       <!-- Header -->
       <header class="mb-16 text-center">
-        <h1 class="mb-12 text-5xl font-bold leading-tight tracking-tight lg:text-6xl">
+        <h1 class="mb-12 text-5xl leading-tight font-bold tracking-tight lg:text-6xl">
           {article.data.title}
         </h1>
 
@@ -88,7 +60,9 @@ const Corner = ({ position }: { position: string }) => {
         </a>
 
         <!-- Divider -->
-        <hr class="mx-auto mb-8 h-px w-full max-w-4xl border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent" />
+        <hr
+          class="mx-auto mb-8 h-px w-full max-w-4xl border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent"
+        />
 
         <!-- Meta Info -->
         <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400">
@@ -97,18 +71,20 @@ const Corner = ({ position }: { position: string }) => {
             <span>{readingTime} min read</span>
           </div>
 
-          {article.data.url && (
-            <a
-              href={article.data.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center gap-2 text-blue-400 transition-colors hover:text-blue-300"
-              aria-label="Open external article URL"
-            >
-              <ShareIcon className="h-4 w-4" />
-              <span>Open URL</span>
-            </a>
-          )}
+          {
+            article.data.url && (
+              <a
+                href={article.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 text-blue-400 transition-colors hover:text-blue-300"
+                aria-label="Open external article URL"
+              >
+                <ShareIcon className="h-4 w-4" />
+                <span>Open URL</span>
+              </a>
+            )
+          }
 
           <time datetime={article.data.publishDate.toString()} class="text-gray-500">
             {formattedDate}
@@ -118,12 +94,19 @@ const Corner = ({ position }: { position: string }) => {
 
       <!-- Diamond Divider -->
       <div class="relative mx-auto mb-12 max-w-4xl">
-        <hr class="h-px w-full border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent" />
-        <div class="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gray-700 bg-black"></div>
+        <hr
+          class="h-px w-full border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent"
+        />
+        <div
+          class="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gray-700 bg-black"
+        >
+        </div>
       </div>
 
       <!-- Content -->
-      <div class="prose prose-invert prose-lg mx-auto max-w-3xl prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-3xl prose-h3:mb-4 prose-h3:mt-8 prose-p:leading-normal prose-p:text-gray-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 prose-strong:text-white prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:text-blue-300 prose-code:font-mono prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:shadow-lg prose-table:w-full prose-table:border-collapse prose-thead:border-b prose-thead:border-gray-700 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-200 prose-th:align-top prose-td:px-4 prose-td:py-3 prose-td:text-gray-300 prose-td:border-t prose-td:border-gray-800 prose-td:align-top prose-tr:border-b prose-tr:border-gray-800"> 
+      <div
+        class="prose prose-invert prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-3xl prose-h3:mb-4 prose-h3:mt-8 prose-p:leading-normal prose-p:text-gray-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 prose-strong:text-white prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:text-blue-300 prose-code:font-mono prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:shadow-lg prose-table:w-full prose-table:border-collapse prose-thead:border-b prose-thead:border-gray-700 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-200 prose-th:align-top prose-td:px-4 prose-td:py-3 prose-td:text-gray-300 prose-td:border-t prose-td:border-gray-800 prose-td:align-top prose-tr:border-b prose-tr:border-gray-800 mx-auto max-w-3xl"
+      >
         <!-- {article.data.description && (
           <p class="text-xl lead mb-10 leading-relaxed text-gray-400">
             {article.data.description}
@@ -133,21 +116,23 @@ const Corner = ({ position }: { position: string }) => {
       </div>
 
       <!-- Tags -->
-      {(article.data.tags ?? []).length > 0 && (
-        <footer class="mx-auto mt-16 max-w-3xl border-t border-gray-800 pt-8">
-          <div class="flex flex-wrap gap-2" role="list">
-            {(article.data.tags ?? []).map((tag: string) => (
-              <a
-                href={`/tags/${tag.toLowerCase()}`}
-                class="rounded-full bg-gray-900 px-4 py-2 text-sm text-gray-300 ring-1 ring-gray-800 transition-all hover:bg-gray-800 hover:ring-gray-700"
-                role="listitem"
-              >
-                {tag}
-              </a>
-            ))}
-          </div>
-        </footer>
-      )}
+      {
+        (article.data.tags ?? []).length > 0 && (
+          <footer class="mx-auto mt-16 max-w-3xl border-t border-gray-800 pt-8">
+            <div class="flex flex-wrap gap-2" role="list">
+              {(article.data.tags ?? []).map((tag: string) => (
+                <a
+                  href={`/tags/${tag.toLowerCase()}`}
+                  class="rounded-full bg-gray-900 px-4 py-2 text-sm text-gray-300 ring-1 ring-gray-800 transition-all hover:bg-gray-800 hover:ring-gray-700"
+                  role="listitem"
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+          </footer>
+        )
+      }
     </div>
   </article>
 </Layout>
@@ -167,8 +152,12 @@ const Corner = ({ position }: { position: string }) => {
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   /* Copy Button*/
@@ -219,7 +208,8 @@ const Corner = ({ position }: { position: string }) => {
 <script>
   const ICONS = {
     copy: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>',
-    check: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>'
+    check:
+      '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
   } as const
 
   const copyToClipboard = async (btn: HTMLButtonElement, text: string) => {
@@ -246,15 +236,17 @@ const Corner = ({ position }: { position: string }) => {
   }
 
   const initCopyButtons = () => {
-    document.querySelectorAll<HTMLPreElement>('pre:has(code):not(.code-wrapper pre)').forEach((pre) => {
-      const code = pre.querySelector('code')?.textContent?.trim()
-      if (!code) return
+    document
+      .querySelectorAll<HTMLPreElement>('pre:has(code):not(.code-wrapper pre)')
+      .forEach((pre) => {
+        const code = pre.querySelector('code')?.textContent?.trim()
+        if (!code) return
 
-      const wrapper = document.createElement('div')
-      wrapper.className = 'code-wrapper'
-      pre.replaceWith(wrapper)
-      wrapper.append(pre, createCopyButton(code))
-    })
+        const wrapper = document.createElement('div')
+        wrapper.className = 'code-wrapper'
+        pre.replaceWith(wrapper)
+        wrapper.append(pre, createCopyButton(code))
+      })
   }
 
   // Initialize on load and SPA navigation
