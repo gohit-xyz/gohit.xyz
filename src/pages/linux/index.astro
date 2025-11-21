@@ -25,52 +25,85 @@ const PAGE_DATA = {
 ---
 
 <Layout>
-  <div class="custom-cursor flex min-h-screen w-full flex-col items-center justify-center">
+  <div
+    class="page-wrapper custom-cursor flex min-h-screen w-full flex-col items-center justify-center"
+  >
     <main class="relative w-full max-w-7xl px-4 pt-10 pb-20 sm:px-6">
-      <div class="back-button-container">
+      <!-- Navigation -->
+      <nav class="back-button-container" aria-label="Page navigation">
         <BackButtonOne href="/" text="Home" />
-      </div>
+      </nav>
 
-      <div class="hero-section flex flex-col items-center text-center">
+      <!-- Hero Section -->
+      <section
+        class="hero-section flex flex-col items-center text-center"
+        aria-labelledby="hero-title"
+      >
+        <!-- Sponsor Badge -->
         <a
           href={PAGE_DATA.badge.link}
           class="badge mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
+          aria-label="Sponsor this project"
         >
           <span>{PAGE_DATA.badge.text}</span>
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
             ></path>
           </svg>
         </a>
 
+        <!-- Main Title -->
         <h1
+          id="hero-title"
           class="hero-title mb-6 max-w-4xl text-5xl leading-tight font-bold sm:text-6xl md:text-7xl"
         >
           {PAGE_DATA.title}
         </h1>
 
+        <!-- CTA Button -->
         <div class="mb-15 flex flex-wrap items-center justify-center gap-4">
           <a
             href={PAGE_DATA.getStartedButton.link}
-            class="get-started-btn flex rounded-full px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            class="get-started-btn flex items-center justify-center rounded-full px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            aria-label="Get started with OpenLinux"
           >
             {PAGE_DATA.getStartedButton.text}
-            <img class="ml-2 h-6 w-6" src="/src/assets/svg/linux.svg" alt="Linux" />
+            <img class="ml-2 h-6 w-6" src="/src/assets/svg/linux.svg" alt="Linux penguin logo" />
           </a>
         </div>
 
+        <!-- Subtitle -->
         <p class="hero-subtitle mb-6 max-w-2xl text-lg leading-relaxed sm:text-xl">
           {PAGE_DATA.subtitle}
         </p>
 
-        <div class="code-container group relative mb-16 w-full max-w-md overflow-hidden rounded-lg">
+        <!-- Code Snippet -->
+        <article
+          class="code-container group relative mb-16 w-full max-w-md overflow-hidden rounded-lg"
+          aria-label="Installation command"
+        >
           <div class="code-header flex items-center justify-between px-4 py-2">
-            <span class="text-xs font-medium opacity-70">{PAGE_DATA.codeSnippet.label}</span>
+            <span class="text-xs font-medium opacity-70">
+              {PAGE_DATA.codeSnippet.label}
+            </span>
             <button
               class="copy-btn flex items-center gap-1 text-xs font-medium opacity-70 transition-opacity hover:opacity-100"
               data-code={PAGE_DATA.codeSnippet.command}
+              aria-label="Copy command to clipboard"
             >
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -87,37 +120,65 @@ const PAGE_DATA = {
               <span class="command-text">{PAGE_DATA.codeSnippet.command}</span>
             </code>
           </div>
-        </div>
-      </div>
+        </article>
+      </section>
 
-      <!-- Partners Section - Full Width -->
-      <div class="mt-20 w-full">
+      <!-- Partners Section -->
+      <section class="partners-section mt-18 w-full" aria-labelledby="partners-title">
         <p
+          id="partners-title"
           class="partners-title mb-8 text-center text-sm font-medium tracking-wider uppercase opacity-60"
         >
           {PAGE_DATA.partnersTitle}
-          <a class="text-blue-500 hover:underline" href="/plus">Here</a>
+          <a
+            class="partners-link text-blue-500 hover:underline"
+            href="/plus"
+            aria-label="Learn more about becoming a partner"
+          >
+            Here
+          </a>
         </p>
         <PartnersCarousel />
-      </div>
+      </section>
     </main>
   </div>
 </Layout>
 
 <style is:global>
+  /* ==================== Global Styles ==================== */
   * {
     scrollbar-width: none;
     scrollbar-color: transparent transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ==================== Layout ==================== */
+  .page-wrapper {
+    animation: fadeIn 0.6s ease-out;
   }
 
   .custom-cursor {
     cursor: url('/cursors/Pointer.ico'), default;
   }
 
-  .hero-section {
-    position: relative;
+  /* ==================== Navigation ==================== */
+  .back-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 
+  /* ==================== Hero Section ==================== */
+  .hero-section {
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  /* Badge */
   .badge {
     background: linear-gradient(135deg, rgba(0, 139, 108, 0.1), rgba(0, 179, 139, 0.1));
     border: 1px solid rgba(0, 139, 108, 0.3);
@@ -129,6 +190,7 @@ const PAGE_DATA = {
     border: 1px solid rgba(0, 139, 108, 0.4);
   }
 
+  /* Hero Title */
   .hero-title {
     background: linear-gradient(135deg, #008b6c 0%, #00d4aa 30%, #fbbf24 70%, #f59e0b 100%);
     -webkit-background-clip: text;
@@ -139,21 +201,13 @@ const PAGE_DATA = {
     filter: drop-shadow(0 0 20px rgba(0, 139, 108, 0.3));
   }
 
-  @keyframes gradient-shift {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
+  /* Hero Subtitle */
   .hero-subtitle {
     color: var(--text);
     opacity: 0.8;
   }
 
+  /* ==================== CTA Button ==================== */
   .get-started-btn {
     background: linear-gradient(135deg, #008b6c 0%, #00b38b 50%, #00d4aa 100%);
     color: white;
@@ -187,6 +241,7 @@ const PAGE_DATA = {
     transform: translateY(-2px);
   }
 
+  /* ==================== Code Container ==================== */
   .code-container {
     background: rgba(0, 139, 108, 0.05);
     border: 1px solid rgba(0, 139, 108, 0.2);
@@ -197,6 +252,7 @@ const PAGE_DATA = {
   .code-container:hover {
     border-color: rgba(0, 139, 108, 0.4);
     box-shadow: 0 8px 24px rgba(0, 139, 108, 0.15);
+    transform: translateY(-2px);
   }
 
   html.dark .code-container {
@@ -230,6 +286,7 @@ const PAGE_DATA = {
     color: #00b38b;
   }
 
+  /* Copy Button */
   .copy-btn {
     cursor: pointer;
     background: none;
@@ -237,16 +294,59 @@ const PAGE_DATA = {
     color: var(--text);
   }
 
-  .back-button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+  /* ==================== Partners Section ==================== */
+  .partners-section {
+    animation: fadeInUp 1s ease-out 0.3s both;
   }
 
   .partners-title {
     color: var(--text);
   }
 
+  .partners-link {
+    transition: color 0.2s ease;
+  }
+
+  .partners-link:hover {
+    color: #0066cc;
+  }
+
+  html.dark .partners-link:hover {
+    color: #3b82f6;
+  }
+
+  /* ==================== Animations ==================== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* ==================== Responsive Design ==================== */
   @media (max-width: 640px) {
     .hero-title {
       font-size: 2.5rem;
@@ -260,6 +360,48 @@ const PAGE_DATA = {
       width: 100%;
       text-align: center;
     }
+
+    .code-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
+  /* ==================== Accessibility ==================== */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus styles for keyboard navigation */
+  .badge:focus-visible,
+  .get-started-btn:focus-visible,
+  .copy-btn:focus-visible,
+  .partners-link:focus-visible {
+    outline: 2px solid #008b6c;
+    outline-offset: 2px;
+  }
+
+  html.dark .badge:focus-visible,
+  html.dark .get-started-btn:focus-visible,
+  html.dark .copy-btn:focus-visible,
+  html.dark .partners-link:focus-visible {
+    outline-color: #00b38b;
   }
 </style>
 
@@ -271,15 +413,23 @@ const PAGE_DATA = {
     if (copyBtn && copyText) {
       copyBtn.addEventListener('click', async () => {
         const code = copyBtn.getAttribute('data-code')
+
         if (code) {
           try {
             await navigator.clipboard.writeText(code)
             copyText.textContent = 'Copied!'
+
+            // Reset text after 2 seconds
             setTimeout(() => {
               copyText.textContent = 'Copy'
             }, 2000)
           } catch (err) {
             console.error('Failed to copy:', err)
+            copyText.textContent = 'Error!'
+
+            setTimeout(() => {
+              copyText.textContent = 'Copy'
+            }, 2000)
           }
         }
       })
