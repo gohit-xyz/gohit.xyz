@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import Partners from '@/components/ui/effects/PartnersCarousel.astro'
+import PartnersCarousel from '@/components/ui/effects/PartnersCarousel.astro'
 import { BackButtonOne } from '@/components/ui/ui'
 import { LINUX_COMMAND } from '@/data/linux'
 
@@ -88,14 +88,17 @@ const PAGE_DATA = {
             </code>
           </div>
         </div>
+      </div>
 
-        <div class="mt-15">
-          <p class="partners-title mb-8 text-sm font-medium tracking-wider uppercase opacity-60">
-            {PAGE_DATA.partnersTitle}
-            <a class="text-blue-500 hover:underline" href="/plus">Here</a>
-          </p>
-          <Partners />
-        </div>
+      <!-- Partners Section - Full Width -->
+      <div class="mt-20 w-full">
+        <p
+          class="partners-title mb-8 text-center text-sm font-medium tracking-wider uppercase opacity-60"
+        >
+          {PAGE_DATA.partnersTitle}
+          <a class="text-blue-500 hover:underline" href="/plus">Here</a>
+        </p>
+        <PartnersCarousel />
       </div>
     </main>
   </div>
