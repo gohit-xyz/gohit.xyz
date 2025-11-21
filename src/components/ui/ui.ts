@@ -15,6 +15,7 @@ export { default as PartnersCarousel } from './effects/PartnersCarousel.astro';
 export { default as ExtensionsGrid } from './grids/ExtensionsGrid.astro';
 
 // Decorative
+export { default as CornerDecorations } from './effects/decorative/CornerDecorations.astro';
 export { default as HorizontalLine } from './effects/decorative/HorizontalLine.astro';
 export { default as HorizontalLineDiamond } from './effects/decorative/HorizontalLineDiamond.astro';
 export { default as VerticalLines } from './effects/decorative/VerticalLines.astro';
