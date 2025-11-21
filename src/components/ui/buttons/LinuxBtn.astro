@@ -7,11 +7,7 @@ const { href } = Astro.props
     <strong>LINUX</strong>
 
     <!-- NEW Badge -->
-    <span
-      class="absolute -top-1 -right-1 z-10 flex h-5 items-center justify-center rounded-full bg-gray-300 px-2 text-[10px] font-bold text-black"
-    >
-      NEW
-    </span>
+    <span class="badge"> NEW </span>
 
     <div id="container-stars">
       <canvas id="stars-canvas"></canvas>
@@ -26,11 +22,19 @@ const { href } = Astro.props
 <style>
   :root {
     --btn-height: 3rem;
-    --star-color: #ffffff;
+    --star-color: #1a1a1a;
     --glow-color-1: rgba(13, 255, 159, 0.636);
     --glow-color-2: rgba(0, 255, 200, 0.704);
     --hover-bg: #080808;
     --active-glow: #0dff9f;
+    --badge-bg: #1a1a1a;
+    --badge-text: #ffffff;
+  }
+
+  html.dark {
+    --star-color: #ffffff;
+    --badge-bg: #e5e5e5;
+    --badge-text: #000000;
   }
 
   .btn-wrapper {
@@ -60,11 +64,31 @@ const { href } = Astro.props
 
   strong {
     z-index: 2;
-    font-family: 'Avalors Personal Use', sans-serif; /* Fallback font */
+    font-family: 'Avalors Personal Use', sans-serif;
     font-size: 16px;
     letter-spacing: 5px;
-    text-shadow: 0 0 4px var(--star-color);
+    text-shadow: 0 0 8px var(--star-color);
     user-select: none;
+  }
+
+  .badge {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+    z-index: 10;
+    display: flex;
+    height: 1.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: var(--badge-bg);
+    padding: 0 0.5rem;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--badge-text);
+    transition:
+      background-color 0.3s,
+      color 0.3s;
   }
 
   #container-stars {
@@ -191,6 +215,7 @@ const { href } = Astro.props
 
     /** @type {Particle[]} */
     let particles: Particle[] = []
+    let currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
 
     function canvasWidth() {
       return canvas instanceof HTMLCanvasElement ? canvas.width : 0
@@ -199,7 +224,7 @@ const { href } = Astro.props
     function canvasHeight() {
       return canvas instanceof HTMLCanvasElement ? canvas.height : 0
     }
-    const numParticles = 40 // number of particles
+    const numParticles = 40
 
     // adjust canvas resolution to container size (high-DPI aware)
     function resizeCanvas() {
@@ -216,11 +241,7 @@ const { href } = Astro.props
 
     // create a random particle
     function createParticle() {
-      // Detect current theme
-      const isDark = document.documentElement.classList.contains('dark')
-      // Particles dark & light mode
-      const baseColor = isDark ? '255, 255, 255' : '26, 26, 26'
-
+      const baseColor = currentTheme === 'dark' ? '255, 255, 255' : '26, 26, 26'
       return {
         x: Math.random() * canvasWidth(),
         y: Math.random() * canvasHeight(),
@@ -231,6 +252,15 @@ const { href } = Astro.props
         color: `rgba(${baseColor}, ${Math.random() * 0.8 + 0.2})`,
         life: 0,
         maxLife: Math.random() * 200 + 80,
+      }
+    }
+
+    // handle theme changes
+    function handleThemeChange() {
+      const newTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+      if (newTheme !== currentTheme) {
+        currentTheme = newTheme
+        initParticles() // regenerate all particles with new colors
       }
     }
 
@@ -285,6 +315,14 @@ const { href } = Astro.props
 
     // Event Listeners
     window.addEventListener('resize', resizeCanvas)
+
+    // Listen for theme changes
+    const observer = new MutationObserver(handleThemeChange)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+
     if (!ctx || !canvas || !btnContainer) return
     resizeCanvas()
     initParticles()
