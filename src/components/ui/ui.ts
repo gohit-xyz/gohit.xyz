@@ -5,7 +5,6 @@ export { default as CircleButtonUp } from './buttons/CircleButtonUp.astro';
 export { default as GithubStartBtn } from './buttons/GithubStartBtn.astro';
 export { default as LinuxBtn } from './buttons/LinuxBtn.astro';
 export { default as NextPageBtn } from './buttons/NextPageBtn.astro';
-export { default as OrangeBtn } from './buttons/OrangeBtn.astro';
 export { default as YoutubeBtn } from './buttons/YoutubeBtn.astro';
 
 // Effects
