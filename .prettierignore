@@ -32,3 +32,4 @@ tsconfig.json
 # Pages
 global.css
 src/pages/blog/
+decorative/

@@ -4,7 +4,7 @@ import ThemeToggle from '@/components/ThemeToggle'
 import Footer from '@/sections/shared/Footer.astro'
 import { getCollection } from 'astro:content'
 import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
-import {Decorative ,BackButtonOne, CircleButtonUp} from '@/components/ui/ui'
+import { HorizontalLine, VerticalLinesFade ,BackButtonOne, CircleButtonUp} from '@/components/ui/ui'
 
 // Get Articles Collection & Sort
 const articles = await getCollection('articles', ({ data }) => data.draft !== true)
@@ -24,22 +24,15 @@ const formatDate = (date: Date | string) => {
 
 <Layout>
   <div class="relative min-h-screen w-full">
-    <!-- ========== DECORATIVE BACKGROUND ========== -->
-    <Decorative variant="blog-index" />
-
-    <!-- ========== MAIN CONTENT ========== -->
-
+    <VerticalLinesFade/>
     <main class="relative mx-auto max-w-4xl px-6 pt-8 pb-2 lg:px-8">
       <!-- Theme Toggle -->
       <ThemeToggle client:idle />
 
       <!-- ========== HEADER SECTION ========== -->
-
-      <header class="mb-16">
-        <!-- Back Button -->
+      <header class="mb-11">
         <BackButtonOne href="/" text="Home" />
 
-        <!-- Title & Description -->
         <div class="space-y-4">
           <h1 class="text-5xl font-bold tracking-tight lg:text-6xl">Blog X</h1>
           <p class="text-xl text-gray-600 dark:text-gray-400">
@@ -47,15 +40,10 @@ const formatDate = (date: Date | string) => {
           </p>
         </div>
 
-        <!-- Header Divider -->
-        <div
-          class="mt-8 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
-        >
-        </div>
+        <HorizontalLine/>
       </header>
 
       <!-- ========== ARTICLES GRID ========== -->
-
       <div class="grid grid-cols-1 gap-8">
         {
           sortedArticles.map((article) => (
@@ -157,7 +145,6 @@ const formatDate = (date: Date | string) => {
       </div>
 
       <!-- ========== EMPTY STATE ========== -->
-
       {
         sortedArticles.length === 0 && (
           <div class="flex min-h-[400px] items-center justify-center">
@@ -170,13 +157,8 @@ const formatDate = (date: Date | string) => {
           </div>
         )
       }
-
-      <!-- Footer Divider -->
-      <div
-        class="mt-16 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
-      >
-      </div>
-
+      <!-- LINE HORIZONTAL -->
+      <HorizontalLine/>
       <!-- Footer Component -->
       <Footer />
     </main>
@@ -188,9 +170,8 @@ const formatDate = (date: Date | string) => {
   </div>
 </Layout>
 
-<!--========== THEME TOGGLE ========== -->
+<!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  /* Scroll to Top Button Positioning */
   .scroll-to-top-wrapper {
     position: fixed;
     bottom: 2rem;

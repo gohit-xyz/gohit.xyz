@@ -8,9 +8,13 @@ export { default as NextPageBtn } from './buttons/NextPageBtn.astro';
 export { default as YoutubeBtn } from './buttons/YoutubeBtn.astro';
 
 // Effects
-export { default as Decorative } from './effects/Decorative.astro';
 export { default as GlowEffect } from './effects/GlowEffect.astro';
 export { default as PartnersCarousel } from './effects/PartnersCarousel.astro';
 
 // Grids
 export { default as ExtensionsGrid } from './grids/ExtensionsGrid.astro';
+
+// Decorative
+export { default as HorizontalLine } from './effects/decorative/HorizontalLine.astro';
+export { default as HorizontalLineDiamond } from './effects/decorative/HorizontalLineDiamond.astro';
+export { default as VerticalLinesFade } from './effects/decorative/VerticalLinesFade.astro';

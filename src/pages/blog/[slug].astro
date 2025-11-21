@@ -2,7 +2,8 @@
 import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { TimeIcon, ShareIcon } from '@/components/icons/icons'
-import {Decorative,BackButtonTwo, CircleButtonUp} from '@/components/ui/ui'
+import {HorizontalLineDiamond,BackButtonTwo, CircleButtonUp, HorizontalLine} from '@/components/ui/ui'
+import VerticalLines from '@/components/ui/effects/decorative/VerticalLines.astro'
 
 // Static Paths
 export async function getStaticPaths() {
@@ -27,10 +28,7 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
 
 <Layout>
   <article class="relative mx-auto max-w-5xl px-6 py-16 lg:px-8">
-    <!-- Decorative Elements -->
-    <Decorative variant="blog-post" />
-
-    <!-- Main Content -->
+     <VerticalLines/>
     <div class="relative z-10">
       <!-- Breadcrumb -->
       <nav
@@ -58,13 +56,11 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
           />
         </a>
 
-        <!-- Divider -->
-        <hr
-          class="mx-auto mb-8 h-px w-full max-w-4xl border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent"
-        />
+        <!-- LINE HORIZONTAL -->
+        <HorizontalLine marginTop="mt-0" marginBottom="mb-10"/>
 
-        <!-- Meta Info -->
-        <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400">
+        <!-- Date - Info - Url  -->
+        <div class="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400">
           <div class="flex items-center gap-2">
             <TimeIcon className="h-4 w-4" />
             <span>{readingTime} min read</span>
@@ -91,30 +87,16 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
         </div>
       </header>
 
-      <!-- Diamond Divider -->
-      <div class="relative mx-auto mb-12 max-w-4xl">
-        <hr
-          class="h-px w-full border-0 bg-linear-to-r from-transparent via-gray-800 to-transparent"
-        />
-        <div
-          class="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-gray-700 bg-black"
-        >
-        </div>
-      </div>
+      <!-- LINE HORIZONTAL -->
+      <HorizontalLineDiamond />
+
 
       <!-- Content -->
-      <div
-        class="prose prose-invert prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-3xl prose-h3:mb-4 prose-h3:mt-8 prose-p:leading-normal prose-p:text-gray-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 prose-strong:text-white prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:text-blue-300 prose-code:font-mono prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:shadow-lg prose-table:w-full prose-table:border-collapse prose-thead:border-b prose-thead:border-gray-700 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-200 prose-th:align-top prose-td:px-4 prose-td:py-3 prose-td:text-gray-300 prose-td:border-t prose-td:border-gray-800 prose-td:align-top prose-tr:border-b prose-tr:border-gray-800 mx-auto max-w-3xl"
-      >
-        <!-- {article.data.description && (
-          <p class="text-xl lead mb-10 leading-relaxed text-gray-400">
-            {article.data.description}
-          </p>
-        )} -->
+      <div class="prose prose-invert prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-3xl prose-h3:mb-4 prose-h3:mt-8 prose-p:leading-normal prose-p:text-gray-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300 prose-strong:text-white prose-code:rounded prose-code:bg-transparent prose-code:px-1 prose-code:text-blue-300 prose-code:font-mono prose-pre:rounded-lg prose-pre:border prose-pre:border-gray-700 prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:shadow-lg prose-table:w-full prose-table:border-collapse prose-thead:border-b prose-thead:border-gray-700 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-semibold prose-th:text-gray-200 prose-th:align-top prose-td:px-4 prose-td:py-3 prose-td:text-gray-300 prose-td:border-t prose-td:border-gray-800 prose-td:align-top prose-tr:border-b prose-tr:border-gray-800 mx-auto max-w-3xl">
         <Content />
       </div>
 
-      <!-- Tags -->
+      <!-- # Tags -->
       {
         (article.data.tags ?? []).length > 0 && (
           <footer class="mx-auto mt-16 max-w-3xl border-t border-gray-800 pt-8">
@@ -139,11 +121,10 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
   <div class="scroll-to-top-wrapper">
     <CircleButtonUp />
   </div>
-
 </Layout>
 
+<!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  /* Scroll to Top Button Positioning */
   .scroll-to-top-wrapper {
     position: fixed;
     bottom: 2rem;
@@ -227,6 +208,7 @@ const formattedDate = new Date(article.data.publishDate).toLocaleDateString('en-
   }
 </style>
 
+<!-- --- --- -- --- -- -- MARK:Script -->
 <script>
   const ICONS = {
     copy: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>',
