@@ -17,4 +17,5 @@ export { default as ExtensionsGrid } from './grids/ExtensionsGrid.astro';
 // Decorative
 export { default as HorizontalLine } from './effects/decorative/HorizontalLine.astro';
 export { default as HorizontalLineDiamond } from './effects/decorative/HorizontalLineDiamond.astro';
+export { default as VerticalLines } from './effects/decorative/VerticalLines.astro';
 export { default as VerticalLinesFade } from './effects/decorative/VerticalLinesFade.astro';
