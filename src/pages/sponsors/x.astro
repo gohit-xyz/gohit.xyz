@@ -1,6 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import patreonImg from '@/assets/images/x/patreon.jpg'
 import { BackButtonOne } from '@/components/ui/ui'
 import { Image } from 'astro:assets'
 import { SPONSORS } from '@/data/x'
@@ -39,6 +38,8 @@ import { SPONSORS } from '@/data/x'
                     data-name={sponsor.name}
                     data-url={sponsor.url}
                     data-desc={sponsor.description}
+                    data-qr-src={sponsor.qrImage.src}
+                    data-qr-link={sponsor.qrLink}
                     aria-label={`Select ${sponsor.name}`}
                   >
                     <div class="flex items-center gap-3">
@@ -75,8 +76,8 @@ import { SPONSORS } from '@/data/x'
               </div>
               <div class="relative rounded-xl bg-white p-4 dark:bg-gray-900">
                 <Image
-                  src={patreonImg}
-                  alt="QR Code"
+                  src={SPONSORS[0].qrImage}
+                  alt="QR Code for {SPONSORS[0].name}"
                   class="h-64 w-64 rounded-lg object-cover shadow-2xl"
                   id="qr-image"
                 />
@@ -145,11 +146,7 @@ import { SPONSORS } from '@/data/x'
     const sponsorName = document.getElementById('sponsor-name')
     const sponsorDesc = document.getElementById('sponsor-desc')
     const sponsorLink = document.getElementById('sponsor-link') as HTMLAnchorElement
-
-    // Note: In a real implementation, we might want to swap the QR image source too.
-    // Since we only have one placeholder image, we'll keep it static for now,
-    // but the logic is here if needed.
-    // const qrImage = document.getElementById('qr-image') as HTMLImageElement;
+    const qrImage = document.getElementById('qr-image') as HTMLImageElement
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -207,10 +204,18 @@ import { SPONSORS } from '@/data/x'
         const name = button.getAttribute('data-name')
         const url = button.getAttribute('data-url')
         const desc = button.getAttribute('data-desc')
+        const qrSrc = button.getAttribute('data-qr-src')
+        const qrLink = button.getAttribute('data-qr-link')
 
         if (sponsorName) sponsorName.textContent = name || ''
         if (sponsorDesc) sponsorDesc.textContent = desc || ''
         if (sponsorLink) sponsorLink.href = url || '#'
+
+        // Update QR code image and alt text
+        if (qrImage && qrSrc) {
+          qrImage.src = qrSrc
+          qrImage.alt = `QR Code for ${name}`
+        }
 
         // Animation effect for content change
         const rightColumn = document.querySelector('.lg\\:col-span-7 > div')
