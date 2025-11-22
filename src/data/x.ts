@@ -66,6 +66,15 @@ export const SPONSORS: Sponsor[] = [
     qrLink: 'https://github.com/sponsors/yourhandle', // TODO: Update with your actual GitHub Sponsors link
   },
   {
+    id: 'binance',
+    name: 'Binance (Cryptocurrency)',
+    url: 'https://binance.com',
+    icon: binanceImg,
+    description: 'Support our collective transparency.',
+    qrImage: qrTestImg, // TODO: Replace with actual Binance QR code
+    qrLink: 'https://binance.com/yourhandle', // TODO: Update with your actual Binance link
+  },
+    {
     id: 'stripe',
     name: 'Stripe Payment Links',
     url: 'https://stripe.com',
@@ -73,14 +82,5 @@ export const SPONSORS: Sponsor[] = [
     description: 'Secure payment via Stripe.',
     qrImage: qrTestImg, // TODO: Replace with actual Stripe QR code
     qrLink: 'https://buy.stripe.com/yourlink', // TODO: Update with your actual Stripe payment link
-  },
-  {
-    id: 'binance',
-    name: 'Binance',
-    url: 'https://binance.com',
-    icon: binanceImg,
-    description: 'Support our collective transparency.',
-    qrImage: qrTestImg, // TODO: Replace with actual Binance QR code
-    qrLink: 'https://binance.com/yourhandle', // TODO: Update with your actual Binance link
   },
 ]

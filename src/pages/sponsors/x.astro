@@ -29,7 +29,7 @@ import { SPONSORS } from '@/data/x'
               {
                 SPONSORS.map((sponsor, index) => (
                   <button
-                    class={`sponsor-item group flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 hover:scale-[1.02] ${
+                    class={`sponsor-item group flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 cursor-pointer hover:scale-[1.02] ${
                       index === 0
                         ? 'active border-[#008b6c] bg-[#008b6c]/10 ring-1 ring-[#008b6c]'
                         : 'border-transparent bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10'
