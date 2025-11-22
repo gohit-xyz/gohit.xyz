@@ -56,25 +56,4 @@ export const SPONSORS: Sponsor[] = [
     icon: '🌐',
     description: 'Support our collective transparency.',
   },
-  {
-    id: 'liberapay',
-    name: 'Liberapay',
-    url: 'https://liberapay.com',
-    icon: '💸',
-    description: 'Recurrent donations with Liberapay.',
-  },
-  {
-    id: 'gofundme',
-    name: 'GoFundMe',
-    url: 'https://gofundme.com',
-    icon: '🎗️',
-    description: 'Help fund specific goals and projects.',
-  },
-  {
-    id: 'patronite',
-    name: 'Patronite',
-    url: 'https://patronite.com',
-    icon: '⭐',
-    description: 'Join the community on Patronite.',
-  },
 ]
