@@ -1,6 +1,6 @@
 import patreonImg from '@/assets/images/x/patreon.jpg'
 import buymeacoffeeImg from '@/assets/images/x/buymeacoffee.jpg'
-import kofiImg from '@/assets/images/x/co-fi.jpg'
+import kofiImg from '@/assets/images/x/co-fi2.jpg'
 import paypalImg from '@/assets/images/x/paypal2.jpg'
 import githubImg from '@/assets/images/x/github-sponsor.jpg'
 import stripeImg from '@/assets/images/x/stripe2.jpg'
