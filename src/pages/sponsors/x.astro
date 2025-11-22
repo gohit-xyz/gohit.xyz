@@ -1,0 +1,228 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import patreonImg from '@/assets/images/x/patreon.webp'
+import { BackButtonOne } from '@/components/ui/ui'
+import { Image } from 'astro:assets'
+import { SPONSORS } from '@/data/x'
+---
+
+<Layout>
+  <div
+    class="page-wrapper custom-cursor flex min-h-screen w-full items-center justify-center py-10"
+  >
+    <main class="relative w-full max-w-6xl px-4 sm:px-6">
+      <!-- Back Button -->
+      <div class="back-button-container mb-8 flex gap-3">
+        <BackButtonOne href="/" text="Home" />
+        <BackButtonOne text="/ㅤSponsors" showIcon={false} useHistory={true} />
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-12">
+        <!-- Left Column: Sponsors List -->
+        <div class="lg:col-span-5 xl:col-span-4">
+          <div
+            class="sponsors-list-container overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl"
+          >
+            <div class="border-b border-white/10 p-4">
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white">Payment Method</h2>
+            </div>
+            <div class="custom-scrollbar max-h-[600px] space-y-2 overflow-y-auto p-2">
+              {
+                SPONSORS.map((sponsor, index) => (
+                  <button
+                    class={`sponsor-item group flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 hover:scale-[1.02] ${
+                      index === 0
+                        ? 'active border-[#008b6c] bg-[#008b6c]/10 ring-1 ring-[#008b6c]'
+                        : 'border-transparent bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10'
+                    }`}
+                    data-id={sponsor.id}
+                    data-name={sponsor.name}
+                    data-url={sponsor.url}
+                    data-desc={sponsor.description}
+                    aria-label={`Select ${sponsor.name}`}
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl shadow-sm">
+                        {sponsor.icon}
+                      </div>
+                      <span class="font-medium text-gray-800 group-[.active]:font-bold group-[.active]:text-[#008b6c] dark:text-gray-200">
+                        {sponsor.name}
+                      </span>
+                    </div>
+                    <div class="radio-indicator relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-400 group-[.active]:border-[#008b6c] group-[.active]:bg-[#008b6c]">
+                      <div class="h-2 w-2 rounded-full bg-white opacity-0 transition-opacity group-[.active]:opacity-100" />
+                    </div>
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Detail View -->
+        <div class="lg:col-span-7 xl:col-span-8">
+          <div
+            class="sticky top-10 flex h-full min-h-[500px] flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-xl transition-all duration-500"
+          >
+            <div class="group relative mb-8">
+              <div
+                class="absolute -inset-1 rounded-2xl bg-linear-to-r from-[#008b6c] to-[#00d4aa] opacity-25 blur transition duration-1000 group-hover:opacity-50 group-hover:duration-200"
+              >
+              </div>
+              <div class="relative rounded-xl bg-white p-4 dark:bg-gray-900">
+                <Image
+                  src={patreonImg}
+                  alt="QR Code"
+                  class="h-64 w-64 rounded-lg object-cover shadow-2xl"
+                  id="qr-image"
+                />
+              </div>
+            </div>
+
+            <h2 id="sponsor-name" class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+              {SPONSORS[0].name}
+            </h2>
+            <p id="sponsor-desc" class="mb-8 max-w-md text-gray-600 dark:text-gray-400">
+              {SPONSORS[0].description}
+            </p>
+
+            <a
+              id="sponsor-link"
+              href={SPONSORS[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#008b6c] px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#007a5e] hover:shadow-[0_0_20px_rgba(0,139,108,0.4)]"
+            >
+              <span class="relative z-10">Go to Official Page</span>
+              <svg
+                class="relative z-10 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.3);
+    border-radius: 20px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.5);
+  }
+
+  /* Animation for the active state */
+  .sponsor-item.active {
+    box-shadow: 0 0 15px rgba(0, 139, 108, 0.1);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.sponsor-item')
+    const sponsorName = document.getElementById('sponsor-name')
+    const sponsorDesc = document.getElementById('sponsor-desc')
+    const sponsorLink = document.getElementById('sponsor-link') as HTMLAnchorElement
+
+    // Note: In a real implementation, we might want to swap the QR image source too.
+    // Since we only have one placeholder image, we'll keep it static for now,
+    // but the logic is here if needed.
+    // const qrImage = document.getElementById('qr-image') as HTMLImageElement;
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        buttons.forEach((btn) => {
+          btn.classList.remove(
+            'active',
+            'border-[#008b6c]',
+            'bg-[#008b6c]/10',
+            'ring-1',
+            'ring-[#008b6c]'
+          )
+          btn.classList.add('border-transparent', 'bg-white/5', 'dark:bg-white/5')
+
+          // Reset text color
+          const textSpan = btn.querySelector('span')
+          if (textSpan) {
+            textSpan.classList.remove('text-[#008b6c]', 'font-bold')
+          }
+
+          // Reset radio indicator
+          const radio = btn.querySelector('.radio-indicator')
+          if (radio) {
+            radio.classList.remove('border-[#008b6c]', 'bg-[#008b6c]')
+            radio.classList.add('border-gray-400')
+            const dot = radio.querySelector('div')
+            if (dot) dot.classList.remove('opacity-100')
+          }
+        })
+
+        // Add active class to clicked button
+        button.classList.add(
+          'active',
+          'border-[#008b6c]',
+          'bg-[#008b6c]/10',
+          'ring-1',
+          'ring-[#008b6c]'
+        )
+        button.classList.remove('border-transparent', 'bg-white/5', 'dark:bg-white/5')
+
+        const textSpan = button.querySelector('span')
+        if (textSpan) {
+          textSpan.classList.add('text-[#008b6c]', 'font-bold')
+        }
+
+        const radio = button.querySelector('.radio-indicator')
+        if (radio) {
+          radio.classList.remove('border-gray-400')
+          radio.classList.add('border-[#008b6c]', 'bg-[#008b6c]')
+          const dot = radio.querySelector('div')
+          if (dot) dot.classList.add('opacity-100')
+        }
+
+        // Update details
+        const name = button.getAttribute('data-name')
+        const url = button.getAttribute('data-url')
+        const desc = button.getAttribute('data-desc')
+
+        if (sponsorName) sponsorName.textContent = name || ''
+        if (sponsorDesc) sponsorDesc.textContent = desc || ''
+        if (sponsorLink) sponsorLink.href = url || '#'
+
+        // Animation effect for content change
+        const rightColumn = document.querySelector('.lg\\:col-span-7 > div')
+        if (rightColumn) {
+          rightColumn.animate(
+            [
+              { opacity: 0.8, transform: 'scale(0.98)' },
+              { opacity: 1, transform: 'scale(1)' },
+            ],
+            {
+              duration: 300,
+              easing: 'ease-out',
+            }
+          )
+        }
+      })
+    })
+  })
+</script>
