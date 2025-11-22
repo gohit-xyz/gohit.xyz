@@ -1,9 +1,9 @@
 import patreonImg from '@/assets/images/x/patreon.jpg'
 import buymeacoffeeImg from '@/assets/images/x/buymeacoffee.jpg'
 import kofiImg from '@/assets/images/x/co-fi.jpg'
-import paypalImg from '@/assets/images/x/paypal.jpg'
+import paypalImg from '@/assets/images/x/paypal2.jpg'
 import githubImg from '@/assets/images/x/github-sponsor.jpg'
-import stripeImg from '@/assets/images/x/stripe.jpg'
+import stripeImg from '@/assets/images/x/stripe2.jpg'
 import binanceImg from '@/assets/images/x/binance.jpg'
 
 export interface Sponsor {
@@ -16,11 +16,11 @@ export interface Sponsor {
 
 export const SPONSORS: Sponsor[] = [
   {
-    id: 'patreon',
-    name: 'Patreon',
-    url: 'https://patreon.com',
-    icon: patreonImg,
-    description: 'Support me on Patreon and get exclusive rewards.',
+    id: 'paypal',
+    name: 'PayPal Donations',
+    url: 'https://paypal.com',
+    icon: paypalImg,
+    description: 'Direct donation via PayPal.',
   },
   {
     id: 'buymeacoffee',
@@ -30,18 +30,18 @@ export const SPONSORS: Sponsor[] = [
     description: 'Buy me a coffee to keep the code flowing.',
   },
   {
+    id: 'patreon',
+    name: 'Patreon',
+    url: 'https://patreon.com',
+    icon: patreonImg,
+    description: 'Support me on Patreon and get exclusive rewards.',
+  },
+  {
     id: 'kofi',
     name: 'Ko-fi',
     url: 'https://ko-fi.com',
     icon: kofiImg,
     description: 'Support my work with a small donation on Ko-fi.',
-  },
-  {
-    id: 'paypal',
-    name: 'PayPal Donations',
-    url: 'https://paypal.com',
-    icon: paypalImg,
-    description: 'Direct donation via PayPal.',
   },
   {
     id: 'github',
