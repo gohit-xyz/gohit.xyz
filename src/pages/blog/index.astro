@@ -1,98 +1,82 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import ThemeToggle from '@/components/ThemeToggle'
+import Footer from '@/sections/shared/Footer.astro'
 import { getCollection } from 'astro:content'
-import { ArrowLeftIcon } from '@/components/icons/icons'
+import { ArrowRightIcon, ExternalLinkIcon } from '@/components/icons/icons'
+import { HorizontalLine, VerticalLinesFade ,BackButtonOne, CircleButtonUp} from '@/components/ui/ui'
 
-const articles = await getCollection('articles', ({ data }) => {
-  return data.draft !== true
-})
+// Get Articles Collection & Sort
+const articles = await getCollection('articles', ({ data }) => data.draft !== true)
+const sortedArticles = articles.sort(
+  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+)
 
-const sortedArticles = articles.sort((a, b) => {
-  return new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
-})
+// Helper Functions
+const formatDate = (date: Date | string) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
 ---
 
 <Layout>
   <div class="relative min-h-screen w-full">
-    <!-- Decorative Background Lines -->
-    <div
-      class="fixed top-0 left-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
-    >
-    </div>
-    <div
-      class="fixed top-0 right-0 h-full w-px bg-linear-to-b from-gray-800 via-gray-700 to-transparent opacity-30"
-    >
-    </div>
-
-    <!-- Top Decorative Line -->
-    <div
-      class="fixed top-0 left-0 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"
-    >
-    </div>
-
-    <main class="relative mx-auto max-w-6xl px-6 py-16 lg:px-8">
-      <!-- Theme toggle -->
+    <VerticalLinesFade/>
+    <main class="relative mx-auto max-w-4xl px-6 pt-8 pb-2 lg:px-8">
+      <!-- Theme Toggle -->
       <ThemeToggle client:idle />
 
-      <!-- Header Section -->
-      <header class="mb-16">
-        <div class="mb-8 flex items-center gap-4">
-          <a
-            href="/"
-            aria-label="back"
-            class="group flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-500"
-          >
-            <ArrowLeftIcon className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-            <span class="text-sm">Back</span>
-          </a>
-        </div>
+      <!-- ========== HEADER SECTION ========== -->
+      <header class="mb-11">
+        <BackButtonOne href="/" text="Home" />
 
         <div class="space-y-4">
-          <h1 class="text-5xl font-bold tracking-tight lg:text-6xl">Articles</h1>
+          <h1 class="text-5xl font-bold tracking-tight lg:text-6xl">Blog X</h1>
           <p class="text-xl text-gray-600 dark:text-gray-400">
             Thoughts, insights, and learnings from our journey
           </p>
         </div>
 
-        <!-- Decorative line -->
-        <div
-          class="mt-8 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
-        >
-        </div>
+        <HorizontalLine/>
       </header>
 
-      <!-- Articles Grid -->
-      <div class="grid gap-8 md:grid-cols-2">
+      <!-- ========== ARTICLES GRID ========== -->
+      <div class="grid grid-cols-1 gap-8">
         {
           sortedArticles.map((article) => (
-            <article class="group relative bg-black rounded-lg ">
-              <a href={`/article/${article.slug}`} class="block h-full">
-                {/* Card Container */}
+            <article class="group relative rounded-lg bg-black">
+              <a href={`/blog/${article.slug}`} class="block h-full w-full">
                 <div class="relative h-full overflow-hidden rounded-lg border border-gray-300 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:bg-white hover:shadow-xl dark:border-gray-800 dark:bg-black/40 dark:hover:border-gray-700 dark:hover:bg-black/60">
-                  {/* Banner Image */}
+                  {/* Banner Image*/}
                   {article.data.banner && (
-                    <div class="relative h-48 w-full overflow-hidden">
+                    <div class="relative h-64 w-full overflow-hidden">
                       <img
                         src={article.data.banner}
                         alt={`Banner for ${article.data.title}`}
                         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        width="800"
+                        height="192"
                         loading="lazy"
                       />
-                      {/* Gradient Overlay */}
                       <div class="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-60" />
                     </div>
                   )}
 
-                  {/* Content */}
+                  {/* Card Content */}
                   <div class="space-y-4 bg-black p-6">
-                    {/* Meta Info - Author & Date */}
+                    {/* Author & Date Row */}
                     <div class="flex items-center justify-between">
+                      {/* Author Info */}
                       <div class="flex items-center gap-3">
                         <img
-                          src={article.data.profile || '/src/assets/images/test/user.png'}
+                          src={article.data.profile || '/src/assets/images/profile/user.png'}
                           alt={`${article.data.author}'s avatar`}
                           class="h-10 w-10 rounded-full border-2 border-gray-200 object-cover ring-2 ring-gray-100 dark:border-gray-800 dark:ring-black/50"
+                          width="40"
+                          height="40"
                           loading="lazy"
                         />
                         <div>
@@ -107,46 +91,28 @@ const sortedArticles = articles.sort((a, b) => {
                                 : article.data.publishDate.toISOString()
                             }
                           >
-                            {new Date(article.data.publishDate).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            })}
+                            {formatDate(article.data.publishDate)}
                           </time>
                         </div>
                       </div>
 
                       {/* External Link Icon */}
-                      {article.data.url && (
-                        <svg
-                          class="h-5 w-5 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      )}
+                      <ExternalLinkIcon className="h-5 w-5 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
                     </div>
 
-                    {/* Title */}
+                    {/* Article Title */}
                     <h2 class="text-2xl leading-tight font-bold tracking-tight text-black transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
                       {article.data.title}
                     </h2>
 
-                    {/* Description */}
+                    {/* Article Description */}
                     {article.data.description && (
                       <p class="line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                         {article.data.description}
                       </p>
                     )}
 
-                    {/* Tags */}
+                    {/*  Tags*/}
                     {article.data.tags && article.data.tags.length > 0 && (
                       <div class="flex flex-wrap gap-2 pt-2">
                         {article.data.tags.slice(0, 3).map((tag) => (
@@ -162,22 +128,10 @@ const sortedArticles = articles.sort((a, b) => {
                       </div>
                     )}
 
-                    {/* Read More */}
+                    {/* Read More Link */}
                     <div class="flex items-center gap-2 pt-2 text-sm font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
                       <span>Read article</span>
-                      <svg
-                        class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                      <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
 
@@ -190,7 +144,7 @@ const sortedArticles = articles.sort((a, b) => {
         }
       </div>
 
-      {/* Empty State */}
+      <!-- ========== EMPTY STATE ========== -->
       {
         sortedArticles.length === 0 && (
           <div class="flex min-h-[400px] items-center justify-center">
@@ -203,21 +157,40 @@ const sortedArticles = articles.sort((a, b) => {
           </div>
         )
       }
-
-      {/* Footer Decorative Line */}
-      <div
-        class="mt-16 h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
-      >
-      </div>
+      <!-- LINE HORIZONTAL -->
+      <HorizontalLine/>
+      <!-- Footer Component -->
+      <Footer />
     </main>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top-wrapper">
+      <CircleButtonUp />
+    </div>
   </div>
 </Layout>
 
+<!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  /* Theme Toggle Icon */
+  .scroll-to-top-wrapper {
+    position: fixed;
+    bottom: 2rem;
+    right: 1.5rem;
+    z-index: 50;
+  }
+
+  /* Desktop: Align with article container */
+  @media (min-width: 1024px) {
+    .scroll-to-top-wrapper {
+      left: 50%;
+      right: auto;
+      transform: translateX(calc(512px - 4rem));
+    }
+  }
+
   :global(.theme-toggle) {
     position: absolute;
-    top: 3rem;
+    top: 1.5rem;
     right: 1.5rem;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
@@ -243,34 +216,6 @@ const sortedArticles = articles.sort((a, b) => {
     height: 20px;
   }
 
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Line clamp for description */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  /* Prevent text flicker on theme change */
-  h1,
-  h2,
-  h3,
-  p,
-  span,
-  time {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    will-change: color;
-  }
-
-  /* Responsive adjustments */
   @media (max-width: 768px) {
     :global(.theme-toggle) {
       top: 1rem;
@@ -284,7 +229,32 @@ const sortedArticles = articles.sort((a, b) => {
     }
   }
 
-  /* Animation for cards on load */
+  /* ========== GLOBAL STYLES ========== */
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Line Clamp Utility */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Prevent Text Flicker on Theme Transitions */
+  h1, h2, h3, p, span, time {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: color;
+  }
+
+  /* ========== ANIMATIONS ========== */
+
+  /* Staggered Fade-in for Articles */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -301,22 +271,10 @@ const sortedArticles = articles.sort((a, b) => {
     opacity: 0;
   }
 
-  article:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  article:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  article:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  article:nth-child(4) {
-    animation-delay: 0.4s;
-  }
-  article:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-  article:nth-child(6) {
-    animation-delay: 0.6s;
-  }
+  article:nth-child(1) {animation-delay: 0.1s;}
+  article:nth-child(2) {animation-delay: 0.2s;}
+  article:nth-child(3) {animation-delay: 0.3s;}
+  article:nth-child(4) {animation-delay: 0.4s;}
+  article:nth-child(5) {animation-delay: 0.5s;}
+  article:nth-child(6) {animation-delay: 0.6s;}
 </style>

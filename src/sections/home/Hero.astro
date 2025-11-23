@@ -1,8 +1,16 @@
 ---
 import ThemeToggle from '@/components/ThemeToggle'
-import meImage from '@/assets/images/me.jpg'
+import meImage from '@/assets/images/profile/me.jpg'
 import { SponsorIcon } from '@/components/icons/icons'
 import { GlowEffect, GithubStartBtn } from '@/components/ui/ui'
+
+// Only change here
+const PROFILE_CONFIG = {
+  username: '@gohitx',
+  imageAlt: 'Profile picture of @gohitx',
+  profileLink: '/me',
+  sponsorLink: '/sponsors',
+}
 ---
 
 <section class="relative flex flex-col items-center p-4">
@@ -10,7 +18,7 @@ import { GlowEffect, GithubStartBtn } from '@/components/ui/ui'
 
   <!-- Social icons toolbar -->
   <div class="icon-toolbar">
-    <a href="/sponsors" aria-label="Sponsor" class="icon-button group">
+    <a href={PROFILE_CONFIG.sponsorLink} aria-label="Sponsor" class="icon-button group">
       <SponsorIcon className="transition-colors duration-300 group-hover:text-pink-500" />
     </a>
     <div class="icon-button">
@@ -26,15 +34,11 @@ import { GlowEffect, GithubStartBtn } from '@/components/ui/ui'
     <div
       class="h-[90px] w-[90px] overflow-hidden rounded-[40%] border-[3px] border-neutral-800 shadow-lg grayscale transition-all duration-300 hover:grayscale-0"
     >
-      <a href="/me" aria-label="Go to about me page" class="cursor-none">
-        <img
-          src={meImage.src}
-          alt="Profile picture of @gohitx"
-          class="h-full w-full object-cover"
-        />
+      <a href={PROFILE_CONFIG.profileLink} aria-label="Go to about me page" class="cursor-none">
+        <img src={meImage.src} alt={PROFILE_CONFIG.imageAlt} class="h-full w-full object-cover" />
       </a>
     </div>
-    <h2 class="cursor-default pt-1 text-[14px]">@gohitx</h2>
+    <h2 class="cursor-default pt-1 text-[14px]">{PROFILE_CONFIG.username}</h2>
   </article>
 </section>
 

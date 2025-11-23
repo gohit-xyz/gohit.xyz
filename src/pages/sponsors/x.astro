@@ -1,0 +1,426 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { BackButtonOne } from '@/components/ui/ui'
+import { Image } from 'astro:assets'
+import { SPONSORS } from '@/data/x'
+---
+
+<Layout>
+  <div
+    class="page-wrapper custom-cursor flex min-h-screen w-full items-center justify-center py-10"
+  >
+    <main class="relative w-full max-w-6xl px-4 sm:px-6">
+      <!-- Back Button -->
+      <div class="back-button-container mb-8 flex gap-3">
+        <BackButtonOne href="/" text="Home" />
+        <BackButtonOne text="/ㅤSponsors" showIcon={false} useHistory={true} />
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-12">
+        <!-- Left Column: Sponsors List -->
+        <div class="lg:col-span-5 xl:col-span-4">
+          <div
+            class="sponsors-list-container overflow-hidden rounded-2xl border border-[#7e7e7e3a] backdrop-blur-xl"
+          >
+            <div class="border-b border-[#7e7e7e3a] p-4">
+              <h2 class="text-lg font-bold">Future Sponsor</h2>
+            </div>
+            <div class="custom-scrollbar max-h-[600px] space-y-2 overflow-y-auto p-2">
+              {
+                SPONSORS.map((sponsor, index) => (
+                  <button
+                    class={`sponsor-item group flex w-full cursor-pointer items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 hover:scale-[1.02] ${
+                      index === 0
+                        ? 'active border-[#008b6c] bg-[#008b6c]/10 ring-1 ring-[#008b6c]'
+                        : 'border-transparent bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10'
+                    }`}
+                    data-id={sponsor.id}
+                    data-name={sponsor.name}
+                    data-url={sponsor.url || ''}
+                    data-has-url={sponsor.url ? 'true' : 'false'}
+                    data-desc={sponsor.description}
+                    data-qr-src={sponsor.qrImage.src}
+                    data-has-multiple={sponsor.qrImages ? 'true' : 'false'}
+                    data-qr-images={
+                      sponsor.qrImages ? JSON.stringify(sponsor.qrImages.map((img) => img.src)) : ''
+                    }
+                    data-qr-labels={sponsor.qrLabels ? JSON.stringify(sponsor.qrLabels) : ''}
+                    data-is-crypto={sponsor.isCrypto ? 'true' : 'false'}
+                    data-wallet-ids={
+                      sponsor.cryptoWalletIds ? JSON.stringify(sponsor.cryptoWalletIds) : ''
+                    }
+                    aria-label={`Select ${sponsor.name}`}
+                  >
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white/10 text-xl shadow-sm">
+                        <Image
+                          src={sponsor.icon}
+                          alt={sponsor.name}
+                          class="h-full w-full object-cover"
+                        />
+                      </div>
+                      <span class="font-medium group-[.active]:font-bold group-[.active]:text-[#008b6c]">
+                        {sponsor.name}
+                      </span>
+                    </div>
+                    <div class="radio-indicator relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-400 group-[.active]:border-[#008b6c] group-[.active]:bg-[#008b6c]">
+                      <div class="h-2 w-2 rounded-full bg-white opacity-0 transition-opacity group-[.active]:opacity-100" />
+                    </div>
+                  </button>
+                ))
+              }
+              <div class="mt-2 px-2">
+                <a
+                  href="https://www.youtube.com/@gohitx?sub_confirmation=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex w-full cursor-pointer items-center justify-center rounded-xl border border-transparent bg-white/5 p-4 transition-all duration-300 hover:scale-[1.02] hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                >
+                  <span class="font-medium">Other...</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Detail View -->
+        <div class="lg:col-span-7 xl:col-span-8">
+          <div
+            class="sticky top-10 flex h-full min-h-[500px] flex-col items-center justify-center rounded-2xl border border-[#7e7e7e3a] bg-white/5 p-8 text-center backdrop-blur-xl transition-all duration-500"
+          >
+            <div class="group relative mb-8">
+              <div
+                class="absolute -inset-1 rounded-2xl bg-linear-to-r from-[#008b6c] to-[#00d4aa] opacity-25 blur transition duration-1000 group-hover:opacity-50 group-hover:duration-200"
+              >
+              </div>
+              <div class="relative rounded-xl bg-white p-4 dark:bg-gray-900">
+                <Image
+                  src={SPONSORS[0].qrImage}
+                  alt="QR Code for {SPONSORS[0].name}"
+                  class="h-64 w-64 rounded-lg object-cover shadow-2xl"
+                  id="qr-image"
+                />
+              </div>
+            </div>
+
+            <!-- QR Selector (only visible for sponsors with multiple QR codes) -->
+            <div id="qr-selector" class="mb-6 hidden">
+              <p class="mb-3 text-sm font-medium">Select Cryptocurrency:</p>
+              <div id="qr-buttons" class="flex flex-wrap justify-center gap-2">
+                <!-- QR buttons will be dynamically inserted here -->
+              </div>
+            </div>
+
+            <h2 id="sponsor-name" class="mb-2 text-3xl font-bold">
+              {SPONSORS[0].name}
+            </h2>
+            <p id="sponsor-desc" class="mb-8 max-w-md opacity-80">
+              {SPONSORS[0].description}
+            </p>
+
+            <!-- Crypto Wallet ID (minimalist - only for cryptocurrency sponsors) -->
+            <div id="crypto-wallet-container" class="hidden w-full max-w-md">
+              <div class="flex items-center gap-2">
+                <input
+                  id="wallet-id-input"
+                  type="text"
+                  readonly
+                  value=""
+                  class="flex-1 rounded-lg border border-[#7e7e7e3a] bg-white/5 px-4 py-3 font-mono text-sm backdrop-blur-sm focus:ring-2 focus:ring-[#008b6c] focus:outline-none"
+                />
+                <button
+                  id="copy-wallet-btn"
+                  class="group relative flex items-center justify-center rounded-lg bg-[#008b6c] p-3 text-white transition-all duration-300 hover:bg-[#007a5e] hover:shadow-[0_0_15px_rgba(0,139,108,0.4)]"
+                  title="Copy wallet address"
+                >
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  <span id="copy-btn-text" class="sr-only">Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Regular Link (for non-crypto sponsors) -->
+            <a
+              id="sponsor-link"
+              href={SPONSORS[0].url || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#008b6c] px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#007a5e] hover:shadow-[0_0_20px_rgba(0,139,108,0.4)]"
+              style={!SPONSORS[0].url || SPONSORS[0].isCrypto ? 'display: none;' : ''}
+            >
+              <span class="relative z-10">Go to Official Page</span>
+              <svg
+                class="relative z-10 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.3);
+    border-radius: 20px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.5);
+  }
+
+  /* Animation for the active state */
+  .sponsor-item.active {
+    box-shadow: 0 0 15px rgba(0, 139, 108, 0.1);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.sponsor-item')
+    const sponsorName = document.getElementById('sponsor-name')
+    const sponsorDesc = document.getElementById('sponsor-desc')
+    const sponsorLink = document.getElementById('sponsor-link') as HTMLAnchorElement
+    const qrImage = document.getElementById('qr-image') as HTMLImageElement
+    const qrSelector = document.getElementById('qr-selector')
+    const qrButtonsContainer = document.getElementById('qr-buttons')
+    const cryptoWalletContainer = document.getElementById('crypto-wallet-container')
+    const walletIdInput = document.getElementById('wallet-id-input') as HTMLInputElement
+    const copyWalletBtn = document.getElementById('copy-wallet-btn')
+    const copyBtnText = document.getElementById('copy-btn-text')
+
+    let currentQrImages: string[] = []
+    let currentQrLabels: string[] = []
+    let currentWalletIds: string[] = []
+    let currentSelectedCryptoIndex = 0
+
+    // Copy to clipboard functionality
+    if (copyWalletBtn) {
+      copyWalletBtn.addEventListener('click', async () => {
+        const walletId = walletIdInput?.value
+        if (!walletId) return
+
+        try {
+          await navigator.clipboard.writeText(walletId)
+
+          // Visual feedback - change button color temporarily
+          copyWalletBtn.classList.add('!bg-green-600')
+          setTimeout(() => {
+            copyWalletBtn.classList.remove('!bg-green-600')
+          }, 1500)
+        } catch (err) {
+          console.error('Failed to copy:', err)
+          // Error feedback
+          copyWalletBtn.classList.add('!bg-red-600')
+          setTimeout(() => {
+            copyWalletBtn.classList.remove('!bg-red-600')
+          }, 1500)
+        }
+      })
+    }
+
+    function createQrButtons(images: string[], labels: string[], walletIds: string[] = []) {
+      if (!qrButtonsContainer) return
+
+      qrButtonsContainer.innerHTML = ''
+
+      images.forEach((imgSrc, index) => {
+        const btn = document.createElement('button')
+        btn.className = `qr-option-btn cursor-pointer px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+          index === 0 ? 'bg-[#008b6c] text-white shadow-lg' : 'bg-white/10 hover:bg-white/20'
+        }`
+        btn.textContent = labels[index] || `Option ${index + 1}`
+        btn.dataset.qrSrc = imgSrc
+        btn.dataset.index = index.toString()
+
+        btn.addEventListener('click', () => {
+          currentSelectedCryptoIndex = index
+
+          // Update QR image
+          if (qrImage) {
+            qrImage.src = imgSrc
+          }
+
+          // Update wallet ID if available
+          if (walletIds.length > index && walletIdInput) {
+            walletIdInput.value = walletIds[index]
+          }
+
+          // Update button styles
+          qrButtonsContainer.querySelectorAll('.qr-option-btn').forEach((b) => {
+            b.classList.remove('bg-[#008b6c]', 'text-white', 'shadow-lg')
+            b.classList.add('bg-white/10')
+          })
+          btn.classList.remove('bg-white/10')
+          btn.classList.add('bg-[#008b6c]', 'text-white', 'shadow-lg')
+        })
+
+        qrButtonsContainer.appendChild(btn)
+      })
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        buttons.forEach((btn) => {
+          btn.classList.remove(
+            'active',
+            'border-[#008b6c]',
+            'bg-[#008b6c]/10',
+            'ring-1',
+            'ring-[#008b6c]'
+          )
+          btn.classList.add('border-transparent', 'bg-white/5', 'dark:bg-white/5')
+
+          // Reset text color
+          const textSpan = btn.querySelector('span')
+          if (textSpan) {
+            textSpan.classList.remove('text-[#008b6c]', 'font-bold')
+          }
+
+          // Reset radio indicator
+          const radio = btn.querySelector('.radio-indicator')
+          if (radio) {
+            radio.classList.remove('border-[#008b6c]', 'bg-[#008b6c]')
+            radio.classList.add('border-gray-400')
+            const dot = radio.querySelector('div')
+            if (dot) dot.classList.remove('opacity-100')
+          }
+        })
+
+        // Add active class to clicked button
+        button.classList.add(
+          'active',
+          'border-[#008b6c]',
+          'bg-[#008b6c]/10',
+          'ring-1',
+          'ring-[#008b6c]'
+        )
+        button.classList.remove('border-transparent', 'bg-white/5', 'dark:bg-white/5')
+
+        const textSpan = button.querySelector('span')
+        if (textSpan) {
+          textSpan.classList.add('text-[#008b6c]', 'font-bold')
+        }
+
+        const radio = button.querySelector('.radio-indicator')
+        if (radio) {
+          radio.classList.remove('border-gray-400')
+          radio.classList.add('border-[#008b6c]', 'bg-[#008b6c]')
+          const dot = radio.querySelector('div')
+          if (dot) dot.classList.add('opacity-100')
+        }
+
+        // Update details
+        const name = button.getAttribute('data-name')
+        const url = button.getAttribute('data-url')
+        const hasUrl = button.getAttribute('data-has-url') === 'true'
+        const desc = button.getAttribute('data-desc')
+        const qrSrc = button.getAttribute('data-qr-src')
+        const hasMultiple = button.getAttribute('data-has-multiple') === 'true'
+        const qrImagesStr = button.getAttribute('data-qr-images')
+        const qrLabelsStr = button.getAttribute('data-qr-labels')
+        const isCrypto = button.getAttribute('data-is-crypto') === 'true'
+        const walletIdsStr = button.getAttribute('data-wallet-ids')
+
+        if (sponsorName) sponsorName.textContent = name || ''
+        if (sponsorDesc) sponsorDesc.textContent = desc || ''
+        if (sponsorLink && url) sponsorLink.href = url
+
+        // Handle crypto vs non-crypto display
+        if (isCrypto && walletIdsStr) {
+          // Show crypto wallet container, hide regular link
+          if (cryptoWalletContainer) cryptoWalletContainer.classList.remove('hidden')
+          if (sponsorLink) {
+            sponsorLink.classList.add('hidden')
+            sponsorLink.style.display = 'none' // Force hide
+          }
+
+          currentWalletIds = walletIdsStr ? JSON.parse(walletIdsStr) : []
+
+          // Set initial wallet ID
+          if (walletIdInput && currentWalletIds.length > 0) {
+            walletIdInput.value = currentWalletIds[0]
+          }
+        } else {
+          // Hide crypto wallet container
+          if (cryptoWalletContainer) cryptoWalletContainer.classList.add('hidden')
+
+          // Show or hide regular link based on whether URL exists
+          if (sponsorLink) {
+            if (hasUrl && url) {
+              sponsorLink.classList.remove('hidden')
+              sponsorLink.style.display = '' // Reset to CSS (inline-flex)
+            } else {
+              sponsorLink.classList.add('hidden')
+              sponsorLink.style.display = 'none' // Force hide
+            }
+          }
+        }
+
+        // Handle multiple QR codes
+        if (hasMultiple && qrImagesStr && qrLabelsStr) {
+          currentQrImages = JSON.parse(qrImagesStr)
+          currentQrLabels = JSON.parse(qrLabelsStr)
+          currentSelectedCryptoIndex = 0
+
+          // Show QR selector and create buttons
+          if (qrSelector) qrSelector.classList.remove('hidden')
+          createQrButtons(currentQrImages, currentQrLabels, currentWalletIds)
+
+          // Set first QR as default
+          if (qrImage && currentQrImages[0]) {
+            qrImage.src = currentQrImages[0]
+            qrImage.alt = `QR Code for ${name}`
+          }
+        } else {
+          // Hide QR selector for single QR sponsors
+          if (qrSelector) qrSelector.classList.add('hidden')
+
+          // Update QR code image and alt text
+          if (qrImage && qrSrc) {
+            qrImage.src = qrSrc
+            qrImage.alt = `QR Code for ${name}`
+          }
+        }
+
+        // Animation effect for content change
+        const rightColumn = document.querySelector('.lg\\:col-span-7 > div')
+        if (rightColumn) {
+          rightColumn.animate(
+            [
+              { opacity: 0.8, transform: 'scale(0.98)' },
+              { opacity: 1, transform: 'scale(1)' },
+            ],
+            {
+              duration: 300,
+              easing: 'ease-out',
+            }
+          )
+        }
+      })
+    })
+  })
+</script>

@@ -1,0 +1,16 @@
+---
+import { ArrowBackIcon } from '@/components/icons/icons'
+
+interface Props {
+  href?: string
+  text?: string
+  className?: string
+}
+
+const { href = '/', text = 'Home', className = '' } = Astro.props
+---
+
+<a href={href} class={`flex items-center gap-2 transition-colors hover:text-gray-300 ${className}`}>
+  <ArrowBackIcon className="h-4 w-4" />
+  {text}
+</a>

@@ -1,0 +1,111 @@
+---
+import {
+  GoogleIcon,
+  UnileverIcon,
+  VisaIcon,
+  MicrosoftIcon,
+  PorscheIcon,
+  OpenAIIcon,
+  NetlifyIcon,
+  NordVPNIcon,
+  CloudflareIcon,
+  NBCNewsIcon,
+  TheGuardianIcon,
+  MichelinIcon,
+  ProtonIcon,
+} from '@/components/icons/icons'
+---
+
+<div class="partners-container mx-auto w-full max-w-7xl px-4">
+  <div class="partners-carousel-wrapper relative overflow-hidden py-6 sm:py-8">
+    <!-- Gradient fade on left edge -->
+    <div
+      class="pointer-events-none absolute top-0 left-0 z-10 h-full w-16 bg-linear-to-r from-(--gradient-color) to-transparent sm:w-24 md:w-32"
+    >
+    </div>
+
+    <!-- Gradient fade on right edge -->
+    <div
+      class="pointer-events-none absolute top-0 right-0 z-10 h-full w-16 bg-linear-to-r from-transparent to-(--gradient-color) sm:w-24 md:w-32"
+    >
+    </div>
+
+    <!-- Carousel track -->
+    <div class="partners-carousel-track flex items-center">
+      <!-- First set of logos -->
+      <div
+        class="partners-carousel-content flex shrink-0 items-center gap-x-8 sm:gap-x-10 md:gap-x-12 lg:gap-x-16"
+      >
+        <NordVPNIcon className="h-4 w-auto sm:h-6 md:h-7 lg:h-8" />
+        <CloudflareIcon className="h-5 w-auto sm:h-7 md:h-8 lg:h-9" />
+        <NBCNewsIcon className="h-2.5 w-auto sm:h-4 md:h-4.5 lg:h-5" />
+        <TheGuardianIcon className="h-4 w-auto sm:h-6 md:h-7 lg:h-8" />
+        <MichelinIcon className="h-5 w-auto sm:h-7 md:h-8 lg:h-9" />
+        <ProtonIcon className="h-3.5 w-auto sm:h-5 md:h-5.5 lg:h-6" />
+      </div>
+
+      <!-- Duplicate set for seamless loop -->
+      <div
+        class="partners-carousel-content flex shrink-0 items-center gap-x-8 sm:gap-x-10 md:gap-x-12 lg:gap-x-16"
+      >
+        <NordVPNIcon className="h-4 w-auto sm:h-6 md:h-7 lg:h-8" />
+        <CloudflareIcon className="h-5 w-auto sm:h-7 md:h-8 lg:h-9" />
+        <NBCNewsIcon className="h-2.5 w-auto sm:h-4 md:h-4.5 lg:h-5" />
+        <TheGuardianIcon className="h-4 w-auto sm:h-6 md:h-7 lg:h-8" />
+        <MichelinIcon className="h-5 w-auto sm:h-7 md:h-8 lg:h-9" />
+        <ProtonIcon className="h-3.5 w-auto sm:h-5 md:h-5.5 lg:h-6" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .partners-carousel-wrapper {
+    --gradient-color: #f6f6f6;
+  }
+
+  html.dark .partners-carousel-wrapper {
+    --gradient-color: #000000;
+  }
+
+  .partners-carousel-track {
+    animation: scroll 25s linear infinite;
+    will-change: transform;
+  }
+
+  .partners-carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Responsive gap between sets */
+  .partners-carousel-content + .partners-carousel-content {
+    margin-left: 2rem; /* 32px - mobile */
+  }
+
+  @media (min-width: 640px) {
+    .partners-carousel-content + .partners-carousel-content {
+      margin-left: 2.5rem; /* 40px - sm */
+    }
+  }
+
+  @media (min-width: 768px) {
+    .partners-carousel-content + .partners-carousel-content {
+      margin-left: 3rem; /* 48px - md */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .partners-carousel-content + .partners-carousel-content {
+      margin-left: 4rem; /* 64px - lg */
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>

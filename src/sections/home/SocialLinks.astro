@@ -1,107 +1,100 @@
 ---
 // prettier-ignore
-import { GitHubIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, YouTubeIcon } from '@/components/icons/icons.ts';
+import { GitHubIcon, GitHubThinIcon, InstagramIcon, SoundCloudIcon, TikTokIcon, TwitterIcon, YouTubeIcon } from '@/components/icons/icons.ts';
 ---
 
 <section class="animate-rise-up flex flex-wrap justify-center gap-3 pt-2 md:gap-4">
-  <div
-    style="--clr: #FF0000;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-    data-url="https://www.youtube.com/@gohitx?sub_confirmation=1"
-    aria-label="YouTube - gohitx"
-  >
-    <YouTubeIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </div>
-
-  <div
-    style="--clr: #ffffff;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-    data-url="https://github.com/gohitx"
-    aria-label="GitHub - gohitx"
-  >
-    <GitHubIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </div>
-
-  <div
-    style="--clr: #FF5500;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-    data-url="https://soundcloud.com/gohitx"
-    aria-label="SoundCloud - gohitx"
-  >
-    <SoundCloudIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </div>
-
-  <div
-    style="--clr: #E4405F;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-    data-url="https://instagram.com/gohitx"
-    aria-label="Instagram - gohitx"
-  >
-    <InstagramIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </div>
-
-  <div
-    style="--clr: #000000;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-    data-url="https://tiktok.com/@gohitx"
-    aria-label="TikTok - gohitx"
-  >
-    <TikTokIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </div>
-
-  <div
-    style="--clr: #1DA1F2;"
-    class="social-link h-8 w-8 md:h-10 md:w-10"
-    data-url="https://twitter.com/gohitx"
-    aria-label="Twitter - gohitx"
-  >
-    <TwitterIcon className="h-5 w-5 md:h-6 md:w-6" />
-  </div>
+  {
+    [
+      {
+        href: 'https://www.youtube.com/@gohitx?sub_confirmation=1',
+        label: 'YouTube - gohitx',
+        color: '#FF0000',
+        Icon: YouTubeIcon,
+      },
+      {
+        href: 'https://github.com/gohitx',
+        label: 'GitHub - gohitx',
+        color: '#ffffff',
+        Icon: GitHubThinIcon,
+      },
+      {
+        href: 'https://soundcloud.com/gohitx',
+        label: 'SoundCloud - gohitx',
+        color: '#f84f00',
+        Icon: SoundCloudIcon,
+      },
+      {
+        href: 'https://instagram.com/gohitx',
+        label: 'Instagram - gohitx',
+        color: '#FF4ACF',
+        Icon: InstagramIcon,
+      },
+      {
+        href: 'https://tiktok.com/@gohitx',
+        label: 'TikTok - gohitx',
+        color: '#000000',
+        Icon: TikTokIcon,
+      },
+      {
+        href: 'https://twitter.com/gohitx',
+        label: 'Twitter - gohitx',
+        color: '#1DA1F2',
+        Icon: TwitterIcon,
+      },
+    ].map(({ href, label, color, Icon }) => (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        style={{ '--clr': color }}
+        class="social-link h-8 w-8 md:h-10 md:w-10"
+      >
+        <Icon className="h-5 w-5 md:h-6 md:w-6" />
+      </a>
+    ))
+  }
 </section>
 
-<!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
   .social-link {
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 15%;
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Smooth transition for transform */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     cursor: pointer;
   }
 
   .social-link:hover {
-    transform: translateY(-3px);
+    transform: translateY(-6px); /* More pronounced and smooth lift */
   }
 </style>
 
-<!-- --- --- -- --- -- -- MARK:Script -->
 <script>
-  document.querySelectorAll('.social-link').forEach((element) => {
-    element.addEventListener('click', function () {
-      const url = element.getAttribute('data-url')
-      if (url) {
-        window.open(url, '_blank')
-      }
-    })
+  document.addEventListener('DOMContentLoaded', () => {
+    const socialLinks = document.querySelectorAll('.social-link')
+    const changingLight = document.querySelector('.changing_light') as HTMLElement
+    const defaultLightColor = 'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
 
-    element.addEventListener('mouseenter', function (event) {
-      if (event.target) {
-        let color = (event.target as HTMLElement).style.getPropertyValue('--clr')
-        const changingLight = document.querySelector('.changing_light') as HTMLElement
-        if (changingLight) {
+    socialLinks.forEach((link) => {
+      // Mouse enter event to change the background light
+      link.addEventListener('mouseenter', function (this: HTMLElement) {
+        const color = this.style.getPropertyValue('--clr')
+        if (changingLight && color) {
           changingLight.style.background = `radial-gradient(circle 400px at 50% 300px, ${color}36, transparent)`
         }
-      }
-    })
+      })
 
-    element.addEventListener('mouseleave', function () {
-      const changingLight = document.querySelector('.changing_light') as HTMLElement
-      if (changingLight) {
-        changingLight.style.background =
-          'radial-gradient(circle 400px at 50% 300px, #4d4d4d36, transparent)'
-      }
+      // Mouse leave event to reset the background light
+      link.addEventListener('mouseleave', () => {
+        if (changingLight) {
+          changingLight.style.background = defaultLightColor
+        }
+      })
     })
   })
 </script>

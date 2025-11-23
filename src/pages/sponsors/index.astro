@@ -1,9 +1,635 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-
-
+import Layout from '@/layouts/Layout.astro'
+import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
+import { sponsors } from '@/data/sponsors'
 ---
 
 <Layout>
-    <h1>Sponsor</h1>
+  <div class="sponsors-container relative min-h-screen overflow-hidden px-8 py-16">
+    <div class="back-button-container flex justify-center gap-3">
+      <BackButtonOne href="/" text="Home" />
+      <BackButtonOne text="/ㅤBack" showIcon={false} useHistory={true} />
+    </div>
+    <!-- Hero Section -->
+    <div class="hero-section relative mb-20 py-4 text-center">
+      <div class="hero-content relative z-2">
+        <h1 class="hero-title mb-6">
+          <span class="gradient-text">Our Amazing</span>
+          <span class="sponsors-text text-white">Sponsors</span>
+        </h1>
+        <p class="hero-subtitle mx-auto mb-8 max-w-[600px] text-[#a0aec0]">
+          Thank you to these incredible partners who make our work possible
+        </p>
+        <a href="sponsors/x" class="cta-button">
+          <span class="cta-icon">💜</span>
+          <span class="cta-text">Become a Sponsor</span>
+          <span class="cta-arrow">→</span>
+        </a>
+      </div>
+      <div class="hero-decoration pointer-events-none absolute top-0 left-0 z-1 h-full w-full">
+        <div class="floating-orb orb-1 absolute -top-[100px] -left-[100px] h-[300px] w-[300px]">
+        </div>
+        <div class="floating-orb orb-2 absolute top-1/2 -right-[100px] h-[250px] w-[250px]"></div>
+        <div class="floating-orb orb-3 absolute -bottom-[100px] left-1/2 h-[200px] w-[200px]"></div>
+      </div>
+    </div>
+
+    <!-- Sponsors Grid -->
+    <div class="sponsors-grid relative z-2 mx-auto mb-20 max-w-[1400px]">
+      {
+        sponsors.map((sponsor, index) => (
+          <div
+            class={`sponsor-card ${sponsor.tier || 'bronze'} relative overflow-hidden rounded-3xl bg-white/3 px-8 py-10`}
+            data-index={index}
+            data-tier={sponsor.tier || 'bronze'}
+          >
+            <div class="card-glow pointer-events-none absolute -top-1/2 -left-1/2 h-[200%] w-[200%]" />
+            <div class="card-content relative z-1 flex flex-col items-center gap-6">
+              <div class="sponsor-photo-wrapper relative h-[140px] w-[140px]">
+                <div class="photo-ring absolute -inset-2 rounded-full" />
+                <img
+                  src={sponsor.photo}
+                  alt={sponsor.name}
+                  class="sponsor-photo relative h-full w-full rounded-full border-4 border-white/10 bg-white/5"
+                  loading="lazy"
+                />
+                <div class="photo-shine absolute top-0 -left-full h-full w-full rounded-full" />
+              </div>
+              <h3 class="sponsor-name text-center text-white">{sponsor.name}</h3>
+              {sponsor.tier && (
+                <div class="sponsor-badge flex items-center gap-2 rounded-full border bg-white/10 px-4 py-2">
+                  <span class="badge-icon">★</span>
+                  <span class="badge-text">{sponsor.tier}</span>
+                </div>
+              )}
+            </div>
+            {sponsor.website && (
+              <a
+                href={sponsor.website}
+                class="sponsor-link relative mt-4 flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-white"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${sponsor.name} website`}
+              >
+                <span class="link-text">Visit Website</span>
+                <span class="link-arrow">→</span>
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section relative z-2 mx-auto max-w-[800px]">
+      <div class="stat-item rounded-[20px] border border-white/10 bg-white/3 p-8 text-center">
+        <div class="stat-number mb-2">{sponsors.length}</div>
+        <div class="stat-label text-[#a0aec0]">Total Sponsors</div>
+      </div>
+      <div class="stat-item rounded-[20px] border border-white/10 bg-white/3 p-8 text-center">
+        <div class="stat-number mb-2">
+          {sponsors.filter((s) => s.tier === 'platinum' || s.tier === 'gold').length}
+        </div>
+        <div class="stat-label text-[#a0aec0]">Premium Partners</div>
+      </div>
+      <div class="stat-item rounded-[20px] border border-white/10 bg-white/3 p-8 text-center">
+        <div class="stat-number mb-2">100%</div>
+        <div class="stat-label text-[#a0aec0]">Awesome</div>
+      </div>
+    </div>
+  </div>
 </Layout>
+
+<!-- --- --- -- --- -- -- MARK:Styles -->
+<style>
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .sponsors-text {
+    text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.6;
+  }
+
+  /* CTA Button */
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.125rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    }
+    50% {
+      box-shadow:
+        0 10px 60px rgba(102, 126, 234, 0.5),
+        0 0 30px rgba(102, 126, 234, 0.3);
+    }
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .cta-button:hover::before {
+    left: 100%;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+      0 15px 50px rgba(102, 126, 234, 0.5),
+      0 0 40px rgba(102, 126, 234, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .cta-button:active {
+    transform: translateY(0) scale(1.02);
+  }
+
+  .cta-icon {
+    font-size: 1.5rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    10%,
+    30% {
+      transform: scale(1.1);
+    }
+    20%,
+    40% {
+      transform: scale(1);
+    }
+  }
+
+  .cta-arrow {
+    transition: transform 0.3s ease;
+    font-size: 1.25rem;
+  }
+
+  .cta-button:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Floating Orbs */
+  .floating-orb {
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    animation-delay: 0s;
+  }
+
+  .orb-2 {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    animation-delay: -7s;
+  }
+
+  .orb-3 {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    animation-delay: -14s;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(30px, -30px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+  }
+
+  /* Sponsors Grid */
+  .sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  /* Sponsor Card */
+  .sponsor-card {
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    animation: card-entrance 0.6s ease-out backwards;
+  }
+
+  .sponsor-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .sponsor-card:hover::before {
+    opacity: 1;
+  }
+
+  @keyframes card-entrance {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger animation delay */
+  .sponsor-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .sponsor-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .sponsor-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .sponsor-card:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .sponsor-card:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  .sponsor-card:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  .sponsor-card:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  .sponsor-card:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+
+  /* Tier Colors */
+  .sponsor-card.platinum {
+    color: #e5e7eb;
+  }
+  .sponsor-card.gold {
+    color: #fbbf24;
+  }
+  .sponsor-card.silver {
+    color: #94a3b8;
+  }
+  .sponsor-card.bronze {
+    color: #cd7f32;
+  }
+
+  .sponsor-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Card Glow Effect */
+  .card-glow {
+    background: radial-gradient(circle, currentColor 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .sponsor-card:hover .card-glow {
+    opacity: 0.1;
+  }
+
+  /* Photo Wrapper */
+  .photo-ring {
+    background: linear-gradient(135deg, currentColor, transparent);
+    opacity: 0.5;
+    animation: rotate 8s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .sponsor-photo {
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .sponsor-card:hover .sponsor-photo {
+    transform: scale(1.1);
+  }
+
+  .photo-shine {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .sponsor-card:hover .photo-shine {
+    left: 100%;
+  }
+
+  /* Sponsor Name */
+  .sponsor-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .sponsor-card:hover .sponsor-name {
+    color: currentColor;
+  }
+
+  /* Badge */
+  .sponsor-badge {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: currentColor;
+  }
+
+  .badge-icon {
+    font-size: 1rem;
+    animation: sparkle 2s ease-in-out infinite;
+  }
+
+  @keyframes sparkle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.2);
+    }
+  }
+
+  /* Sponsor Link */
+  .sponsor-link {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+  }
+
+  .sponsor-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .sponsor-link:hover::before {
+    left: 100%;
+  }
+
+  .sponsor-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: currentColor;
+    color: currentColor;
+    transform: translateX(4px);
+  }
+
+  .link-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .sponsor-link:hover .link-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Stats Section */
+  .stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .stat-item {
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .stat-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .sponsors-grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+    }
+  }
+</style>
+
+<!-- --- --- -- --- -- -- MARK:Script -->
+<script>
+  // Parallax effect on mouse move
+  document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.sponsor-card')
+    const mouseX = e.clientX / window.innerWidth
+    const mouseY = e.clientY / window.innerHeight
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect()
+      const cardCenterX = rect.left + rect.width / 2
+      const cardCenterY = rect.top + rect.height / 2
+
+      const deltaX = (e.clientX - cardCenterX) / 25
+      const deltaY = (e.clientY - cardCenterY) / 25
+
+      if (card instanceof HTMLElement) {
+        card.style.setProperty('--mouse-x', `${deltaX}px`)
+        card.style.setProperty('--mouse-y', `${deltaY}px`)
+      }
+    })
+
+    // Move floating orbs
+    const orbs = document.querySelectorAll('.floating-orb')
+    orbs.forEach((orb, index) => {
+      const speed = (index + 1) * 20
+      const x = (mouseX - 0.5) * speed
+      const y = (mouseY - 0.5) * speed
+
+      if (orb instanceof HTMLElement) {
+        orb.style.transform = `translate(${x}px, ${y}px)`
+      }
+    })
+  })
+
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px',
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible')
+      }
+    })
+  }, observerOptions)
+
+  document.querySelectorAll('.sponsor-card, .stat-item').forEach((el) => {
+    observer.observe(el)
+  })
+
+  // Add magnetic effect to cards
+  const cards = document.querySelectorAll<HTMLElement>('.sponsor-card')
+
+  cards.forEach((card) => {
+    card.addEventListener('mouseenter', (e: Event) => {
+      if (!(e instanceof MouseEvent)) return
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+
+      card.style.setProperty('--x', `${x}px`)
+      card.style.setProperty('--y', `${y}px`)
+    })
+
+    card.addEventListener('mousemove', (e: Event) => {
+      if (!(e instanceof MouseEvent)) return
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+
+      card.style.setProperty('--x', `${x}px`)
+      card.style.setProperty('--y', `${y}px`)
+    })
+  })
+
+  // Animate stats on scroll
+  const animateValue = (element: HTMLElement, start: number, end: number, duration: number) => {
+    let startTimestamp: number | null = null
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+      const value = Math.floor(progress * (end - start) + start)
+      element.textContent = value.toString()
+      if (progress < 1) {
+        window.requestAnimationFrame(step)
+      }
+    }
+    window.requestAnimationFrame(step)
+  }
+
+  const statsObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+          const statNumber = entry.target.querySelector('.stat-number')
+          if (statNumber instanceof HTMLElement) {
+            const endValue = parseInt(statNumber.textContent || '0')
+            if (!isNaN(endValue)) {
+              animateValue(statNumber, 0, endValue, 2000)
+            }
+          }
+          statsObserver.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.5 }
+  )
+
+  document.querySelectorAll('.stat-item').forEach((stat) => {
+    statsObserver.observe(stat)
+  })
+</script>

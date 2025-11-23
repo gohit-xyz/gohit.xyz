@@ -31,4 +31,5 @@ tsconfig.json
 
 # Pages
 global.css
-src/app/page.tsx
+src/pages/blog/
+decorative/

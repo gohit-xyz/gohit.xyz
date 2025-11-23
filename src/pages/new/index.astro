@@ -1,0 +1,439 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import PartnersCarousel from '@/components/ui/effects/PartnersCarousel.astro'
+import { BackButtonOne } from '@/components/ui/ui'
+import { LINUX_COMMAND } from '@/data/linux'
+
+const PAGE_DATA = {
+  badge: {
+    text: '💖 Sponsor Project',
+    link: '/sponsors',
+  },
+  title: 'The open-source platform for new users',
+  subtitle:
+    "These are the tools I use. If you want to install them on Linux, just copy and paste the commands into your terminal — it's that easy.",
+  getStartedButton: {
+    text: 'Get Started',
+    link: 'https://openlinux.com',
+  },
+  codeSnippet: {
+    label: 'My tools',
+    command: LINUX_COMMAND,
+  },
+  partnersTitle: 'If you want to become a partner, write to us',
+} as const
+---
+
+<Layout>
+  <div
+    class="page-wrapper custom-cursor flex min-h-screen w-full flex-col items-center justify-center"
+  >
+    <main class="relative w-full max-w-7xl px-4 pt-10 pb-20 sm:px-6">
+      <!-- Navigation -->
+      <nav class="back-button-container" aria-label="Page navigation">
+        <BackButtonOne href="/" text="Home" />
+      </nav>
+
+      <!-- Hero Section -->
+      <section
+        class="hero-section flex flex-col items-center text-center"
+        aria-labelledby="hero-title"
+      >
+        <!-- Sponsor Badge -->
+        <a
+          href={PAGE_DATA.badge.link}
+          class="badge mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105"
+          aria-label="Sponsor this project"
+        >
+          <span>{PAGE_DATA.badge.text}</span>
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </a>
+
+        <!-- Main Title -->
+        <h1
+          id="hero-title"
+          class="hero-title mb-6 max-w-4xl text-5xl leading-tight font-bold sm:text-6xl md:text-7xl"
+        >
+          {PAGE_DATA.title}
+        </h1>
+
+        <!-- CTA Button -->
+        <div class="mb-15 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href={PAGE_DATA.getStartedButton.link}
+            class="get-started-btn flex items-center justify-center rounded-full px-8 py-3 text-base font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            aria-label="Get started with OpenLinux"
+          >
+            {PAGE_DATA.getStartedButton.text}
+            <img class="ml-2 h-6 w-6" src="/src/assets/svg/linux.svg" alt="Linux penguin logo" />
+          </a>
+        </div>
+
+        <!-- Subtitle -->
+        <p class="hero-subtitle mb-6 max-w-2xl text-lg leading-relaxed sm:text-xl">
+          {PAGE_DATA.subtitle}
+        </p>
+
+        <!-- Code Snippet -->
+        <article
+          class="code-container group relative mb-16 w-full max-w-md overflow-hidden rounded-lg"
+          aria-label="Installation command"
+        >
+          <div class="code-header flex items-center justify-between px-4 py-2">
+            <span class="text-xs font-medium opacity-70">
+              {PAGE_DATA.codeSnippet.label}
+            </span>
+            <button
+              class="copy-btn flex items-center gap-1 text-xs font-medium opacity-70 transition-opacity hover:opacity-100"
+              data-code={PAGE_DATA.codeSnippet.command}
+              aria-label="Copy command to clipboard"
+            >
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <div class="code-content px-4 py-3">
+            <code class="font-mono text-sm">
+              <span class="command-prompt">$ </span>
+              <span class="command-text">{PAGE_DATA.codeSnippet.command}</span>
+            </code>
+          </div>
+        </article>
+      </section>
+
+      <!-- Partners Section -->
+      <section class="partners-section mt-16 w-full" aria-labelledby="partners-title">
+        <p
+          id="partners-title"
+          class="partners-title mb-8 text-center text-sm font-medium tracking-wider uppercase opacity-60"
+        >
+          {PAGE_DATA.partnersTitle}
+          <a
+            class="partners-link text-blue-500 hover:underline"
+            href="/plus"
+            aria-label="Learn more about becoming a partner"
+          >
+            <!-- TODO: Add Email here -->
+            Here
+          </a>
+        </p>
+        <PartnersCarousel />
+      </section>
+    </main>
+  </div>
+</Layout>
+
+<style is:global>
+  /* ==================== Global Styles ==================== */
+  * {
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ==================== Layout ==================== */
+  .page-wrapper {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .custom-cursor {
+    cursor: url('/cursors/Pointer.ico'), default;
+  }
+
+  /* ==================== Navigation ==================== */
+  .back-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  /* ==================== Hero Section ==================== */
+  .hero-section {
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  /* Badge */
+  .badge {
+    background: linear-gradient(135deg, rgba(0, 139, 108, 0.1), rgba(0, 179, 139, 0.1));
+    border: 1px solid rgba(0, 139, 108, 0.3);
+    color: var(--text);
+  }
+
+  html.dark .badge {
+    background: linear-gradient(135deg, rgba(0, 139, 108, 0.15), rgba(0, 179, 139, 0.15));
+    border: 1px solid rgba(0, 139, 108, 0.4);
+  }
+
+  /* Hero Title */
+  .hero-title {
+    background: linear-gradient(135deg, #008b6c 0%, #00d4aa 30%, #fbbf24 70%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 8s ease infinite;
+    background-size: 200% 200%;
+    filter: drop-shadow(0 0 20px rgba(0, 139, 108, 0.3));
+  }
+
+  /* Hero Subtitle */
+  .hero-subtitle {
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  /* ==================== CTA Button ==================== */
+  .get-started-btn {
+    background: linear-gradient(135deg, #008b6c 0%, #00b38b 50%, #00d4aa 100%);
+    color: white;
+    box-shadow:
+      0 10px 30px rgba(0, 139, 108, 0.4),
+      0 0 40px rgba(0, 212, 170, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .get-started-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .get-started-btn:hover::before {
+    left: 100%;
+  }
+
+  .get-started-btn:hover {
+    box-shadow:
+      0 15px 50px rgba(0, 139, 108, 0.5),
+      0 0 60px rgba(0, 212, 170, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* ==================== Code Container ==================== */
+  .code-container {
+    background: rgba(0, 139, 108, 0.05);
+    border: 1px solid rgba(0, 139, 108, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .code-container:hover {
+    border-color: rgba(0, 139, 108, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 139, 108, 0.15);
+    transform: translateY(-2px);
+  }
+
+  html.dark .code-container {
+    background: rgba(0, 139, 108, 0.08);
+    border: 1px solid rgba(0, 139, 108, 0.3);
+  }
+
+  html.dark .code-container:hover {
+    border-color: rgba(0, 139, 108, 0.5);
+    box-shadow: 0 8px 24px rgba(0, 139, 108, 0.2);
+  }
+
+  .code-header {
+    border-bottom: 1px solid rgba(0, 139, 108, 0.15);
+  }
+
+  .code-content {
+    color: var(--text);
+  }
+
+  .command-prompt {
+    opacity: 0.5;
+  }
+
+  .command-text {
+    color: #008b6c;
+    font-weight: 600;
+  }
+
+  html.dark .command-text {
+    color: #00b38b;
+  }
+
+  /* Copy Button */
+  .copy-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text);
+  }
+
+  /* ==================== Partners Section ==================== */
+  .partners-section {
+    animation: fadeInUp 1s ease-out 0.3s both;
+  }
+
+  .partners-title {
+    color: var(--text);
+  }
+
+  .partners-link {
+    transition: color 0.2s ease;
+  }
+
+  .partners-link:hover {
+    color: #0066cc;
+  }
+
+  html.dark .partners-link:hover {
+    color: #3b82f6;
+  }
+
+  /* ==================== Animations ==================== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* ==================== Responsive Design ==================== */
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .get-started-btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .code-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
+  /* ==================== Accessibility ==================== */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus styles for keyboard navigation */
+  .badge:focus-visible,
+  .get-started-btn:focus-visible,
+  .copy-btn:focus-visible,
+  .partners-link:focus-visible {
+    outline: 2px solid #008b6c;
+    outline-offset: 2px;
+  }
+
+  html.dark .badge:focus-visible,
+  html.dark .get-started-btn:focus-visible,
+  html.dark .copy-btn:focus-visible,
+  html.dark .partners-link:focus-visible {
+    outline-color: #00b38b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.querySelector('.copy-btn') as HTMLButtonElement
+    const copyText = copyBtn?.querySelector('.copy-text')
+
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', async () => {
+        const code = copyBtn.getAttribute('data-code')
+
+        if (code) {
+          try {
+            await navigator.clipboard.writeText(code)
+            copyText.textContent = 'Copied!'
+
+            // Reset text after 2 seconds
+            setTimeout(() => {
+              copyText.textContent = 'Copy'
+            }, 2000)
+          } catch (err) {
+            console.error('Failed to copy:', err)
+            copyText.textContent = 'Error!'
+
+            setTimeout(() => {
+              copyText.textContent = 'Copy'
+            }, 2000)
+          }
+        }
+      })
+    }
+  })
+</script>

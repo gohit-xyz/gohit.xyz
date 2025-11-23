@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import Footer from '@/sections/shared/Footer.astro'
 import { Hero, Projects, SocialLinks, YouTubeVideo } from '@/sections/sections'
 ---
 
@@ -12,16 +13,15 @@ import { Hero, Projects, SocialLinks, YouTubeVideo } from '@/sections/sections'
       <SocialLinks />
       <Projects />
       <!--  -->
-      <footer class="mt-8 text-center text-xs text-gray-500 dark:text-gray-400">
-        <p>&copy; 2025 Gohit X. All rights reserved.</p>
-      </footer>
+      <Footer />
     </main>
   </div>
 </Layout>
 
 <style is:global>
-  ::-webkit-scrollbar {
-    width: 0px;
+  * {
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
   }
 
   .custom-cursor {
