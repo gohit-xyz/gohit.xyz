@@ -175,7 +175,7 @@ import { SPONSORS } from '@/data/x'
 
       images.forEach((imgSrc, index) => {
         const btn = document.createElement('button')
-        btn.className = `qr-option-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+        btn.className = `qr-option-btn cursor-pointer px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
           index === 0
             ? 'bg-[#008b6c] text-white shadow-lg'
             : 'bg-white/10 text-gray-700 dark:text-gray-300 hover:bg-white/20'
