@@ -25,6 +25,8 @@ export interface Sponsor {
   description: string
   qrImage: ImageMetadata
   qrLink: string // The actual link that the QR code points to
+  qrImages?: ImageMetadata[] // Optional: Multiple QR codes for crypto options
+  qrLabels?: string[] // Optional: Labels for each QR code
 }
 
 export const SPONSORS: Sponsor[] = [
@@ -81,14 +83,16 @@ export const SPONSORS: Sponsor[] = [
     description: 'Support our collective transparency.',
     qrImage: cryQr1Img,
     qrLink: 'https://binance.com/yourhandle',
+    qrImages: [cryQr1Img, cryQr2Img, cryQr3Img],
+    qrLabels: ['Bitcoin', 'Ethereum', 'USDT'],
   },
-  {
-    id: 'stripe',
-    name: 'Stripe Payment Links',
-    url: 'https://stripe.com',
-    icon: stripeImg,
-    description: 'Secure payment via Stripe.',
-    qrImage: cryQr2Img,
-    qrLink: 'https://buy.stripe.com/yourlink',
+    {
+    id: 'github',
+    name: 'GitHub Sponsors',
+    url: 'https://github.com/sponsors/gohit-xyz',
+    icon: githubImg,
+    description: 'Sponsor my open source work on GitHub.',
+    qrImage: qrGithubImg,
+    qrLink: 'https://github.com/sponsors/gohit-xyz',
   },
 ]

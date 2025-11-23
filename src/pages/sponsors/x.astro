@@ -29,7 +29,7 @@ import { SPONSORS } from '@/data/x'
               {
                 SPONSORS.map((sponsor, index) => (
                   <button
-                    class={`sponsor-item group flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 cursor-pointer hover:scale-[1.02] ${
+                    class={`sponsor-item group flex w-full cursor-pointer items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 hover:scale-[1.02] ${
                       index === 0
                         ? 'active border-[#008b6c] bg-[#008b6c]/10 ring-1 ring-[#008b6c]'
                         : 'border-transparent bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10'
@@ -40,6 +40,11 @@ import { SPONSORS } from '@/data/x'
                     data-desc={sponsor.description}
                     data-qr-src={sponsor.qrImage.src}
                     data-qr-link={sponsor.qrLink}
+                    data-has-multiple={sponsor.qrImages ? 'true' : 'false'}
+                    data-qr-images={
+                      sponsor.qrImages ? JSON.stringify(sponsor.qrImages.map((img) => img.src)) : ''
+                    }
+                    data-qr-labels={sponsor.qrLabels ? JSON.stringify(sponsor.qrLabels) : ''}
                     aria-label={`Select ${sponsor.name}`}
                   >
                     <div class="flex items-center gap-3">
@@ -81,6 +86,16 @@ import { SPONSORS } from '@/data/x'
                   class="h-64 w-64 rounded-lg object-cover shadow-2xl"
                   id="qr-image"
                 />
+              </div>
+            </div>
+
+            <!-- QR Selector (only visible for sponsors with multiple QR codes) -->
+            <div id="qr-selector" class="mb-6 hidden">
+              <p class="mb-3 text-sm font-medium text-gray-600 dark:text-gray-400">
+                Select Cryptocurrency:
+              </p>
+              <div id="qr-buttons" class="flex flex-wrap justify-center gap-2">
+                <!-- QR buttons will be dynamically inserted here -->
               </div>
             </div>
 
@@ -147,6 +162,46 @@ import { SPONSORS } from '@/data/x'
     const sponsorDesc = document.getElementById('sponsor-desc')
     const sponsorLink = document.getElementById('sponsor-link') as HTMLAnchorElement
     const qrImage = document.getElementById('qr-image') as HTMLImageElement
+    const qrSelector = document.getElementById('qr-selector')
+    const qrButtonsContainer = document.getElementById('qr-buttons')
+
+    let currentQrImages: string[] = []
+    let currentQrLabels: string[] = []
+
+    function createQrButtons(images: string[], labels: string[]) {
+      if (!qrButtonsContainer) return
+
+      qrButtonsContainer.innerHTML = ''
+
+      images.forEach((imgSrc, index) => {
+        const btn = document.createElement('button')
+        btn.className = `qr-option-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+          index === 0
+            ? 'bg-[#008b6c] text-white shadow-lg'
+            : 'bg-white/10 text-gray-700 dark:text-gray-300 hover:bg-white/20'
+        }`
+        btn.textContent = labels[index] || `Option ${index + 1}`
+        btn.dataset.qrSrc = imgSrc
+        btn.dataset.index = index.toString()
+
+        btn.addEventListener('click', () => {
+          // Update QR image
+          if (qrImage) {
+            qrImage.src = imgSrc
+          }
+
+          // Update button styles
+          qrButtonsContainer.querySelectorAll('.qr-option-btn').forEach((b) => {
+            b.classList.remove('bg-[#008b6c]', 'text-white', 'shadow-lg')
+            b.classList.add('bg-white/10', 'text-gray-700', 'dark:text-gray-300')
+          })
+          btn.classList.remove('bg-white/10', 'text-gray-700', 'dark:text-gray-300')
+          btn.classList.add('bg-[#008b6c]', 'text-white', 'shadow-lg')
+        })
+
+        qrButtonsContainer.appendChild(btn)
+      })
+    }
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -206,15 +261,37 @@ import { SPONSORS } from '@/data/x'
         const desc = button.getAttribute('data-desc')
         const qrSrc = button.getAttribute('data-qr-src')
         const qrLink = button.getAttribute('data-qr-link')
+        const hasMultiple = button.getAttribute('data-has-multiple') === 'true'
+        const qrImagesStr = button.getAttribute('data-qr-images')
+        const qrLabelsStr = button.getAttribute('data-qr-labels')
 
         if (sponsorName) sponsorName.textContent = name || ''
         if (sponsorDesc) sponsorDesc.textContent = desc || ''
         if (sponsorLink) sponsorLink.href = url || '#'
 
-        // Update QR code image and alt text
-        if (qrImage && qrSrc) {
-          qrImage.src = qrSrc
-          qrImage.alt = `QR Code for ${name}`
+        // Handle multiple QR codes
+        if (hasMultiple && qrImagesStr && qrLabelsStr) {
+          currentQrImages = JSON.parse(qrImagesStr)
+          currentQrLabels = JSON.parse(qrLabelsStr)
+
+          // Show QR selector and create buttons
+          if (qrSelector) qrSelector.classList.remove('hidden')
+          createQrButtons(currentQrImages, currentQrLabels)
+
+          // Set first QR as default
+          if (qrImage && currentQrImages[0]) {
+            qrImage.src = currentQrImages[0]
+            qrImage.alt = `QR Code for ${name}`
+          }
+        } else {
+          // Hide QR selector for single QR sponsors
+          if (qrSelector) qrSelector.classList.add('hidden')
+
+          // Update QR code image and alt text
+          if (qrImage && qrSrc) {
+            qrImage.src = qrSrc
+            qrImage.alt = `QR Code for ${name}`
+          }
         }
 
         // Animation effect for content change
