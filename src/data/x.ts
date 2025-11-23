@@ -85,14 +85,5 @@ export const SPONSORS: Sponsor[] = [
     qrLink: 'https://binance.com/yourhandle',
     qrImages: [cryQr1Img, cryQr2Img, cryQr3Img],
     qrLabels: ['Bitcoin', 'Ethereum', 'USDT'],
-  },
-    {
-    id: 'github',
-    name: 'GitHub Sponsors',
-    url: 'https://github.com/sponsors/gohit-xyz',
-    icon: githubImg,
-    description: 'Sponsor my open source work on GitHub.',
-    qrImage: qrGithubImg,
-    qrLink: 'https://github.com/sponsors/gohit-xyz',
-  },
+  }
 ]
