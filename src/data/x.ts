@@ -7,7 +7,15 @@ import stripeImg from '@/assets/images/x/stripe2.jpg'
 import binanceImg from '@/assets/images/x/binance.jpg'
 
 // QR Code images - Replace with actual QR codes when generated
-import qrTestImg from '@/assets/images/x/qr/QR_test.png'
+import qrPatreonImg from '@/assets/images/x/qr/qr-patreon.png'
+import qrPaypalImg from '@/assets/images/x/qr/qr-paypal.png'
+import qrCoFiImg from '@/assets/images/x/qr/qr-co-fi.png'
+import qrBuymeacoffeeImg from '@/assets/images/x/qr/qr-buymeacoffee.png'
+import qrGithubImg from '@/assets/images/x/qr/qr-github.png'
+import cryQr1Img from '@/assets/images/x/qr/cry-qr-1.jpg'
+import cryQr2Img from '@/assets/images/x/qr/cry-qr-2.jpg'
+import cryQr3Img from '@/assets/images/x/qr/cry-qr-3.jpg'
+
 
 export interface Sponsor {
   id: string
@@ -26,8 +34,8 @@ export const SPONSORS: Sponsor[] = [
     url: 'https://paypal.com',
     icon: paypalImg,
     description: 'Direct donation via PayPal.',
-    qrImage: qrTestImg, // TODO: Replace with actual PayPal QR code
-    qrLink: 'https://paypal.me/yourhandle', // TODO: Update with your actual PayPal link
+    qrImage: qrPaypalImg,
+    qrLink: 'https://paypal.me/yourhandle',
   },
   {
     id: 'buymeacoffee',
@@ -35,8 +43,8 @@ export const SPONSORS: Sponsor[] = [
     url: 'https://buymeacoffee.com',
     icon: buymeacoffeeImg,
     description: 'Buy me a coffee to keep the code flowing.',
-    qrImage: qrTestImg, // TODO: Replace with actual Buy Me a Coffee QR code
-    qrLink: 'https://buymeacoffee.com/yourhandle', // TODO: Update with your actual link
+    qrImage: qrBuymeacoffeeImg,
+    qrLink: 'https://buymeacoffee.com/yourhandle',
   },
   {
     id: 'patreon',
@@ -44,8 +52,8 @@ export const SPONSORS: Sponsor[] = [
     url: 'https://patreon.com',
     icon: patreonImg,
     description: 'Support me on Patreon and get exclusive rewards.',
-    qrImage: qrTestImg, // TODO: Replace with actual Patreon QR code
-    qrLink: 'https://patreon.com/yourhandle', // TODO: Update with your actual Patreon link
+    qrImage: qrPatreonImg,
+    qrLink: 'https://patreon.com/yourhandle',
   },
   {
     id: 'kofi',
@@ -53,8 +61,8 @@ export const SPONSORS: Sponsor[] = [
     url: 'https://ko-fi.com',
     icon: kofiImg,
     description: 'Support my work with a small donation on Ko-fi.',
-    qrImage: qrTestImg, // TODO: Replace with actual Ko-fi QR code
-    qrLink: 'https://ko-fi.com/yourhandle', // TODO: Update with your actual Ko-fi link
+    qrImage: qrCoFiImg,
+    qrLink: 'https://ko-fi.com/yourhandle',
   },
   {
     id: 'github',
@@ -62,8 +70,8 @@ export const SPONSORS: Sponsor[] = [
     url: 'https://github.com/sponsors',
     icon: githubImg,
     description: 'Sponsor my open source work on GitHub.',
-    qrImage: qrTestImg, // TODO: Replace with actual GitHub Sponsors QR code
-    qrLink: 'https://github.com/sponsors/yourhandle', // TODO: Update with your actual GitHub Sponsors link
+    qrImage: qrGithubImg,
+    qrLink: 'https://github.com/sponsors/yourhandle',
   },
   {
     id: 'binance',
@@ -71,16 +79,16 @@ export const SPONSORS: Sponsor[] = [
     url: 'https://binance.com',
     icon: binanceImg,
     description: 'Support our collective transparency.',
-    qrImage: qrTestImg, // TODO: Replace with actual Binance QR code
-    qrLink: 'https://binance.com/yourhandle', // TODO: Update with your actual Binance link
+    qrImage: cryQr1Img,
+    qrLink: 'https://binance.com/yourhandle',
   },
-    {
+  {
     id: 'stripe',
     name: 'Stripe Payment Links',
     url: 'https://stripe.com',
     icon: stripeImg,
     description: 'Secure payment via Stripe.',
-    qrImage: qrTestImg, // TODO: Replace with actual Stripe QR code
-    qrLink: 'https://buy.stripe.com/yourlink', // TODO: Update with your actual Stripe payment link
+    qrImage: cryQr2Img,
+    qrLink: 'https://buy.stripe.com/yourlink',
   },
 ]
