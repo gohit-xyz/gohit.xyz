@@ -5,19 +5,19 @@ import { sponsors } from '@/data/sponsors'
 ---
 
 <Layout>
-  <div class="sponsors-container">
-    <div class="back-button-container gap-3">
+  <div class="sponsors-container relative min-h-screen overflow-hidden px-8 py-16">
+    <div class="back-button-container flex justify-center gap-3">
       <BackButtonOne href="/" text="Home" />
       <BackButtonOne text="/ㅤBack" showIcon={false} useHistory={true} />
     </div>
     <!-- Hero Section -->
-    <div class="hero-section">
-      <div class="hero-content">
-        <h1 class="hero-title">
+    <div class="hero-section relative mb-20 py-4 text-center">
+      <div class="hero-content relative z-2">
+        <h1 class="hero-title mb-6">
           <span class="gradient-text">Our Amazing</span>
-          <span class="sponsors-text">Sponsors</span>
+          <span class="sponsors-text text-white">Sponsors</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle mx-auto mb-8 max-w-[600px] text-[#a0aec0]">
           Thank you to these incredible partners who make our work possible
         </p>
         <a href="sponsors/x" class="cta-button">
@@ -26,32 +26,38 @@ import { sponsors } from '@/data/sponsors'
           <span class="cta-arrow">→</span>
         </a>
       </div>
-      <div class="hero-decoration">
-        <div class="floating-orb orb-1"></div>
-        <div class="floating-orb orb-2"></div>
-        <div class="floating-orb orb-3"></div>
+      <div class="hero-decoration pointer-events-none absolute top-0 left-0 z-1 h-full w-full">
+        <div class="floating-orb orb-1 absolute -top-[100px] -left-[100px] h-[300px] w-[300px]">
+        </div>
+        <div class="floating-orb orb-2 absolute top-1/2 -right-[100px] h-[250px] w-[250px]"></div>
+        <div class="floating-orb orb-3 absolute -bottom-[100px] left-1/2 h-[200px] w-[200px]"></div>
       </div>
     </div>
 
     <!-- Sponsors Grid -->
-    <div class="sponsors-grid">
+    <div class="sponsors-grid relative z-2 mx-auto mb-20 max-w-[1400px]">
       {
         sponsors.map((sponsor, index) => (
           <div
-            class={`sponsor-card ${sponsor.tier || 'bronze'}`}
+            class={`sponsor-card ${sponsor.tier || 'bronze'} relative overflow-hidden rounded-3xl bg-white/3 px-8 py-10`}
             data-index={index}
             data-tier={sponsor.tier || 'bronze'}
           >
-            <div class="card-glow" />
-            <div class="card-content">
-              <div class="sponsor-photo-wrapper">
-                <div class="photo-ring" />
-                <img src={sponsor.photo} alt={sponsor.name} class="sponsor-photo" loading="lazy" />
-                <div class="photo-shine" />
+            <div class="card-glow pointer-events-none absolute -top-1/2 -left-1/2 h-[200%] w-[200%]" />
+            <div class="card-content relative z-1 flex flex-col items-center gap-6">
+              <div class="sponsor-photo-wrapper relative h-[140px] w-[140px]">
+                <div class="photo-ring absolute -inset-2 rounded-full" />
+                <img
+                  src={sponsor.photo}
+                  alt={sponsor.name}
+                  class="sponsor-photo relative h-full w-full rounded-full border-4 border-white/10 bg-white/5"
+                  loading="lazy"
+                />
+                <div class="photo-shine absolute top-0 -left-full h-full w-full rounded-full" />
               </div>
-              <h3 class="sponsor-name">{sponsor.name}</h3>
+              <h3 class="sponsor-name text-center text-white">{sponsor.name}</h3>
               {sponsor.tier && (
-                <div class="sponsor-badge">
+                <div class="sponsor-badge flex items-center gap-2 rounded-full border bg-white/10 px-4 py-2">
                   <span class="badge-icon">★</span>
                   <span class="badge-text">{sponsor.tier}</span>
                 </div>
@@ -60,7 +66,7 @@ import { sponsors } from '@/data/sponsors'
             {sponsor.website && (
               <a
                 href={sponsor.website}
-                class="sponsor-link"
+                class="sponsor-link relative mt-4 flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-white"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Visit ${sponsor.name} website`}
@@ -75,20 +81,20 @@ import { sponsors } from '@/data/sponsors'
     </div>
 
     <!-- Stats Section -->
-    <div class="stats-section">
-      <div class="stat-item">
-        <div class="stat-number">{sponsors.length}</div>
-        <div class="stat-label">Total Sponsors</div>
+    <div class="stats-section relative z-2 mx-auto max-w-[800px]">
+      <div class="stat-item rounded-[20px] border border-white/10 bg-white/3 p-8 text-center">
+        <div class="stat-number mb-2">{sponsors.length}</div>
+        <div class="stat-label text-[#a0aec0]">Total Sponsors</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">
+      <div class="stat-item rounded-[20px] border border-white/10 bg-white/3 p-8 text-center">
+        <div class="stat-number mb-2">
           {sponsors.filter((s) => s.tier === 'platinum' || s.tier === 'gold').length}
         </div>
-        <div class="stat-label">Premium Partners</div>
+        <div class="stat-label text-[#a0aec0]">Premium Partners</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Awesome</div>
+      <div class="stat-item rounded-[20px] border border-white/10 bg-white/3 p-8 text-center">
+        <div class="stat-number mb-2">100%</div>
+        <div class="stat-label text-[#a0aec0]">Awesome</div>
       </div>
     </div>
   </div>
@@ -96,46 +102,10 @@ import { sponsors } from '@/data/sponsors'
 
 <!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scrollbar-width: none;
-    scrollbar-color: transparent transparent;
-  }
-
-  .sponsors-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
-    padding: 4rem 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .back-button-container {
-    display: flex;
-    justify-content: center;
-    /* margin-bottom: 2rem; */
-  }
-
-  /* Hero Section */
-  .hero-section {
-    position: relative;
-    text-align: center;
-    margin-bottom: 5rem;
-    padding: 1rem 0;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-  }
-
   .hero-title {
     font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 900;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -161,17 +131,12 @@ import { sponsors } from '@/data/sponsors'
   }
 
   .sponsors-text {
-    color: #ffffff;
     text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
   }
 
   .hero-subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    color: #a0aec0;
-    max-width: 600px;
-    margin: 0 auto;
     line-height: 1.6;
-    margin-bottom: 2rem;
   }
 
   /* CTA Button */
@@ -263,18 +228,7 @@ import { sponsors } from '@/data/sponsors'
   }
 
   /* Floating Orbs */
-  .hero-decoration {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
-
   .floating-orb {
-    position: absolute;
     border-radius: 50%;
     filter: blur(60px);
     opacity: 0.3;
@@ -282,29 +236,17 @@ import { sponsors } from '@/data/sponsors'
   }
 
   .orb-1 {
-    width: 300px;
-    height: 300px;
     background: linear-gradient(135deg, #667eea, #764ba2);
-    top: -100px;
-    left: -100px;
     animation-delay: 0s;
   }
 
   .orb-2 {
-    width: 250px;
-    height: 250px;
     background: linear-gradient(135deg, #f093fb, #f5576c);
-    top: 50%;
-    right: -100px;
     animation-delay: -7s;
   }
 
   .orb-3 {
-    width: 200px;
-    height: 200px;
     background: linear-gradient(135deg, #4facfe, #00f2fe);
-    bottom: -100px;
-    left: 50%;
     animation-delay: -14s;
   }
 
@@ -326,23 +268,13 @@ import { sponsors } from '@/data/sponsors'
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
-    max-width: 1400px;
-    margin: 0 auto 5rem;
-    position: relative;
-    z-index: 2;
   }
 
   /* Sponsor Card */
   .sponsor-card {
-    position: relative;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    overflow: hidden;
     animation: card-entrance 0.6s ease-out backwards;
   }
 
@@ -421,41 +353,17 @@ import { sponsors } from '@/data/sponsors'
 
   /* Card Glow Effect */
   .card-glow {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
     background: radial-gradient(circle, currentColor 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.4s ease;
-    pointer-events: none;
   }
 
   .sponsor-card:hover .card-glow {
     opacity: 0.1;
   }
 
-  .card-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
   /* Photo Wrapper */
-  .sponsor-photo-wrapper {
-    position: relative;
-    width: 140px;
-    height: 140px;
-  }
-
   .photo-ring {
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
     background: linear-gradient(135deg, currentColor, transparent);
     opacity: 0.5;
     animation: rotate 8s linear infinite;
@@ -471,13 +379,7 @@ import { sponsors } from '@/data/sponsors'
   }
 
   .sponsor-photo {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
     object-fit: cover;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
     transition: transform 0.4s ease;
   }
 
@@ -486,13 +388,7 @@ import { sponsors } from '@/data/sponsors'
   }
 
   .photo-shine {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    border-radius: 50%;
     transition: left 0.6s ease;
   }
 
@@ -504,8 +400,6 @@ import { sponsors } from '@/data/sponsors'
   .sponsor-name {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #ffffff;
-    text-align: center;
     line-height: 1.3;
     transition: color 0.3s ease;
   }
@@ -516,18 +410,11 @@ import { sponsors } from '@/data/sponsors'
 
   /* Badge */
   .sponsor-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: currentColor;
-    border: 1px solid currentColor;
   }
 
   .badge-icon {
@@ -549,22 +436,10 @@ import { sponsors } from '@/data/sponsors'
 
   /* Sponsor Link */
   .sponsor-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #ffffff;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.875rem;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
 
   .sponsor-link::before {
@@ -602,18 +477,9 @@ import { sponsors } from '@/data/sponsors'
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
   }
 
   .stat-item {
-    text-align: center;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
   }
@@ -630,12 +496,10 @@ import { sponsors } from '@/data/sponsors'
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
   }
 
   .stat-label {
     font-size: 1rem;
-    color: #a0aec0;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
@@ -643,34 +507,9 @@ import { sponsors } from '@/data/sponsors'
 
   /* Responsive Design */
   @media (max-width: 768px) {
-    .sponsors-container {
-      padding: 2rem 1rem;
-    }
-
-    .hero-section {
-      margin-bottom: 3rem;
-    }
-
     .sponsors-grid {
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1.5rem;
-    }
-
-    .sponsor-card {
-      padding: 2rem 1.5rem;
-    }
-
-    .sponsor-photo-wrapper {
-      width: 120px;
-      height: 120px;
-    }
-
-    .stats-section {
-      gap: 1rem;
-    }
-
-    .stat-item {
-      padding: 1.5rem;
     }
 
     .stat-number {
