@@ -20,13 +20,14 @@ import cryQr3Img from '@/assets/images/x/qr/cry-qr-3.jpg'
 export interface Sponsor {
   id: string
   name: string
-  url: string
+  url?: string // Optional: URL to official page (if available)
   icon: ImageMetadata
   description: string
   qrImage: ImageMetadata
-  qrLink: string // The actual link that the QR code points to
   qrImages?: ImageMetadata[] // Optional: Multiple QR codes for crypto options
   qrLabels?: string[] // Optional: Labels for each QR code
+  cryptoWalletIds?: string[] // Optional: Wallet IDs for cryptocurrency options
+  isCrypto?: boolean // Optional: Flag to identify cryptocurrency sponsors
 }
 
 export const SPONSORS: Sponsor[] = [
@@ -37,7 +38,6 @@ export const SPONSORS: Sponsor[] = [
     icon: paypalImg,
     description: 'Direct donation via PayPal.',
     qrImage: qrPaypalImg,
-    qrLink: 'https://www.paypal.com/ncp/payment/XYLSCD9GDEBLY',
   },
   {
     id: 'buymeacoffee',
@@ -46,7 +46,6 @@ export const SPONSORS: Sponsor[] = [
     icon: buymeacoffeeImg,
     description: 'Buy me a coffee to keep the code flowing.',
     qrImage: qrBuymeacoffeeImg,
-    qrLink: 'https://buymeacoffee.com/gohitx',
   },
   {
     id: 'patreon',
@@ -55,7 +54,6 @@ export const SPONSORS: Sponsor[] = [
     icon: patreonImg,
     description: 'Support me on Patreon and get exclusive rewards.',
     qrImage: qrPatreonImg,
-    qrLink: 'https://www.patreon.com/cw/gohitx',
   },
   {
     id: 'kofi',
@@ -64,7 +62,6 @@ export const SPONSORS: Sponsor[] = [
     icon: kofiImg,
     description: 'Support my work with a small donation on Ko-fi.',
     qrImage: qrCoFiImg,
-    qrLink: 'https://ko-fi.com/gohitx',
   },
   {
     id: 'github',
@@ -73,17 +70,16 @@ export const SPONSORS: Sponsor[] = [
     icon: githubImg,
     description: 'Sponsor my open source work on GitHub.',
     qrImage: qrGithubImg,
-    qrLink: 'https://github.com/sponsors/gohit-xyz',
   },
   {
     id: 'binance',
     name: 'Binance (Cryptocurrency)',
-    url: 'https://binance.com/yourhandle',
     icon: binanceImg,
     description: 'Support our collective transparency.',
     qrImage: cryQr1Img,
-    qrLink: 'https://binance.com/yourhandle',
     qrImages: [cryQr1Img, cryQr2Img, cryQr3Img],
     qrLabels: ['Bitcoin', 'Ethereum', 'USDT'],
+    cryptoWalletIds: ['0x217ef3dbd9eb20f2bc8a5a9b303d73ac3739bf8e'],
+    isCrypto: true,
   }
 ]

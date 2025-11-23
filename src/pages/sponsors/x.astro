@@ -36,15 +36,19 @@ import { SPONSORS } from '@/data/x'
                     }`}
                     data-id={sponsor.id}
                     data-name={sponsor.name}
-                    data-url={sponsor.url}
+                    data-url={sponsor.url || ''}
+                    data-has-url={sponsor.url ? 'true' : 'false'}
                     data-desc={sponsor.description}
                     data-qr-src={sponsor.qrImage.src}
-                    data-qr-link={sponsor.qrLink}
                     data-has-multiple={sponsor.qrImages ? 'true' : 'false'}
                     data-qr-images={
                       sponsor.qrImages ? JSON.stringify(sponsor.qrImages.map((img) => img.src)) : ''
                     }
                     data-qr-labels={sponsor.qrLabels ? JSON.stringify(sponsor.qrLabels) : ''}
+                    data-is-crypto={sponsor.isCrypto ? 'true' : 'false'}
+                    data-wallet-ids={
+                      sponsor.cryptoWalletIds ? JSON.stringify(sponsor.cryptoWalletIds) : ''
+                    }
                     aria-label={`Select ${sponsor.name}`}
                   >
                     <div class="flex items-center gap-3">
@@ -114,12 +118,42 @@ import { SPONSORS } from '@/data/x'
               {SPONSORS[0].description}
             </p>
 
+            <!-- Crypto Wallet ID (minimalist - only for cryptocurrency sponsors) -->
+            <div id="crypto-wallet-container" class="hidden w-full max-w-md">
+              <div class="flex items-center gap-2">
+                <input
+                  id="wallet-id-input"
+                  type="text"
+                  readonly
+                  value=""
+                  class="flex-1 rounded-lg border border-[#7e7e7e3a] bg-white/5 px-4 py-3 font-mono text-sm backdrop-blur-sm focus:ring-2 focus:ring-[#008b6c] focus:outline-none"
+                />
+                <button
+                  id="copy-wallet-btn"
+                  class="group relative flex items-center justify-center rounded-lg bg-[#008b6c] p-3 text-white transition-all duration-300 hover:bg-[#007a5e] hover:shadow-[0_0_15px_rgba(0,139,108,0.4)]"
+                  title="Copy wallet address"
+                >
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  <span id="copy-btn-text" class="sr-only">Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Regular Link (for non-crypto sponsors) -->
             <a
               id="sponsor-link"
-              href={SPONSORS[0].url}
+              href={SPONSORS[0].url || '#'}
               target="_blank"
               rel="noopener noreferrer"
               class="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#008b6c] px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#007a5e] hover:shadow-[0_0_20px_rgba(0,139,108,0.4)]"
+              style={!SPONSORS[0].url || SPONSORS[0].isCrypto ? 'display: none;' : ''}
             >
               <span class="relative z-10">Go to Official Page</span>
               <svg
@@ -172,11 +206,42 @@ import { SPONSORS } from '@/data/x'
     const qrImage = document.getElementById('qr-image') as HTMLImageElement
     const qrSelector = document.getElementById('qr-selector')
     const qrButtonsContainer = document.getElementById('qr-buttons')
+    const cryptoWalletContainer = document.getElementById('crypto-wallet-container')
+    const walletIdInput = document.getElementById('wallet-id-input') as HTMLInputElement
+    const copyWalletBtn = document.getElementById('copy-wallet-btn')
+    const copyBtnText = document.getElementById('copy-btn-text')
 
     let currentQrImages: string[] = []
     let currentQrLabels: string[] = []
+    let currentWalletIds: string[] = []
+    let currentSelectedCryptoIndex = 0
 
-    function createQrButtons(images: string[], labels: string[]) {
+    // Copy to clipboard functionality
+    if (copyWalletBtn) {
+      copyWalletBtn.addEventListener('click', async () => {
+        const walletId = walletIdInput?.value
+        if (!walletId) return
+
+        try {
+          await navigator.clipboard.writeText(walletId)
+
+          // Visual feedback - change button color temporarily
+          copyWalletBtn.classList.add('!bg-green-600')
+          setTimeout(() => {
+            copyWalletBtn.classList.remove('!bg-green-600')
+          }, 1500)
+        } catch (err) {
+          console.error('Failed to copy:', err)
+          // Error feedback
+          copyWalletBtn.classList.add('!bg-red-600')
+          setTimeout(() => {
+            copyWalletBtn.classList.remove('!bg-red-600')
+          }, 1500)
+        }
+      })
+    }
+
+    function createQrButtons(images: string[], labels: string[], walletIds: string[] = []) {
       if (!qrButtonsContainer) return
 
       qrButtonsContainer.innerHTML = ''
@@ -191,9 +256,16 @@ import { SPONSORS } from '@/data/x'
         btn.dataset.index = index.toString()
 
         btn.addEventListener('click', () => {
+          currentSelectedCryptoIndex = index
+
           // Update QR image
           if (qrImage) {
             qrImage.src = imgSrc
+          }
+
+          // Update wallet ID if available
+          if (walletIds.length > index && walletIdInput) {
+            walletIdInput.value = walletIds[index]
           }
 
           // Update button styles
@@ -264,25 +336,59 @@ import { SPONSORS } from '@/data/x'
         // Update details
         const name = button.getAttribute('data-name')
         const url = button.getAttribute('data-url')
+        const hasUrl = button.getAttribute('data-has-url') === 'true'
         const desc = button.getAttribute('data-desc')
         const qrSrc = button.getAttribute('data-qr-src')
-        const qrLink = button.getAttribute('data-qr-link')
         const hasMultiple = button.getAttribute('data-has-multiple') === 'true'
         const qrImagesStr = button.getAttribute('data-qr-images')
         const qrLabelsStr = button.getAttribute('data-qr-labels')
+        const isCrypto = button.getAttribute('data-is-crypto') === 'true'
+        const walletIdsStr = button.getAttribute('data-wallet-ids')
 
         if (sponsorName) sponsorName.textContent = name || ''
         if (sponsorDesc) sponsorDesc.textContent = desc || ''
-        if (sponsorLink) sponsorLink.href = url || '#'
+        if (sponsorLink && url) sponsorLink.href = url
+
+        // Handle crypto vs non-crypto display
+        if (isCrypto && walletIdsStr) {
+          // Show crypto wallet container, hide regular link
+          if (cryptoWalletContainer) cryptoWalletContainer.classList.remove('hidden')
+          if (sponsorLink) {
+            sponsorLink.classList.add('hidden')
+            sponsorLink.style.display = 'none' // Force hide
+          }
+
+          currentWalletIds = walletIdsStr ? JSON.parse(walletIdsStr) : []
+
+          // Set initial wallet ID
+          if (walletIdInput && currentWalletIds.length > 0) {
+            walletIdInput.value = currentWalletIds[0]
+          }
+        } else {
+          // Hide crypto wallet container
+          if (cryptoWalletContainer) cryptoWalletContainer.classList.add('hidden')
+
+          // Show or hide regular link based on whether URL exists
+          if (sponsorLink) {
+            if (hasUrl && url) {
+              sponsorLink.classList.remove('hidden')
+              sponsorLink.style.display = '' // Reset to CSS (inline-flex)
+            } else {
+              sponsorLink.classList.add('hidden')
+              sponsorLink.style.display = 'none' // Force hide
+            }
+          }
+        }
 
         // Handle multiple QR codes
         if (hasMultiple && qrImagesStr && qrLabelsStr) {
           currentQrImages = JSON.parse(qrImagesStr)
           currentQrLabels = JSON.parse(qrLabelsStr)
+          currentSelectedCryptoIndex = 0
 
           // Show QR selector and create buttons
           if (qrSelector) qrSelector.classList.remove('hidden')
-          createQrButtons(currentQrImages, currentQrLabels)
+          createQrButtons(currentQrImages, currentQrLabels, currentWalletIds)
 
           // Set first QR as default
           if (qrImage && currentQrImages[0]) {
