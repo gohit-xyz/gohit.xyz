@@ -75,7 +75,7 @@ export const SPONSORS: Sponsor[] = [
     id: 'binance',
     name: 'Binance (Cryptocurrency)',
     icon: binanceImg,
-    description: 'Support our collective transparency.',
+    description: 'BNB Smart Chain (BEP20)',
     qrImage: cryQr1Img,
     qrImages: [cryQr1Img, cryQr2Img, cryQr3Img],
     qrLabels: ['Bitcoin', 'Ethereum', 'USDT'],
