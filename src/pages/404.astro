@@ -19,12 +19,12 @@ import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
   p {
     font-size: 20px;
   }
+
   .cursor {
     display: inline-block;
     width: 10px;
     height: 20px;
     background-color: #f84f00;
-    margin-left: 0px;
     animation: blink 0.7s infinite;
   }
 
@@ -49,20 +49,25 @@ import BackButtonOne from '@/components/ui/buttons/BackButtonOne.astro'
 </style>
 
 <script>
-  const text = '404, page not found.'
-  const typingElement = document.querySelector('.typing-text')
-  let index = 0
+  const TEXT = '404, page not found.'
+  const SPEED_MS = 100
 
-  function typeWriter() {
-    if (index < text.length) {
-      if (typingElement) {
-        typingElement.textContent += text.charAt(index)
+  function initTyping() {
+    const element = document.querySelector('.typing-text')
+    if (!element) return
+
+    let index = 0
+
+    function type() {
+      if (index < TEXT.length) {
+        element!.textContent += TEXT.charAt(index)
+        index++
+        setTimeout(type, SPEED_MS)
       }
-      index++
-      setTimeout(typeWriter, 100) // speed
     }
+
+    type()
   }
 
-  // start animation when start page
-  typeWriter()
+  initTyping()
 </script>

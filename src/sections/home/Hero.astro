@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import ThemeToggle from '@/components/ThemeToggle'
 import meImage from '@/assets/images/profile/me.jpg'
 import { SponsorIcon } from '@/components/icons/icons'
@@ -35,10 +36,15 @@ const PROFILE_CONFIG = {
       class="h-[90px] w-[90px] overflow-hidden rounded-[40%] border-[3px] border-neutral-800 shadow-lg grayscale transition-all duration-300 hover:grayscale-0"
     >
       <a href={PROFILE_CONFIG.profileLink} aria-label="Go to about me page" class="cursor-none">
-        <img src={meImage.src} alt={PROFILE_CONFIG.imageAlt} class="h-full w-full object-cover" />
+        <Image
+          src={meImage}
+          alt={PROFILE_CONFIG.imageAlt}
+          class="h-full w-full object-cover"
+          loading="eager"
+        />
       </a>
     </div>
-    <h2 class="cursor-default pt-1 text-[14px]">{PROFILE_CONFIG.username}</h2>
+    <h1 class="cursor-default pt-1 text-[14px] font-normal">{PROFILE_CONFIG.username}</h1>
   </article>
 </section>
 
@@ -175,19 +181,13 @@ const PROFILE_CONFIG = {
 </style>
 
 <!-- --- --- -- --- -- -- MARK:Script -->
-<script type="module">
-  // show toolbar:reduced-motion
+<script>
+  // show toolbar
   document.addEventListener('DOMContentLoaded', () => {
     const toolbar = document.querySelector('.icon-toolbar')
     if (!toolbar) return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) {
-      toolbar.classList.add('show')
-      return
-    }
-
-    // 200ms
+    // 200ms delay for entrance animation
     setTimeout(() => {
       toolbar.classList.add('show')
     }, 200)

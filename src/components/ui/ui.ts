@@ -12,7 +12,7 @@ export { default as GlowEffect } from './effects/GlowEffect.astro';
 export { default as PartnersCarousel } from './effects/PartnersCarousel.astro';
 
 // Grids
-export { default as ExtensionsGrid } from './grids/ExtensionsGrid.astro';
+export { default as ExtensionBtns } from './grids/ExtensionBtns.astro';
 
 // Decorative
 export { default as CornerDecorations } from './effects/decorative/CornerDecorations.astro';

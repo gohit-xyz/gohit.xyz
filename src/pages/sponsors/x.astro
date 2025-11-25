@@ -3,6 +3,10 @@ import Layout from '@/layouts/Layout.astro'
 import { BackButtonOne } from '@/components/ui/ui'
 import { Image } from 'astro:assets'
 import { SPONSORS } from '@/data/x'
+import SponsorXBtns from '@/components/ui/grids/SponsorXBtns.astro'
+
+// Constants
+const BRAND_COLOR = '#008b6c'
 ---
 
 <Layout>
@@ -25,61 +29,7 @@ import { SPONSORS } from '@/data/x'
             <div class="border-b border-[#7e7e7e3a] p-4">
               <h2 class="text-lg font-bold">Future Sponsor</h2>
             </div>
-            <div class="custom-scrollbar max-h-[600px] space-y-2 overflow-y-auto p-2">
-              {
-                SPONSORS.map((sponsor, index) => (
-                  <button
-                    class={`sponsor-item group flex w-full cursor-pointer items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 hover:scale-[1.02] ${
-                      index === 0
-                        ? 'active border-[#008b6c] bg-[#008b6c]/10 ring-1 ring-[#008b6c]'
-                        : 'border-transparent bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10'
-                    }`}
-                    data-id={sponsor.id}
-                    data-name={sponsor.name}
-                    data-url={sponsor.url || ''}
-                    data-has-url={sponsor.url ? 'true' : 'false'}
-                    data-desc={sponsor.description}
-                    data-qr-src={sponsor.qrImage.src}
-                    data-has-multiple={sponsor.qrImages ? 'true' : 'false'}
-                    data-qr-images={
-                      sponsor.qrImages ? JSON.stringify(sponsor.qrImages.map((img) => img.src)) : ''
-                    }
-                    data-qr-labels={sponsor.qrLabels ? JSON.stringify(sponsor.qrLabels) : ''}
-                    data-is-crypto={sponsor.isCrypto ? 'true' : 'false'}
-                    data-wallet-ids={
-                      sponsor.cryptoWalletIds ? JSON.stringify(sponsor.cryptoWalletIds) : ''
-                    }
-                    aria-label={`Select ${sponsor.name}`}
-                  >
-                    <div class="flex items-center gap-3">
-                      <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white/10 text-xl shadow-sm">
-                        <Image
-                          src={sponsor.icon}
-                          alt={sponsor.name}
-                          class="h-full w-full object-cover"
-                        />
-                      </div>
-                      <span class="font-medium group-[.active]:font-bold group-[.active]:text-[#008b6c]">
-                        {sponsor.name}
-                      </span>
-                    </div>
-                    <div class="radio-indicator relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-400 group-[.active]:border-[#008b6c] group-[.active]:bg-[#008b6c]">
-                      <div class="h-2 w-2 rounded-full bg-white opacity-0 transition-opacity group-[.active]:opacity-100" />
-                    </div>
-                  </button>
-                ))
-              }
-              <div class="mt-2 px-2">
-                <a
-                  href="https://www.youtube.com/@gohitx?sub_confirmation=1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="group flex w-full cursor-pointer items-center justify-center rounded-xl border border-transparent bg-white/5 p-4 transition-all duration-300 hover:scale-[1.02] hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                >
-                  <span class="font-medium">Other...</span>
-                </a>
-              </div>
-            </div>
+            <SponsorXBtns sponsors={SPONSORS} />
           </div>
         </div>
 
@@ -176,28 +126,11 @@ import { SPONSORS } from '@/data/x'
   </div>
 </Layout>
 
-<style>
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgba(156, 163, 175, 0.3);
-    border-radius: 20px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(156, 163, 175, 0.5);
-  }
-
-  /* Animation for the active state */
-  .sponsor-item.active {
-    box-shadow: 0 0 15px rgba(0, 139, 108, 0.1);
-  }
-</style>
-
+<!-- ==================== 
+     MARK: SCRIPT
+     ==================== -->
 <script>
+  // ==================== DOM Elements ====================
   document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.sponsor-item')
     const sponsorName = document.getElementById('sponsor-name')
@@ -211,12 +144,13 @@ import { SPONSORS } from '@/data/x'
     const copyWalletBtn = document.getElementById('copy-wallet-btn')
     const copyBtnText = document.getElementById('copy-btn-text')
 
+    // ==================== State Variables ====================
     let currentQrImages: string[] = []
     let currentQrLabels: string[] = []
     let currentWalletIds: string[] = []
     let currentSelectedCryptoIndex = 0
 
-    // Copy to clipboard functionality
+    // ==================== Copy to Clipboard ====================
     if (copyWalletBtn) {
       copyWalletBtn.addEventListener('click', async () => {
         const walletId = walletIdInput?.value
@@ -241,6 +175,7 @@ import { SPONSORS } from '@/data/x'
       })
     }
 
+    // ==================== QR Code Management ====================
     function createQrButtons(images: string[], labels: string[], walletIds: string[] = []) {
       if (!qrButtonsContainer) return
 
@@ -281,6 +216,7 @@ import { SPONSORS } from '@/data/x'
       })
     }
 
+    // ==================== Sponsor Selection Handlers ====================
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         // Remove active class from all buttons
