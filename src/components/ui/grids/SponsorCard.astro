@@ -30,7 +30,7 @@ const { sponsor, index } = Astro.props
       />
       <div class="photo-shine absolute top-0 -left-full h-full w-full rounded-full"></div>
     </div>
-    <h3 class="sponsor-name text-center text-white">{sponsor.name}</h3>
+    <h3 class="sponsor-name text-center">{sponsor.name}</h3>
     {
       sponsor.tier && (
         <div class="sponsor-badge flex items-center gap-2 rounded-full border bg-white/10 px-4 py-2">
@@ -44,12 +44,12 @@ const { sponsor, index } = Astro.props
     sponsor.website && (
       <a
         href={sponsor.website}
-        class="sponsor-link relative mt-4 flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-white"
+        class="sponsor-link relative mt-4 flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-6 py-3"
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Visit ${sponsor.name} website`}
       >
-        <span class="link-text">Visit Website</span>
+        <span class="link-text text-black dark:text-white">Visit Website</span>
         <span class="link-arrow">→</span>
       </a>
     )
