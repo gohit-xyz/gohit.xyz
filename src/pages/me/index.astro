@@ -26,7 +26,9 @@ const { Content } = await latestArticle.render()
 ---
 
 <Layout>
-  <div class="custom-cursor flex min-h-screen w-full items-center justify-center">
+  <div
+    class="custom-cursor flex min-h-screen w-full items-center justify-center text-gray-900 dark:text-white"
+  >
     <main class="relative mx-auto w-full max-w-4xl px-6 py-8 sm:px-6">
       <!-- Back & Date -->
       <nav class="mb-8 flex items-center gap-2 text-sm text-gray-400">
@@ -57,7 +59,7 @@ const { Content } = await latestArticle.render()
       <div class="mb-4">
         <div class="flex items-center gap-4">
           <div
-            class="relative h-16 w-16 overflow-hidden rounded-full border-4 border-black shadow-xl ring-2 ring-gray-800"
+            class="relative h-16 w-16 overflow-hidden rounded-full border-4 border-gray-300 shadow-xl ring-2 ring-gray-300 dark:border-gray-800 dark:ring-gray-800"
           >
             <img
               src={meImage.src}
@@ -127,10 +129,13 @@ const { Content } = await latestArticle.render()
 
       <!-- TODO:  -->
       <div class="relative mx-auto my-5 mt-24 max-w-4xl">
-        <div class="h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
+        <div
+          class="h-px w-full bg-linear-to-r from-transparent via-gray-300 to-transparent dark:via-gray-800"
+        >
+        </div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <span
-            class="rounded-lg bg-[#0e0e0e] px-4 py-2 text-sm font-semibold text-white ring-1 ring-gray-800"
+            class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 dark:bg-[#0e0e0e] dark:text-white dark:ring-gray-800"
           >
             Latest Blog
           </span>
@@ -145,20 +150,20 @@ const { Content } = await latestArticle.render()
             {/* Article Content Preview (Limited Height) */}
             <div class="relative overflow-hidden" style="max-height: 54rem;">
               <div class="space-y-8 leading-relaxed opacity-80">
-                <div class="prose prose-invert prose-lg mx-auto max-w-none">
+                <div class="prose prose-gray dark:prose-invert mx-auto max-w-none">
                   <Content />
                 </div>
               </div>
 
               {/* Fade Gradient Overlay */}
-              <div class="pointer-events-none absolute right-0 bottom-0 left-0 h-48 bg-linear-to-t from-(--bg) via-(--bg)/80 to-transparent" />
+              <div class="pointer-events-none absolute right-0 bottom-0 left-0 h-48 bg-linear-to-t from-[#f6f6f6] via-[#f6f6f6]/80 to-transparent dark:from-[#000000] dark:via-[#000000]/80" />
             </div>
 
             {/* Read Full Article Button */}
             <div class="mt-8 flex justify-center">
               <a href={`/blog/${latestArticle.slug}`}>
-                <button class="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-2 border-gray-800 bg-black">
-                  <ArrowDownIcon className="h-5 w-5 transition-transform group-hover:translate-y-0.5 text-white" />
+                <button class="group flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-2 border-gray-300 bg-white shadow-lg transition-all hover:scale-110 hover:shadow-xl dark:border-gray-700 dark:bg-gray-900">
+                  <ArrowDownIcon className="h-6 w-6 text-gray-900 transition-transform group-hover:translate-y-1 dark:text-white" />
                 </button>
               </a>
             </div>
@@ -181,114 +186,5 @@ const { Content } = await latestArticle.render()
   }
   .custom-cursor {
     cursor: url('/cursors/Pointer.ico'), default;
-  }
-
-  /* Prose Styling for Blog Content */
-  .prose {
-    max-width: 65ch;
-    color: #e5e7eb;
-  }
-
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
-    color: #f9fafb;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .prose h1 {
-    font-size: 2.25rem;
-  }
-  .prose h2 {
-    font-size: 1.875rem;
-  }
-  .prose h3 {
-    font-size: 1.5rem;
-  }
-
-  .prose p {
-    margin-bottom: 1.25rem;
-    line-height: 1.75;
-  }
-
-  .prose a {
-    color: #60a5fa;
-    text-decoration: underline;
-    transition: color 0.2s;
-  }
-
-  .prose a:hover {
-    color: #93c5fd;
-  }
-
-  .prose code {
-    background-color: #1f2937;
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-    color: #fbbf24;
-  }
-
-  .prose pre {
-    background-color: #111827;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-    border: 1px solid #374151;
-  }
-
-  .prose pre code {
-    background-color: transparent;
-    padding: 0;
-    color: #e5e7eb;
-  }
-
-  .prose ul,
-  .prose ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .prose li {
-    margin-bottom: 0.5rem;
-  }
-
-  .prose blockquote {
-    border-left: 4px solid #60a5fa;
-    padding-left: 1rem;
-    margin: 1.5rem 0;
-    font-style: italic;
-    color: #9ca3af;
-  }
-
-  .prose strong {
-    font-weight: 600;
-    color: #f9fafb;
-  }
-
-  .prose hr {
-    border-color: #374151;
-    margin: 2rem 0;
-  }
-
-  @media (max-width: 640px) {
-    .prose {
-      font-size: 0.95rem;
-    }
-    .prose h1 {
-      font-size: 1.875rem;
-    }
-    .prose h2 {
-      font-size: 1.5rem;
-    }
-    .prose h3 {
-      font-size: 1.25rem;
-    }
   }
 </style>
