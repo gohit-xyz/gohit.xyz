@@ -13,7 +13,7 @@ const { sponsor, index } = Astro.props
 ---
 
 <div
-  class={`sponsor-card ${sponsor.tier || 'bronze'} relative overflow-hidden rounded-3xl bg-white/3 px-8 py-10`}
+  class={`sponsor-card ${sponsor.tier || 'bronze'} relative overflow-hidden rounded-3xl bg-white/3 px-8 py-10 border dark:border-gray-900 border-gray-200`}
   data-index={index}
   data-tier={sponsor.tier || 'bronze'}
   style={`animation-delay: ${(index + 1) * 0.1}s`}
