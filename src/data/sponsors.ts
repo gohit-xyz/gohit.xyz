@@ -20,7 +20,7 @@ export const sponsors: Sponsor[] = [
   {
     name: 'Anonimo',
     photo: '/favicon.ico',
-    tier: 'silver',
+    // tier: 'silver',
     // website: 'https://example.com'
   },
 ]
