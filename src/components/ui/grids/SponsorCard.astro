@@ -56,8 +56,8 @@ const { sponsor, index } = Astro.props
   }
 </div>
 
+<!-- --- --- -- --- -- -- MARK:Styles -->
 <style>
-  /* Sponsor Card */
   .sponsor-card {
     backdrop-filter: blur(10px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -234,8 +234,8 @@ const { sponsor, index } = Astro.props
   }
 </style>
 
+<!-- --- --- -- --- -- -- MARK:Script -->
 <script>
-  // Add magnetic effect to cards
   const cards = document.querySelectorAll<HTMLElement>('.sponsor-card')
 
   cards.forEach((card) => {
