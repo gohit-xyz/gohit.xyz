@@ -23,6 +23,13 @@ const socialImageURL = new URL(image, Astro.site)
 <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
 <meta name="generator" content={Astro.generator} />
 
+<!-- Performance Optimizations -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.youtube.com" />
+<link rel="preload" href="/fonts/IBMPlex.ttf" as="font" type="font/ttf" crossorigin />
+<link rel="preload" href="/fonts/JBMono.ttf" as="font" type="font/ttf" crossorigin />
+
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 

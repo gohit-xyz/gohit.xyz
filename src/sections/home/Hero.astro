@@ -41,6 +41,7 @@ const PROFILE_CONFIG = {
           alt={PROFILE_CONFIG.imageAlt}
           class="h-full w-full object-cover"
           loading="eager"
+          fetchpriority="high"
         />
       </a>
     </div>
@@ -187,9 +188,9 @@ const PROFILE_CONFIG = {
     const toolbar = document.querySelector('.icon-toolbar')
     if (!toolbar) return
 
-    // 200ms delay for entrance animation
+    // 100ms delay for entrance animation (reduced for better performance)
     setTimeout(() => {
       toolbar.classList.add('show')
-    }, 200)
+    }, 100)
   })
 </script>
