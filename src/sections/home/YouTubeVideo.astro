@@ -16,6 +16,7 @@ const videoId = youtubeVideoUrl.split('v=')[1]?.split('&')[0] || ''
       <img
         src={`https://img.youtube.com/vi/${videoId}/default.jpg`}
         alt="Loading preview"
+        fetchpriority="low"
         class="blur-placeholder absolute inset-0 h-full w-full scale-110 object-cover blur-lg transition-opacity duration-500"
       />
 
@@ -29,6 +30,7 @@ const videoId = youtubeVideoUrl.split('v=')[1]?.split('&')[0] || ''
         src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
         alt="Latest YouTube Video"
         loading="lazy"
+        fetchpriority="low"
         class="high-quality-image absolute inset-0 h-full w-full object-cover"
       />
 
