@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 gohit.xyz
+# gohit.xyz
 
 **Modern Portfolio & Blog** — Built with Astro 5, React & Tailwind CSS
 
