@@ -22,16 +22,16 @@ const { sponsors } = Astro.props
 ---
 
 <div
-  class="custom-scrollbar mx-auto flex w-full max-w-full flex-row gap-2 overflow-x-auto p-2 sm:gap-3 sm:p-3 lg:max-h-[600px] lg:w-full lg:flex-col lg:gap-2 lg:overflow-y-auto lg:p-2"
+  class="custom-scrollbar scrollbar-hide mx-auto flex w-full max-w-full snap-x snap-mandatory flex-row gap-3 overflow-x-auto p-3 sm:gap-3 sm:p-3 lg:max-h-[600px] lg:w-full lg:snap-none lg:flex-col lg:gap-2 lg:overflow-y-auto lg:p-2"
 >
   {
     sponsors.map((sponsor, index) => (
       <button
-        class={`sponsor-item group flex shrink-0 cursor-pointer items-center transition-all duration-300 ${
+        class={`sponsor-item group flex shrink-0 cursor-pointer snap-center items-center transition-all duration-300 ${
           index === 0
             ? 'active border-[#008b6c] bg-[#008b6c]/10 ring-1 ring-[#008b6c]'
             : 'border-transparent bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10'
-        } h-12 w-12 justify-center rounded-full border-2 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:w-full lg:justify-between lg:rounded-xl lg:border lg:p-4 lg:hover:scale-[1.02]`}
+        } h-14 w-14 justify-center rounded-full border-2 sm:h-16 sm:w-16 md:h-16 md:w-16 lg:w-full lg:snap-align-none lg:justify-between lg:rounded-xl lg:border lg:p-4 lg:hover:scale-[1.02]`}
         data-id={sponsor.id}
         data-name={sponsor.name}
         data-url={sponsor.url || ''}
@@ -70,7 +70,7 @@ const { sponsors } = Astro.props
       href="https://www.youtube.com/@gohitx?sub_confirmation=1"
       target="_blank"
       rel="noopener noreferrer"
-      class="group flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-transparent bg-white/5 transition-all duration-300 hover:bg-white/10 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:w-full lg:rounded-xl lg:border lg:border-transparent lg:bg-white/5 lg:p-4 lg:hover:scale-[1.02] dark:bg-white/5 dark:hover:bg-white/10"
+      class="group flex h-14 w-14 cursor-pointer snap-center items-center justify-center rounded-full border border-transparent bg-white/5 transition-all duration-300 hover:bg-white/10 sm:h-16 sm:w-16 md:h-16 md:w-16 lg:w-full lg:snap-align-none lg:rounded-xl lg:border lg:border-transparent lg:bg-white/5 lg:p-4 lg:hover:scale-[1.02] dark:bg-white/5 dark:hover:bg-white/10"
       title="Other..."
     >
       <span class="hidden font-medium lg:block">Other...</span>
@@ -83,5 +83,22 @@ const { sponsors } = Astro.props
 <style>
   .sponsor-item.active {
     box-shadow: 0 0 15px rgba(0, 139, 108, 0.1);
+  }
+
+  /* Better mobile scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .custom-scrollbar {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 </style>
