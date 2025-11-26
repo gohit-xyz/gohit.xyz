@@ -14,11 +14,11 @@
 
 ---
 
-<img src="./public/images/github/screenshot.webp" alt="Portfolio Screenshot" width="800" />
+<img src="https://raw.githubusercontent.com/gohit-xyz/gohit.xyz/refs/heads/main/public/images/github/screenshot.webp" alt="Portfolio Screenshot" width="800" />
 
 <br />
 
-<img src="./public/images/github/performance.webp" alt="Performance Score" width="444" />
+<img src="https://raw.githubusercontent.com/gohit-xyz/gohit.xyz/refs/heads/main/public/images/github/performance.webp" alt="Performance Score" width="444" />
 
 </div>
 
