@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" id="top">
 
 # gohit.xyz
 
@@ -22,23 +22,7 @@
 
 </div>
 
----
-
-## 📋 Overview
-
-**gohit.xyz** is a (Simple & elegant) portfolio website showcasing modern web development practices. Built with performance and user experience in mind, it features a blog system, interactive components, and optimized rendering strategies.
-
-### ✨ Key Features
-
-- 🎨 **Modern UI/UX** — Clean, responsive design with dark/light theme support
-- 📝 **Blog System** — MDX-powered articles with tags, search, and pagination
-- ⚡ **High Performance** — 90+ Lighthouse score with optimized assets
-- 🔄 **Smooth Transitions** — View Transitions API for seamless navigation
-- 🛡️ **Production Ready** — Deployed on Vercel with Cloudflare protection
-- 📱 **Mobile-First** — Fully responsive across all devices
-- 🔍 **SEO Optimized** — Complete meta tags, Open Graph, and sitemap
-
----
+<br>
 
 ## 🛠️ Tech Stack
 
@@ -126,72 +110,6 @@ bun run format
 
 ---
 
-## 🎨 Features Breakdown
-
-### Blog System
-
-- ✅ MDX-powered articles with content collections
-- ✅ Dynamic routing with pagination
-- ✅ Tag/category filtering
-- ✅ Reading time calculation
-- ✅ Related articles recommendation
-- ✅ Search functionality
-
-### UI Components
-
-- ✅ 7 custom button variants
-- ✅ 4 grid/card layouts
-- ✅ 8 visual effects
-- ✅ 37 optimized SVG icons
-- ✅ Theme toggle (React-based)
-
-### SEO & Performance
-
-- ✅ Dynamic meta tags
-- ✅ Open Graph & Twitter Cards
-- ✅ Automatic sitemap generation
-- ✅ Canonical URLs
-- ✅ Responsive images
-
----
-
-## 🌐 Deployment
-
-Deployed on **Vercel** with **Cloudflare** protection:
-
-- **Live URL**: [www.gohit.xyz](https://www.gohit.xyz)
-- **Build Command**: `bun run build`
-- **Output Directory**: `dist/`
-- **Rendering**: Hybrid SSR/SSG
-
----
-
-## 📚 Documentation
-
-- [**Architecture Guide**](./ARCHITECTURE.md) — Complete architecture overview
-- [**Component Documentation**](./ARCHITECTURE.md#component-architecture) — UI components and patterns
-- [**Content Collections**](./ARCHITECTURE.md#content-collections) — Blog system details
-
----
-
-## 🤝 Contributing
-
-While this is a personal portfolio, suggestions and feedback are welcome!
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 <div align="center">
 
 **Built with ❤️ by gohitx**
@@ -199,3 +117,7 @@ This project is open source and available under the [MIT License](LICENSE).
 [Website](https://www.gohit.xyz) • [GitHub](https://github.com/gohit-xyz)
 
 </div>
+
+<p align="right">
+    (<strong><a href="#readme-top">Back to Top</a></strong>)
+</p>
