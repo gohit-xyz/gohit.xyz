@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" id="top">
 
 # gohit.xyz
 
@@ -199,3 +199,7 @@ This project is open source and available under the [MIT License](LICENSE).
 [Website](https://www.gohit.xyz) • [GitHub](https://github.com/gohit-xyz)
 
 </div>
+
+<p align="right">
+    (<strong><a href="#readme-top">Back to Top</a></strong>)
+</p>
