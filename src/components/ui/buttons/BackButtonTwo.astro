@@ -5,12 +5,29 @@ interface Props {
   href?: string
   text?: string
   className?: string
+  useHistory?: boolean
 }
 
-const { href = '/', text = 'Home', className = '' } = Astro.props
+const { href = '/', text = 'Home', className = '', useHistory = false } = Astro.props
 ---
 
-<a href={href} class={`flex items-center gap-2 transition-colors hover:text-gray-300 ${className}`}>
-  <ArrowBackIcon className="h-4 w-4" />
-  {text}
-</a>
+{
+  useHistory ? (
+    <button
+      type="button"
+      class={`flex cursor-pointer items-center gap-2 border-none bg-transparent p-0 transition-colors hover:text-gray-300 ${className}`}
+      onclick="history.back()"
+    >
+      <ArrowBackIcon className="h-4 w-4" />
+      {text}
+    </button>
+  ) : (
+    <a
+      href={href}
+      class={`flex items-center gap-2 transition-colors hover:text-gray-300 ${className}`}
+    >
+      <ArrowBackIcon className="h-4 w-4" />
+      {text}
+    </a>
+  )
+}
