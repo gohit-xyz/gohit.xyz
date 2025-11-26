@@ -1,4 +1,4 @@
-<div align="center" id="top">
+<div align="center" id="readme-top">
 
 # gohit.xyz
 
