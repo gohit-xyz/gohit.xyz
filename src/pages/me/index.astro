@@ -32,7 +32,7 @@ const { Content } = await latestArticle.render()
     <main class="relative mx-auto w-full max-w-4xl px-6 py-8 sm:px-6">
       <!-- Back & Date -->
       <nav class="mb-8 flex items-center gap-2 text-sm text-gray-400">
-        <BackButtonTwo href="/" text="Back" />
+        <BackButtonTwo href="/" text="Back" useHistory={true} />
         <span class="opacity-40">/</span>
         <time
           datetime={latestArticle.data.publishDate instanceof Date
