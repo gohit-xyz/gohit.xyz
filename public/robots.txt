@@ -2,6 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://gohit.xyz/sitemap-index.xml
-
-#TODO: SEO here xml
+Sitemap: https://www.gohit.xyz/sitemap-index.xml

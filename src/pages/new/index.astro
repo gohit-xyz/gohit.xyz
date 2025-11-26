@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import PartnersCarousel from '@/components/ui/effects/PartnersCarousel.astro'
 import { BackButtonOne } from '@/components/ui/ui'
 import { LINUX_COMMAND } from '@/data/linux'
+import linuxSvg from '@/assets/svg/linux.svg'
 
 const PAGE_DATA = {
   badge: {
@@ -14,7 +15,7 @@ const PAGE_DATA = {
     "These are the tools I use. If you want to install them on Linux, just copy and paste the commands into your terminal — it's that easy.",
   getStartedButton: {
     text: 'Get Started',
-    link: 'https://openlinux.com',
+    link: '/me',
   },
   codeSnippet: {
     label: 'My tools',
@@ -74,7 +75,7 @@ const PAGE_DATA = {
             aria-label="Get started with OpenLinux"
           >
             {PAGE_DATA.getStartedButton.text}
-            <img class="ml-2 h-6 w-6" src="/src/assets/svg/linux.svg" alt="Linux penguin logo" />
+            <img class="ml-2 h-6 w-6" src={linuxSvg.src} alt="Linux penguin logo" />
           </a>
         </div>
 
