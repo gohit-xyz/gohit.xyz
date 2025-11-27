@@ -8,8 +8,8 @@ export interface Props {
 
 const {
   title = 'Gohit X',
-  description = 'Software Engineer and Content Creator from Lima, Peru. I build mobile applications and open source tools for the Linux and developer community.',
-  image = '/images/profile/me.webp', // Assuming this path, will verify
+  description = 'Software Engineer and Content Creator from Lima, Peru. I build mobile applications and open source tools for the Linux and developer community. Follow @gohitx for tech content.',
+  image = '/images/profile/me.webp',
   type = 'website',
 } = Astro.props
 
@@ -37,6 +37,11 @@ const socialImageURL = new URL(image, Astro.site)
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta
+  name="keywords"
+  content="Gohit X, gohitx, Software Engineer, Content Creator, Developer, Lima Peru, Mobile Applications, Linux, Open Source, Tech, Programming"
+/>
+<meta name="author" content="Gohit X" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
@@ -44,6 +49,8 @@ const socialImageURL = new URL(image, Astro.site)
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={socialImageURL} />
+<meta property="og:image:alt" content="Gohit X - Software Engineer and Content Creator" />
+<meta property="og:site_name" content="Gohit X" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -51,6 +58,9 @@ const socialImageURL = new URL(image, Astro.site)
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={socialImageURL} />
+<meta property="twitter:image:alt" content="Gohit X - Software Engineer and Content Creator" />
+<meta name="twitter:creator" content="@gohitx" />
+<meta name="twitter:site" content="@gohitx" />
 
 <!-- JSON-LD Structured Data -->
 <script
@@ -60,6 +70,7 @@ const socialImageURL = new URL(image, Astro.site)
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Gohit Bastian',
+    alternateName: 'Gohit X',
     url: 'https://www.gohit.xyz',
     image: socialImageURL,
     sameAs: [
@@ -73,5 +84,6 @@ const socialImageURL = new URL(image, Astro.site)
       name: 'Gohit X',
     },
     description: description,
+    knowsAbout: ['Software Engineering', 'Mobile Development', 'Linux', 'Open Source'],
   })}
 />
