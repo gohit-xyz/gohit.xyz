@@ -114,7 +114,7 @@ bun run format
 
 **Built with ❤️ by gohitx**
 
-[Website](https://www.gohit.xyz) • [GitHub](https://github.com/gohit-xyz)
+[Website](https://www.gohit.xyz) • [GitHub](https://github.com/gohitx)
 
 </div>
 
